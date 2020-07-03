@@ -1,6 +1,6 @@
 <?php
 ob_start();
-error_reporting(E_ALL); ini_set('display_errors', 1);
+error_reporting(E_ALL); ini_set('display_errors', 0);
 // Initialize session
 if(!isset($_SESSION)){
     session_start();
@@ -23,9 +23,9 @@ defined('DB_PASS')   ? null : define("DB_PASS", "");
 defined('DB_NAME')   ? null : define("DB_NAME", "ukesps");
 
 defined('DS') ? NULL : define('DS', DIRECTORY_SEPARATOR);
-defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'C:\wamp\www\ukesps.com');
+defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'E:\xampp72\htdocs\ukesps_web');
 defined('LIB_PATH') ? NULL : define('LIB_PATH', SITE_ROOT.DS.'includes');
-defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps.com");
+defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps_web");
 
 // Load basic functions so that everything after can use them
 require_once(LIB_PATH.DS."malek_func_library_1.0.0.php");
@@ -40,10 +40,12 @@ require_once(LIB_PATH.DS."PHPMailer".DS."PHPMailerAutoload.php");
 require_once(LIB_PATH.DS."class_recruiter.php");
 require_once(LIB_PATH.DS."class_zenta_operation.php");
 require_once(LIB_PATH.DS."class_system.php");
+require_once(LIB_PATH.DS."class_payment.php");
 
 
 $recruit_object = new RecruitUser();
 $zenta_operation = new zentabooksOperation();
+$payment_operation = new paymentOperation();
 
 $site_name = "UKESPS";
 

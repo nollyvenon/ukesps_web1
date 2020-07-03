@@ -23,9 +23,9 @@ defined('DB_PASS')   ? null : define("DB_PASS", "");
 defined('DB_NAME')   ? null : define("DB_NAME", "ukesps");
 
 defined('DS') ? NULL : define('DS', DIRECTORY_SEPARATOR);
-defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'C:\wamp\www\ukesps.com');
+defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'E:\xampp72\htdocs\ukesps_web');
 defined('LIB_PATH') ? NULL : define('LIB_PATH', SITE_ROOT.DS.'includes');
-defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps.com");
+defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps_web");
 
 // Load basic functions so that everything after can use them
 require_once(LIB_PATH.DS."malek_func_library_1.0.0.php");
