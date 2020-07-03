@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- //Custom Theme files -->
+<!-- Responsive Styles and Valid Styles -->
+	<style type="text/css">
+    	
+	    body{
+            width: 100%; 
+            background:url(templates/merry_christmas/images/background.png) 0px 0px;
+			display:block;
+            margin:0; 
+            padding:0; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        html{
+            width: 100%; 
+        }
+        
+        table{
+            font-size: 14px;
+            border: 0;
+        }
+		table.map tr td iframe{
+			width:100%;
+			height:200px;
+		}
+		 /* ----------- responsivity ----------- */
+		 @media only screen and (max-width: 768px){
+			.container {
+				width: 650px;
+			}
+			table.banner {
+				width: 400px;
+			}
+			table.santa {
+				background: url(templates/merry_christmas/images/8.png) no-repeat 35em 1em !important;
+			}
+			table.basd {
+				background: url(templates/merry_christmas/images/banner1.jpg) no-repeat -40px 0px #fff !important;
+			}
+			table.may {
+				width: 635px;
+			}
+		 }
+		 @media only screen and (max-width: 667px){
+			table.scale.image1 {
+				width: 48% !important;
+			}
+			table.scale.image1 img{
+				width:100% !important;
+			}
+			table.may {
+				width: 500px !important;
+			}
+			table.container-middle {
+				width: 620px;
+			}
+			.container {
+				width: 600px;
+			}
+		}
+        @media only screen and (max-width: 640px){
+        
+            /*------ top header ------ */
+            .header-bg{width: 440px !important; height: 10px !important;}
+            .main-header{line-height: 28px !important;}
+            .main-subheader{line-height: 28px !important;}
+            
+            /*----- --features ---------*/
+            .feature{width: 420px !important;}
+            .feature-middle{width: 400px !important; text-align: center !important;}
+            .feature-img{width: 440px !important; height: auto !important;}
+            
+            .container{width: 600px !important;}
+            .container-middle{width: 485px !important;}
+            .mainContent{width: 400px !important;}
+            
+            .main-image{width: 400px !important; height: auto !important;}
+            .banner{width: 400px !important; height: auto !important;}
+            /*------ sections ---------*/
+            .section-item{width: 400px !important;}
+            .section-img{width: 400px !important; height: auto !important;}
+            /*------- prefooter ------*/
+            .prefooter-header{padding: 0 10px !important; line-height: 24px !important;}
+            .prefooter-subheader{padding: 0 10px !important; line-height: 24px !important;}
+            /*------- footer ------*/
+            .top-bottom-bg{width: 420px !important; height: auto !important;}
+			table.santa {
+				background: url(templates/merry_christmas/images/8.png) no-repeat 28em 1em !important;
+			}
+            
+        }
+		@media only screen and (max-width: 600px){
+			.container {
+				width: 560px !important;
+			}
+		}
+		@media only screen and (max-width: 568px){
+			.container {
+				width: 525px !important;
+			}
+		}
+		@media only screen and (max-width: 480px){
+			.container {
+				width: 200px !important;
+			}
+			.icon {
+				width: 70%;
+			}
+			table.dummy_text {
+				width: 385px;
+			}
+			table.logo-bottom {
+				width: 400px;
+			}
+			table.basd {
+				background: url(templates/merry_christmas/images/banner1.jpg) no-repeat 0px 0px #fff;
+				background-size: contain !important;
+			}
+			table.may {
+				width: 425px !important;
+			}
+			.container-middle {
+				width: 430px !important;
+			}
+			table.basd {
+				background: url(templates/merry_christmas/images/banner1.jpg) no-repeat 0px 0px #fff !important;
+				background-size:contain !important;
+			}
+			img.logo {
+				width: 75%;
+			}
+			table.santa {
+				background: url(templates/merry_christmas/images/8.png) no-repeat 20em 1em !important;
+			}
+		}
+        @media only screen and (max-width: 479px){
+        
+        	/*------ top header ------ */
+            .header-bg{width: 280px !important; height: 10px !important;}
+            .top-header-left{width: 260px !important; text-align: center !important;}
+            .top-header-right{width: 260px !important;}
+            .main-header{line-height: 28px !important; text-align: center !important;}
+            .main-subheader{line-height: 28px !important; text-align: center !important;}
+            
+            /*------- header ----------*/
+            .logo{width: 260px !important;}
+            .nav{width: 260px !important;}
+            
+            /*----- --features ---------*/
+            .feature{width: 260px !important;}
+            .feature-middle{width: 240px !important; text-align: center !important;}
+            .feature-img{width: 260px !important; height: auto !important;}
+
+            
+            .container{width: 290px !important;}
+            .container-middle{width: 260px !important;}
+            .mainContent{width: 240px !important;}
+            
+            .main-image{width: 240px !important; height: auto !important;}
+            .banner{width: 240px !important; height: auto !important;}
+            /*------ sections ---------*/
+            .section-item{width: 240px !important;}
+            .section-img{width: 240px !important; height: auto !important;}
+            /*------- prefooter ------*/
+            .prefooter-header{padding: 0 10px !important;line-height: 28px !important;}
+            .prefooter-subheader{padding: 0 10px !important; line-height: 28px !important;}
+            /*------- footer ------*/
+            .top-bottom-bg{width: 260px !important; height: auto !important;}
+			table {
+				  width: 100% !important;
+			}
+            .gallery-img a img {
+				height: 134px !important;
+			}
+			.gallery-img1 a img {
+				height: 60px !important;
+			}
+			.gallery-img2 a img {
+				height: 60px !important;
+			}
+	    }
+		@media only screen and (max-width:414px){
+			table.scale.image1 {
+				width: 100% !important;
+				height: auto !important;
+			}
+			table.may {
+				width: 380px !important;
+			}
+			table.santa {
+				background: url(templates/merry_christmas/images/8.png) no-repeat 17em 1em !important;
+			}
+			.container-middle {
+				width: 300px !important;
+			}
+			td.scale-center-both img {
+				margin: 0 auto;
+			}
+		}
+		@media only screen and (max-width: 384px){
+			table.may {
+				width: 350px !important;
+			}
+		}
+		@media only screen and (max-width: 375px){
+			table.banner {
+				width: 240px !important;
+			}
+		}
+		@media only screen and (max-width: 320px){
+			table.scale.2-grids{
+				width:200px !important;
+			}
+			td.scale-center-both a img {
+				width: 100% !important;
+				height: auto !important;
+			}
+			td.gifts img {
+				width: 200px !important;
+				height: auto !important;
+			}
+			table.scale.map img {
+				width: 100% !important;
+			}
+			.container-middle {
+				width: 290px !important;
+			}
+			table.may {
+				width: 270px !important;
+			}
+			.logo {
+				width: 190px !important;
+			}
+			table.banner {
+				width: 200px !important;
+			}
+			table.santa {
+				background: url(templates/merry_christmas/images/8.png) no-repeat 9em 1em !important;
+			}
+		}
+    </style>
+    
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+	
+		<tr><td height="30"></td></tr>
+		
+        <tr>
+             <td width="100%" align="center" valign="top">
+                <!-- main content -->
+                <table width="800" border="0" cellpadding="0" cellspacing="0" align="center" class="container top-header-left">
+
+				<!-- Header -->
+						
+					<tr>
+						<td>
+							<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="background:url(templates/merry_christmas/images/7.jpg) no-repeat 0px 0px;" height="230">
+							
+								<tr>
+									<td>
+										<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="santa" style="background:url(templates/merry_christmas/images/8.png) no-repeat 42em 1em;display:block;" height="230">
+										
+											<tr>
+												<td>
+													<table class="container-middle banner" width="580" border="0" cellpadding="0" cellspacing="0" align="center">
+											
+														<tr><td height="20"></td></tr>
+											
+														<tr>
+															<td>
+																<table border="0" align="center" cellpadding="0" cellspacing="0">
+																	<tr>
+																		<td>
+																			
+																			<table border="0" align="center" cellpadding="0" cellspacing="0">
+																				<tr>
+																					<td>
+																						<a href="#" style="color:#FFFFFF;text-decoration:none;">
+																							<img src="templates/merry_christmas/images/5.png" border="0" height="auto" width="350" alt=" " class="logo" />
+																						</a>
+																					</td>
+																				</tr>
+																			</table>
+																			
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+														
+													</table>
+												</td>
+											</tr>
+											
+										</table>
+									</td>
+								</tr>
+					
+							</table>
+						</td>
+					</tr>
+				<!-- //Header -->
+				
+				<!-- banner -->
+					<tr>
+						<td>
+							<table class="basd" height="550" border="0" style="background:url(templates/merry_christmas/images/banner1.jpg) no-repeat 0px 0px #fff;" width="100%">
+							
+								<tr>
+									<td>
+										<table border="0" width="580" align="center" cellpadding="0" cellspacing="0" class="container-middle">
+										
+											<tr>
+												<td>
+													<table border="0" align="center" cellpadding="0" cellspacing="0">
+											
+														<tr><td height="100"></td></tr>
+														
+														<tr>
+															<td align="center" style="font-size:2em;color:#e50108;font-family:Adobe Garamond Pro,serif;line-height:1.3em;text-transform:capitalize;">The Magic of christmas never ends</td>
+														</tr>
+														
+														<tr>
+															<td align="center" style="font-size:2em;color:#e50108;font-family:Adobe Garamond Pro,serif;line-height:1.3em;text-transform:capitalize;">and the greatest of gifts is family and friends.</td>
+														</tr>
+														
+														<tr><td height="20"></td></tr>
+														
+														<tr>
+															<td>
+																<table border="0" class="logo-bottom" width="470" align="center" cellpadding="0" cellspacing="0">
+																	
+																	<tr>
+																		<td align="center" style="font-size:1.1em;color:#999;font-family:Cambria,serif;line-height:1.8em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</td>
+																	</tr>
+																	
+																</table>
+															</td>
+														</tr>
+														
+														<tr><td height="40"></td></tr>
+														
+														<tr>
+															<td align="center" class="gifts"><img src="templates/merry_christmas/images/8.jpg" alt=" " width="300" height="200" /></td>
+														</tr>
+														
+													</table>
+												</td>
+											</tr>
+											
+										</table>
+									</td>
+								</tr>
+								
+							</table>
+						</td>
+					</tr>
+				<!-- //banner -->
+				
+				<!-- banner-bottom -->
+					<tr bgcolor="#fff">
+						<td>
+							<table border="0"  width="700" align="center" cellpadding="0" cellspacing="0" class="container-middle">
+								
+								<tr><td height="50"></td></tr>
+								
+								<tr>
+									<td style="font-size:3em;color:#e50108;font-family:Adobe Garamond Pro,serif" align="center">
+										Christmas Special
+									</td>
+								</tr>
+								
+								<tr>
+									<td style="font-size:1em;color:#999;text-align:center;font-family: Cambria,serif;line-height:1.8em">
+									
+										<table border="0"  width="500" align="center" cellpadding="0" cellspacing="0" class="dummy_text">
+										
+											<tr>
+												<td>
+													Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.
+												</td>
+											</tr>
+										
+										</table>
+										
+									</td>
+								</tr>
+								
+								<tr><td height="50"></td></tr>
+								
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale 2-grids">
+											
+											<tr>
+												<td>
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale image1" width="340">
+														
+														<tr>
+															<td class="scale-center-both"><a href="#"><img src="templates/merry_christmas/images/1.jpg" width="340" height="250" /></a></td>
+														</tr>
+														
+													</table>
+													
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="5">
+													
+														<tr>
+															<td>&nbsp;</td>
+														</tr>
+														
+													</table>
+
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale image1" width="340" height="250">
+														
+														<tr>
+															<td class="scale-center-both" style="font-size:2.5em;padding:0 1em; color:#9F9FA3;font-family: Adobe Garamond Pro,serif;text-align:center;line-height:1.5em;border:3px double #E7E7E7">
+																Join Us to Celebrate <span style="color:#e50108;">Merry Christmas.</span>
+															</td>
+														</tr>
+														
+													</table>
+													
+												</td>
+											</tr>
+											
+										</table>
+										
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale" width="5">
+													
+											<tr>
+												<td height="3"></td>
+											</tr>
+											
+										</table>
+										
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale 2-grids">
+											
+											<tr>
+												<td>
+												
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale image1" width="340" height="250">
+														
+														<tr>
+															<td class="scale-center-both" style="font-size:2em;padding:0 1em; color:#9F9FA3;font-family: Adobe Garamond Pro,serif;text-align:center;line-height:1.5em;border:3px double #E7E7E7">
+																The beauty of <span style="color:#e50108;font-size:1.5em;">christmas</span> is not in the presents but in <span style="color:#e41013;font-size:1.5em;">his presence</span>
+															</td>
+														</tr>
+														
+													</table>
+													
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="5">
+													
+														<tr>
+															<td>&nbsp;</td>
+														</tr>
+														
+													</table>
+													
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale image1" width="340">
+														
+														<tr>
+															<td class="scale-center-both"><a href="#"><img src="templates/merry_christmas/images/2.jpg" width="340" height="250" style="display: block;"></a></td>
+														</tr>
+														
+													</table>
+													
+												</td>
+											</tr>
+											
+										</table>
+										
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale" width="5">
+													
+											<tr>
+												<td height="6"></td>
+											</tr>
+											
+										</table>
+										
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale">
+											
+											<tr>
+												<td>
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="230">
+														
+														<tr>
+															<td class="scale-center-both"><a href="#"><img src="templates/merry_christmas/images/4.jpg" width="230" height="160" style="display: block;"></a></td>
+														</tr>
+														
+													</table>
+													
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="5">
+													
+														<tr>
+															<td>&nbsp;</td>
+														</tr>
+														
+													</table>
+
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="215" height="160">
+														
+														<tr>
+															<td class="scale-center-both" style="font-size:1.5em;border:3px double #E7E7E7;color:#9F9FA3;font-family: Adobe Garamond Pro,serif;text-align:center;line-height:1.5em;padding:0 .5em;">
+																<span style="color:#e50108;">Christmas</span> is the spirit of giving without a thought of getting.
+															</td>
+														</tr>
+														
+													</table>
+													
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="5">
+													
+														<tr>
+															<td>&nbsp;</td>
+														</tr>
+														
+													</table>
+													
+													<table align="left" border="0" cellpadding="0" cellspacing="0" class="scale" width="230">
+														
+														<tr>
+															<td class="scale-center-both"><a href="#"><img src="templates/merry_christmas/images/5.jpg" width="230" height="160" style="display: block;"></a></td>
+														</tr>
+														
+													</table>
+													
+												</td>
+											</tr>
+											
+										</table>
+										
+									</td>
+								</tr>
+								
+								<tr><td height="80"></td></tr>
+								
+							</table>
+						</td>
+					</tr>
+				<!-- //banner-bottom -->
+				
+				<!-- flowers-fishes -->
+					<tr bgcolor="#fff">
+						<td>
+							<table border="0"  width="700" align="center" cellpadding="0" cellspacing="0" class="container-middle">
+								
+								
+								
+								<tr>
+									<td>
+										<table border="0"  width="800" align="center" cellpadding="0" cellspacing="0" class="may">
+											<tr>
+												<td style="text-align:center;color:#999;font-size:1.2em;font-family: Cambria,serif;font-style:italic;letter-spacing:1px;">
+												<span style="font-size:1.5em;color:#e50108;">May</span> your <span style="color:#5bb34c;">Christmas</span> and every day ahead sparkle with happiness and new surprises.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<table border="0"  width="800" align="center" cellpadding="0" cellspacing="0" class="may">
+											<tr>
+												<td style="text-align:center;color:#e50108;font-size:2em;font-family: Adobe Garamond Pro,serif;">We wish <i style="font-style:normal;color:#e41013;font-size:1.2em;">you </i>a <span style="font-size:1.5em;color:#84b71a;">Merry Christmas</span></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+								<tr><td height="30"></td></tr>
+								
+								<tr>
+									<td>
+										<table class="flowers" align="center" border="0" cellpadding="0" cellspacing="0">
+															
+											<tr>
+												<td>
+													
+													<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale" width="200">
+														
+														<tr>
+															<td class="scale-center-both"><a href="#"><img src="templates/merry_christmas/images/6.jpg" width="200" height="180" style="display: block;"></a></td>
+														</tr>
+														
+													</table>
+														
+												</td>
+											</tr>
+											
+										</table>
+									</td>
+								</tr>
+								
+								<tr><td height="50"></td></tr>
+								
+							</table>
+						</td>
+					</tr>
+				<!-- //flowers-fishes -->
+				<!-- contact -->
+					<tr bgcolor="181818">
+						<td>
+							<table class="container-middle" width="700" align="center" border="0" cellpadding="0" cellspacing="0">
+				
+
+								<tr>
+									<td height="50" style="font-size: 1px; line-height: 50px;">&nbsp;</td>
+								</tr>
+
+								<tr>
+									<td>
+
+										<table class="twelve" width="400" align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+
+											<tr>
+												<td align="center" style="line-height: 0px;">
+												   
+													<table class="twelve" border="0" align="left" cellpadding="0" cellspacing="0">
+												   
+														<tr>
+															<td height="4"></td>
+														</tr>
+
+														<tr>
+															<td align="center" style="font-family: Adobe Garamond Pro,serif; font-size:1.5em; color:#FFFFFF; display:block;"> 
+																Christmas Celebrations
+															</td>
+														</tr>
+											
+													</table>
+
+												</td>
+											</tr>    
+
+											<tr>
+												<td height="30" style="font-size: 1px; line-height: 15px;">&nbsp;</td>
+											</tr>
+
+											<tr>
+												<td>
+													
+													<table align="center" border="0" cellpadding="0" cellspacing="0" class="scale map" width="100%" height="200">
+															
+														<tr>
+															<td>
+																
+																<table align="left" border="0" cellpadding="0" cellspacing="0" width="133" height="auto">
+																
+																	<tr>
+																		<td><img src="templates/merry_christmas/images/14.jpg" alt=" " width="133" height="auto" /></td>
+																	</tr>
+																
+																</table>
+																
+																<table align="left" border="0" cellpadding="0" cellspacing="0" width="133" height="auto">
+																
+																	<tr>
+																		<td><img src="templates/merry_christmas/images/10.jpg" alt=" " width="133" height="auto" /></td>
+																	</tr>
+																
+																</table>
+																
+																<table align="left" border="0" cellpadding="0" cellspacing="0" width="133" height="auto">
+																
+																	<tr>
+																		<td><img src="templates/merry_christmas/images/11.jpg" alt=" " width="133" height="auto" /></td>
+																	</tr>
+																
+																</table>
+																
+															</td>
+														</tr>
+														
+														<tr>
+															<td>
+																
+																<table align="left" border="0" cellpadding="0" cellspacing="0" width="133" height="auto">
+																
+																	<tr>
+																		<td><img src="templates/merry_christmas/images/12.jpg" alt=" " width="133" height="auto" /></td>
+																	</tr>
+																
+																</table>
+																
+																<table align="left" border="0" cellpadding="0" cellspacing="0" width="133" height="auto">
+																
+																	<tr>
+																		<td><img src="templates/merry_christmas/images/13.jpg" alt=" " width="133" height="auto" /></td>
+																	</tr>
+																
+																</table>
+																
+																<table align="left" border="0" cellpadding="0" cellspacing="0" width="133" height="auto">
+																
+																	<tr>
+																		<td><img src="templates/merry_christmas/images/9.jpg" alt=" " width="133" height="auto" /></td>
+																	</tr>
+																
+																</table>
+																
+															</td>
+														</tr>
+														
+													</table>
+												</td>
+											</tr>
+
+										</table>
+
+										<!-- SPACE -->
+										<table class="twelve" width="50" align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+
+											<tr>
+												<td width="50" height="40" style="font-size: 40px; line-height: 40px;"></td>
+											</tr>
+
+										</table>
+										<!-- END SPACE -->
+
+										<table class="twelve twelve-sub" width="250" align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+										
+											<tr>
+												<td>
+												
+													<table class="twelve1" align="center" border="0" cellpadding="0" cellspacing="0">
+
+														<tr>
+															<td style="font-family: Adobe Garamond Pro,serif; font-size:1.5em; color:#FFFFFF;">
+																<!-- Edit Title-->
+																Contact Us
+
+															</td>
+														</tr>
+
+														<tr>
+															<td height="15" style="font-size: 1px; line-height: 15px;">&nbsp;</td>
+														</tr>
+
+														<tr>
+															<td style="font-family: Cambria,serif; font-size: 1em; color: #ffffff; line-height:2em;">
+																<!-- Edit Text -->
+																Address :
+
+															</td>
+														</tr>
+
+														<tr>
+															<td style="font-family: Cambria,serif; font-size: 1em; color: #999999; line-height:2em;">
+																<!-- Edit Text -->
+																75/4 Square Avenue, New York,
+
+															</td>
+														</tr>
+
+														<tr>
+															<td style="font-family: Cambria,serif; font-size: 1em; color: #999999; line-height:2em;">
+																<!-- Edit Text -->
+																America
+
+															</td>
+														</tr>
+
+														<tr>
+															<td style="font-family: Cambria,serif; font-size: 1em; color: #ffffff; line-height:2em;">
+																<!-- Edit Text -->
+																Email :
+
+															</td>
+														</tr>
+
+														<tr>
+															<td style="font-family: Cambria,serif; font-size: 1em; color: #999999;line-height:2em;">
+																<a href="mailto:info@example.com" style="color: #999999;text-decoration:none;">
+																<!-- Edit Text -->
+																info@example.com
+
+															</a></td>
+														</tr>
+														
+														<tr>
+															<td height="10"></td>
+														</tr>
+														
+														<tr>
+															<td>
+															
+																<table border="0" align="left"  cellpadding="0" cellspacing="0">
+																	<tr>
+																		<td>
+																			<table border="0" align="left" cellpadding="0" cellspacing="0">
+																			
+																				<tr>
+																					<td height="10"></td>
+																				</tr>
+																				
+																				<tr>
+																					<td><a href="#" style="display:block; border:0;"><img src="templates/merry_christmas/images/1.png" alt="" border="0" height="30" width="30"></a></td>
+																					<td>&nbsp;&nbsp;</td>
+																					<td><a href="#" style="display:block; border:0;"><img src="templates/merry_christmas/images/2.png" alt="" border="0" height="30" width="30"></a></td>
+																					<td>&nbsp;&nbsp;</td>
+																					<td><a href="#" style="display:block; border:0;"><img src="templates/merry_christmas/images/3.png" alt="" border="0" height="30" width="30"></a></td>
+																					<td>&nbsp;&nbsp;</td>
+																					<td><a href="#" style="display:block; border:0;"><img src="templates/merry_christmas/images/4.png" alt="" border="0" height="30" width="30"></a></td>
+																				</tr>
+																				
+																			</table>
+																		</td>
+																	</tr>
+																</table>
+															
+															</td>
+														</tr>
+											
+													</table>
+												
+												</td>
+											</tr>
+
+										</table>
+
+									</td>
+								</tr>
+								
+								<tr>
+									<td height="40" style="font-size: 1px; line-height: 50px;">&nbsp;</td>
+								</tr>
+
+							</table>
+						</td>
+					</tr>
+				<!-- //contact -->
+				
+				<!-- footer -->
+					<tr bgcolor="e50108">
+						
+						<td>
+							<table class="container-middle" width="700" align="center" border="0" cellpadding="0" cellspacing="0">
+				
+								<tr>
+									<td height="20" style="font-size: 1px; line-height: 50px;">&nbsp;</td>
+								</tr>
+								
+								<tr>
+									<td>
+										
+										<table class="footer" align="center" border="0" cellpadding="0" cellspacing="0">
+											
+											<tr>
+												<td style="color:#000;font-size:1.1em;font-family: Adobe Garamond Pro,serif;line-height:2em;">
+													Your are receiving this email because your subscribed to our mailing list.
+												</td>
+											</tr>
+											
+											<tr>
+												<td style="color:#000;font-size:1.1em;font-family: Adobe Garamond Pro,serif;;line-height:2em;">
+													<a href="#" style="color:#fff;text-decoration:none;">Click here </a>to unsubscribe your email address from this list.
+												</td>
+											</tr>
+											
+											<tr>
+												<td style="color:#000;font-size:1.1em;font-family: Adobe Garamond Pro,serif;">
+													&copy 2015 Merry Christmas. All rights reserved | Design by <a href="http://onyxdatasystems.com" style="text-decoration:none;color:#fff;">OnyxDS</a>
+												</td>
+											</tr>
+											
+										</table>
+									</td>
+								</tr>
+								
+								<tr>
+									<td height="20" style="font-size: 1px; line-height: 50px;">&nbsp;</td>
+								</tr>
+								
+							</table>
+						</td>
+						
+					</tr>
+				<!-- //footer -->
+				
+				</table>
+            </td>
+        </tr>
+		
+		<tr><td height="35"></td></tr>
+	</table>
+</body>
+</html>

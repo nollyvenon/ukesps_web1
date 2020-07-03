@@ -1,0 +1,8 @@
+{
+    "require": {
+        "mabiola/paystack-php-lib": "^1.0",
+        "moontoast/math": "^1.2",
+        "phpmailer/phpmailer": "^6.1",
+        "facebook/graph-sdk": "^5.7"
+    }
+}

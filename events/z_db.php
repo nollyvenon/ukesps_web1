@@ -1,0 +1,72 @@
+<?php
+error_reporting(E_ALL); ini_set('display_errors', 1);
+// Initialize session
+if(!isset($_SESSION)){
+    session_start();
+}
+
+$IP = $_SERVER['HTTP_HOST'];        // Obtains the IP address
+if ($IP=="::1"){
+	$IP = 'localhost';
+}
+
+defined('DB_SERVER') ? null : define("DB_SERVER", "localhost");
+defined('DB_USER')   ? null : define("DB_USER", "root");
+defined('DB_PASS')   ? null : define("DB_PASS", "");
+
+defined('DB_NAME')   ? null : define("DB_NAME", "ukesps");
+
+defined('DS') ? NULL : define('DS', DIRECTORY_SEPARATOR);
+defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'C:\wamp\www\ukesps.com');
+defined('LIB_PATH') ? NULL : define('LIB_PATH', SITE_ROOT.DS.'includes');
+defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps.com");
+
+// Load basic functions so that everything after can use them
+require_once(LIB_PATH.DS."malek_func_library_1.0.0.php");
+require_once(LIB_PATH.DS."functions.php");
+
+// Load core objects
+require_once(LIB_PATH.DS."class_database.php");
+require_once(LIB_PATH.DS."session_event_provider.php");
+
+// Load other assets
+require_once(LIB_PATH.DS."PHPMailer".DS."PHPMailerAutoload.php");
+require_once(LIB_PATH.DS."class_event_provider.php");
+require_once(LIB_PATH.DS."class_zenta_operation.php");
+require_once(LIB_PATH.DS."class_system.php");
+
+
+$event_prov_object = new EventProviderUser();
+$zenta_operation = new zentabooksOperation();
+
+$site_name = "UKESPS";
+
+$event_prov_code=$_SESSION['eventprov_unique_code'];
+$event_provider_detail = $event_prov_object->get_event_provider_detail($event_prov_code);
+extract($event_provider_detail);
+
+$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+//-------------------------------------------->>
+if(isset($_SESSION['unique'])) {
+$unique = $_SESSION['unique'];
+if($unique==""){
+$a = time();
+$r = rand(10000,99999);
+$b = $_SERVER['HTTP_USER_AGENT'];
+$c = $_SERVER['REMOTE_ADDR'];
+$fnl = "$a$b$c$r";
+$un = md5($fnl);	
+$_SESSION['unique'] = "$un";
+redirect_to($actual_link);
+}
+}else{
+$a = time();
+$r = rand(10000,99999);
+$b = $_SERVER['HTTP_USER_AGENT'];
+$c = $_SERVER['REMOTE_ADDR'];
+$fnl = "$a$b$c$r";
+$un = md5($fnl);	
+$_SESSION['unique'] = "$un";
+redirect_to($actual_link);
+}
