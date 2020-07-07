@@ -6,7 +6,7 @@ class paymentOperation {
         if(isset($email) && !empty($email)) {
             $this->user_data = $this->set_user_data($email);
         }
-    }
+    } 
 	
 	
     public function paystack_payment($user_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL, $gateway='1'){
