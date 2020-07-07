@@ -197,6 +197,20 @@ class clientOperation {
 		
 	}
 	
+	public function upload_cv($applicant_code, $resume=NULL, $cover_letter=NULL) {
+        global $db_handle;
+
+		if (isset($resume)){
+			$query = "UPDATE applicant_details SET resume='$resume' WHERE applicant_code = '$applicant_code'";
+			$db_handle->runQuery($query);
+		}
+		if (isset($cover_letter)){
+			$query = "UPDATE applicant_details SET cover_letter='$cover_letter' WHERE applicant_code = '$applicant_code'";
+			$db_handle->runQuery($query);
+		}
+        return true;
+    }
+	
 	public function add_biodata($applicant_code, $resume=NULL, $cover_letter=NULL, $place_of_birth=NULL,  $location=NULL,$country_of_residence=NULL, $country_of_nationality=NULL, $languages=NULL, $linked_profile=NULL, $twitter_profile=NULL, $hobbies=NULL, $skills=NULL) {
         global $db_handle;
         
@@ -317,7 +331,7 @@ class clientOperation {
         
     }
 	
-    public function paystack_payment($user_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
+   /* public function paystack_payment($user_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
 		$zentaOperation = new zentabooksOperation();
 		global $db_handle;
 		$query = "INSERT INTO payments SET user_code='".$user_code."', OrderID='".$trxref."', payer_email='".$email."', payment_status='1', payment_amount='".$amount."', txn_id='".$unique_id."', payment_currency='".$currency."', payment_category='$payment_category', gateway='2'";
@@ -338,8 +352,6 @@ class clientOperation {
                 $db_handle->runQuery($query);
             }}
 
-            /*$query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
-            $db_handle->runQuery($query);*/
             //SEND EMAIL TO COURSE PROVIDER
 
             //SEND EMAIL TO COURSE SUBCRIBER
@@ -348,7 +360,7 @@ class clientOperation {
 		unset($_SESSION['unique']);
 		
         return true;
-	}
+	}*/
     
     public function get_all_past_payments($couprov_code=NULL, $orderID=NULL, $payer_email=NULL, $payment_status=NULL, $gateway=NULL, $payment_currency=NULL) {
         global $db_handle;

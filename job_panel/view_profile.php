@@ -1,9 +1,10 @@
 <?php
 require_once("z_db.php");
 if (!$session_jobseek->is_logged_in()) {
-    redirect_to("login");
-}
-extract($recruit_object->get_user_detail($recruiter_code));
+    redirect_to("login.php");
+} 
+
+ $details = $client_operation->applicant_detail($jobseek_code);
 ?><!DOCTYPE HTML>
 <html>
 <head>
@@ -25,7 +26,7 @@ extract($recruit_object->get_user_detail($recruiter_code));
 </head>
 <body class="shop">
 
-	<?php include_once('../recru_panel/header.php');?>
+	<?php include_once('header.php');?>
 	
 	<div class="page-content woocommerce">
 		<div class="container clear-fix">

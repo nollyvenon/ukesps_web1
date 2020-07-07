@@ -179,6 +179,8 @@
 						<li class="cat-item cat-item-1 current-cat">
                         <a href="job_prefs">My job Preference <span></span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
+                        <a href="upload_cv">Upload CV <span></span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
                         <a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
 						<!-- <li class="cat-item cat-item-1 current-cat">
                         <a href="#">Settings <span> </span></a></li> -->

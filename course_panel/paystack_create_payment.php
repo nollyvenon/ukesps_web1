@@ -21,8 +21,8 @@ echo $ssid = preg_replace("/[^A-Za-z0-9 ]/", '', $id_encrypted);
 $customer_email = $_SESSION['couprov_email'];
 
 //create paystack lib object
-$paystack_lib_object = \MAbiola\Paystack\Paystack::make('sk_test_2183668043518716ea1276c2fded49d47a8c17cf');
-//$paystack_lib_object = \MAbiola\Paystack\Paystack::make();
+//$paystack_lib_object = \MAbiola\Paystack\Paystack::make('sk_test_2183668043518716ea1276c2fded49d47a8c17cf');
+$paystack_lib_object = \MAbiola\Paystack\Paystack::make();
 
 
 $cart_amount = $course_prov_object->get_cart_total($ssid);

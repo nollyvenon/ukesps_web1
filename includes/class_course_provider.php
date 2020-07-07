@@ -395,7 +395,7 @@ www.ukesps.com";
         
     }
 
-    public function paystack_payment($couprov_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
+    /*public function paystack_payment($couprov_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
 		global $db_handle;
 		$query = "INSERT INTO payments SET couprov_code='".$couprov_code."', OrderID='".$trxref."', payer_email='".$email."', payment_status='1', payment_amount='".$amount."', txn_id='".$unique_id."', payment_currency='".$currency."', payment_category='$payment_category', gateway='2'";
         $db_handle->runQuery($query);
@@ -409,7 +409,7 @@ www.ukesps.com";
 		$query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
         $db_handle->runQuery($query);
         return true;
-	}
+	}*/
     
     public function get_all_past_payments($couprov_code=NULL, $orderID=NULL, $payer_email=NULL, $payment_status=NULL, $gateway=NULL, $payment_currency=NULL) {
         global $db_handle;

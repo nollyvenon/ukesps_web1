@@ -9,8 +9,6 @@ if (!$session_jobseek->is_logged_in()) {
 extract($details);
 if ($_POST['submit']){
 
-	$resume = $_FILES['resume']['name'];
-	$cover_letter = $_FILES['cover_letter']['name'];
 	$place_of_birth = $_POST['place_of_birth'];
 	$location = $_POST['location'];
 	$country_of_residence = $_POST['country_of_residence'];

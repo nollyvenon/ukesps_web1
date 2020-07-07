@@ -46,11 +46,11 @@ try {
 		$amount = $verification['data']['amount'];
 		$payment_category = $_SESSION['payment_category'];
 		
-		$payment = $payment_object->paystack_payment($payer_code, $_GET['reference'],$_GET['trxref'], '1', $amount, $_SESSION['client_email'],$_SESSION['unique_id'], $payment_category, $currency);
+		$payment = $payment_object->paystack_payment($payer_code, $_GET['reference'],$_GET['trxref'], '1', $amount, $_SESSION['client_email'],$_SESSION['unique_id'], $payment_category, $currency, '2');
         //redirect to a thank you page
         header('Location: paystack_thank_you.php');
     } else {
-		$payment = $payment_object->paystack_payment($payer_code, $_GET['reference'],$_GET['trxref'], '2', $amount, $_SESSION['client_email'],$_SESSION['unique_id'], $payment_category, $currency);
+		$payment = $payment_object->paystack_payment($payer_code, $_GET['reference'],$_GET['trxref'], '2', $amount, $_SESSION['client_email'],$_SESSION['unique_id'], $payment_category, $currency, '2');
  		//mysql_query("DELETE FROM carrrt WHERE code='$unique'");
        header('Location: paystack_error.php');
 	}

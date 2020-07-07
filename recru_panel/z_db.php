@@ -1,6 +1,6 @@
 <?php
 ob_start();
-error_reporting(E_ALL); ini_set('display_errors', 1);
+//error_reporting(E_ALL); ini_set('display_errors', 1);
 // Initialize session
 if(!isset($_SESSION)){
     session_start();
