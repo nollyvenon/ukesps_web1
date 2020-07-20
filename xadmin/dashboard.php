@@ -1,7 +1,7 @@
 <?php
 ob_start();
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 $page_title = 'Dashboard';
 $page_group = 'Dashboard';
 require_once("../includes/initialize_admin.php");
@@ -815,10 +815,10 @@ if (!$session_admin->is_logged_in()) {
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- 
                                 <div id="styleSelector">
 
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
