@@ -42,10 +42,13 @@ require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_client.php");
 require_once(LIB_PATH . DS . "class_system.php");
 
+
+
 //require_once("includes/PHPMailer/PHPMailerAutoload.php");
 
 $zenta_operation = new zentabooksOperation();
 $clientOperation = new clientOperation();
+$admin_db_conn = new mysqlDB(DB_NAME, DB_USER, DB_PASS);
 $SiteCurrency = $zenta_operation->get_site_currency();
 $site_name = "UKESPS";
 
