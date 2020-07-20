@@ -52,7 +52,7 @@ require_once(LIB_PATH . DS . "class_payment.php");
 $recruit_object = new RecruitUser();
 $zenta_operation = new zentabooksOperation();
 $payment_operation = new paymentOperation();
-
+$admin_db_conn = new mysqlDB(DB_NAME, DB_USER, DB_PASS);
 $site_name = "UKESPS";
 
 $recruiter_code = $_SESSION['recruit_unique_code'];

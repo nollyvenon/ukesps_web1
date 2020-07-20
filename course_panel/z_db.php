@@ -44,7 +44,7 @@ require_once(LIB_PATH . DS . "class_system.php");
 
 $course_prov_object = new CoursProvUser();
 $zenta_operation = new zentabooksOperation();
-
+$admin_db_conn = new mysqlDB(DB_NAME, DB_USER, DB_PASS);
 $site_name = "UKESPS";
 
 $course_prov_code = $_SESSION['couprov_unique_code'];
