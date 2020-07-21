@@ -69,7 +69,7 @@
 							<a href="javascript:void(0)" class="dropdown_item">Study Match<i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-parent">
 								<li class="mi-events"><a href="../page_sup?sidi=study_abroad" title="Studying Abroad"><span>Studying Abroad</span></a></li>
-								<li class="mi-news"><a href="../page_sup?sidi=universities" title="Universities"><span>Universities</span></a></li>								
+								<li class="mi-news"><a href="../page_sup?sidi=universities" title="Universities"><span>Universities</span></a></li>
 								<li class="mi-faqs"><a href="../page_sup?sidi=enquiry_now" title="FAQs"><span>Enquire Now</span></a></li>
 							</ul>
 						</li>
@@ -103,6 +103,9 @@
 				<ul class="clear-fix">
 					<li class="entry-nav">
 						<a href="../help">Help</a>
+					</li>
+					<li class="entry-nav">
+						<a href="../events/add_event">Post Events</a>
 					</li>
 					<li class="entry-nav">
 						<a href="cv_search">CV Search</a>

@@ -7,7 +7,9 @@
 				<a href="mailto:info@ukesps.com" class="email"><i class="fa fa-envelope-o"></i>info@ukesps.com</a>
 			</address>
 			<div class="header-top-panel">
-				<a href="" class="fa fa-shopping-cart"><sup><?php if($cart_volume > 0){echo $cart_volume;}?></sup></a>
+				<a href="" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
+																											echo $cart_volume;
+																										} ?></sup></a>
 				<a href="login" class="fa fa-user login-icon"></a>
 				<div id="top_social_links_wrapper">
 					<div class="share-toggle-button"><i class="share-icon fa fa-share-alt"></i></div>
@@ -69,7 +71,7 @@
 							<a href="javascript:void(0)" class="dropdown_item">Study Match<i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-parent">
 								<li class="mi-events"><a href="../page_sup?sidi=study_abroad" title="Studying Abroad"><span>Studying Abroad</span></a></li>
-								<li class="mi-news"><a href="../page_sup?sidi=universities" title="Universities"><span>Universities</span></a></li>								
+								<li class="mi-news"><a href="../page_sup?sidi=universities" title="Universities"><span>Universities</span></a></li>
 								<li class="mi-faqs"><a href="../page_sup?sidi=enquiry_now" title="FAQs"><span>Enquire Now</span></a></li>
 							</ul>
 						</li>
@@ -105,6 +107,9 @@
 				<ul class="clear-fix">
 					<li class="entry-nav">
 						<a href="../help">Help</a>
+					</li>
+					<li class="entry-nav">
+						<a href="../events/add_event">Post Events</a>
 					</li>
 					<li class="entry-nav">
 						<a href="cv_search">CV Search</a>

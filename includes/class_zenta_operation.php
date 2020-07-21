@@ -731,7 +731,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "INSERT INTO cv_search_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
+        $query = "INSERT INTO recruiting_cv_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
         $db_handle->runQuery($query);
         return $db_handle->insertedId();
     }

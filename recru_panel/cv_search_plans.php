@@ -50,8 +50,8 @@ $_SESSION['payment_category'] = '1'; //recruitment
                     <ul>
                       <li><?= $row['highlights']; ?></li>
                     </ul>
-                    <p><a href="cart?sssid=<?= $row['plan_id']; ?>&pptc=1" class="cws-button border-radius bt-color-3  alt">Buy Now</a></p>
-                    <p><a href="../recruit_plan_detail?sid=<?= $row['plan_id']; ?>&pptc=1" class="cws-button border-radius bt-color-2 alt">View Details</a></p>
+                    <p><a href="cart?sssid=<?= $row['plan_id']; ?>&pptc=2" class="cws-button border-radius bt-color-3  alt">Buy Now</a></p>
+                    <p><a href="../recruit_plan_detail?sid=<?= $row['plan_id']; ?>&pptc=2" class="cws-button border-radius bt-color-2 alt">View Details</a></p>
                   </article>
                 </div>
             <?php }
