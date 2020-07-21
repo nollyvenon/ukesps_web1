@@ -2,54 +2,61 @@
   <?php require_once '../layouts/feedback_message.php'; ?>
   <div class="row m-b-20">
     <div class="col-md-12">
-      <label for="user_code" class="control-label">Plan Name</label>
-      <input type="text" class="form-control" id="course_title" name="course_title" value="">
+
+      <label for="plan_name" class="control-label">Plan Name</label>
+      <input type="text" class="form-control" id="plan_name" name="plan_name" value="<?= $plan_name ?>">
     </div>
   </div>
   <div class="row m-b-20">
     <div class="col-md-6">
-      <label for="user_code" class="control-label">Plan Image</label>
-      <input name="gallery" class="form-control" type="file" id="gallery" size="30" />
+      <label for="plan_image" class="control-label">Plan Image</label>
+      <input name="plan_image" class="form-control" type="file" id="plan_image" />
     </div>
 
     <div class="col-md-6">
-      <label for=" event_author" class="control-label">Plan Cost</label>
-      <input type="text" class="form-control" id="duration" name="duration" value="">
+      <label for=" plan_cost" class="control-label">Plan Cost</label>
+      <input type="text" class="form-control" id="plan_cost" name="plan_cost" value="<?= $plan_cost ?>">
     </div>
     <div class="col-md-6">
-      <label for="course_fee" class="control-label">Plan Discount Cost</label>
+      <label for="plan_discount" class="control-label">Plan Discount Cost</label>
       <div class='input-group'>
-        <input id="course_fee" name="course_fee" type='text' class="form-control" />
+        <input id="plan_discount" name="plan_discount" type='text' class="form-control" value="<?= $plan_discount ?>" />
         </span>
       </div>
     </div>
     <div class="col-md-6">
-      <label for="course_currency" class="control-label">Currency</label><br>
-      <select name="course_currency" required data-required="true" class="form-control" data-live-search="true">
+      <label for="course_plan_currency" class="control-label">Currency</label><br>
+      <select name="course_plan_currency" required data-required="true" class="form-control" data-live-search="true">
         <option value="">Select a Currency</option>
         <?php
         foreach ($course_currencies as $row44) :
         ?>
-          <option value="<?php echo $row44['currency_id']; ?>">
-            <?php echo $row44['currency_name']; ?>
-          </option>
+          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_id']) : ?>
+            <option selected="selected" value="<?php echo $row44['currency_id']; ?>">
+              <?php echo $row44['currency_name']; ?>
+            </option>
+          <?php else : ?>
+            <option value="<?php echo $row44['currency_id']; ?>">
+              <?php echo $row44['currency_name']; ?>
+            </option>
+          <?php endif ?>
         <?php
         endforeach;
         ?>
       </select>
     </div>
     <div class="col-md-6">
-      <label for="course_fee" class="control-label">Plan Period</label>
+      <label for="plan_period" class="control-label">Plan Period</label>
       <div class='input-group'>
-        <input id="course_fee" name="course_fee" type='text' class="form-control" />
+        <input id="plan_period" name="plan_period" type='text' class="form-control" value="<?= $plan_period ?>" />
         </span>
       </div>
     </div>
 
     <div class="col-md-6">
-      <label for="course_fee" class="control-label">Plan Highlights</label>
+      <label for="plan_highlights" class="control-label">Plan Highlights</label>
       <div class='input-group'>
-        <input id="course_fee" name="course_fee" type='text' class="form-control" />
+        <input id="plan_highlights" name="plan_highlights" type='text' class="form-control" value="<?= $plan_period ?>" />
         </span>
       </div>
     </div>
@@ -60,7 +67,7 @@
 
     <div class="col-md-12">
       <label for="description" class="control-label">Description</label>
-      <textarea id="description" name="description" rows="15" cols="40"></textarea>
+      <textarea id="description" name="description" rows="15" cols="40"><?= $description ?></textarea>
       <script>
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.

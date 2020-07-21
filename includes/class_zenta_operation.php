@@ -704,7 +704,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "INSERT INTO course_provider_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
+        $query = "INSERT INTO event_provider_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
         $db_handle->runQuery($query);
         return $db_handle->insertedId();
     }
@@ -712,7 +712,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "INSERT INTO course_provider_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
+        $query = "INSERT INTO job_provider_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
         $db_handle->runQuery($query);
         return $db_handle->insertedId();
     }
@@ -720,7 +720,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "INSERT INTO course_provider_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
+        $query = "INSERT INTO cv_search_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
         $db_handle->runQuery($query);
         return $db_handle->insertedId();
     }

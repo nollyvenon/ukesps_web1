@@ -17,7 +17,7 @@ if (isset($_POST['add_course_pricing']) && !empty($_POST['add_course_pricing']))
   $plan_highlights = $db_handle->sanitizePost($_POST['plan_highlights']);
 
   $description = $db_handle->sanitizePost($_POST['description']);
-  $uploaddir = "../img/courses/";
+  $uploaddir = "../img/pricings/";
   $gallery = basename($_FILES['plan_image']['name']);
   $gallery1 = $uploaddir . basename($gallery);
 
@@ -28,6 +28,13 @@ if (isset($_POST['add_course_pricing']) && !empty($_POST['add_course_pricing']))
     $result = $zenta_operation->add_course_pricing($plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
       $message_success = "Course Pricing was added successfully.";
+      $plan_name = "";
+      $plan_cost = "";
+      $page_group = "";
+      $plan_discount = "";
+      $course_plan_currency = "";
+      $plan_period = "";
+      $description = "";
     } else {
       $message_error = "Course Pricing was not added successfully.";
     }
@@ -79,27 +86,6 @@ $course_currencies = $zenta_operation->get_all_currencies();
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-  <script>
-    function ShowPageLoc(str) {
-      if (str == "") {
-        document.getElementById("txtHint1").innerHTML = "";
-        return;
-      }
-
-      if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-      } else { // code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          document.getElementById("txtHint1").innerHTML = xmlhttp.responseText;
-        }
-      }
-      xmlhttp.open("GET", "getCourseSubCategories.php?q=" + str, true);
-      xmlhttp.send();
-    }
-  </script>
 </head>
 
 <body>

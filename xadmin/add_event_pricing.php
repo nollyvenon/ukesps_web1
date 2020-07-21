@@ -8,47 +8,38 @@ require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
   redirect_to("log-in");
 }
-if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
-  $course_title = $db_handle->sanitizePost($_POST['course_title']);
-  $study_method = $db_handle->sanitizePost($_POST['study_method']);
-  $course_category = $db_handle->sanitizePost($_POST['category_id']);
-  $course_subcategory = $db_handle->sanitizePost($_POST['sub_category_id']);
-  $course_fee = $db_handle->sanitizePost($_POST['course_fee']);
-  $fee_period = $db_handle->sanitizePost($_POST['fee_period']);
-  $course_currency = $db_handle->sanitizePost($_POST['course_currency']);
-  $course_institute = $db_handle->sanitizePost($_POST['course_institute']);
-  $course_type = $db_handle->sanitizePost($_POST['course_type']);
-  $entry_requirements = $db_handle->sanitizePost($_POST['entry_requirements']);
-  $location = $db_handle->sanitizePost($_POST['location']);
-  $course_overview = $db_handle->sanitizePost($_POST['course_overview']);
+if (isset($_POST['add_event_pricing']) && !empty($_POST['add_event_pricing'])) {
+  $plan_name = $db_handle->sanitizePost($_POST['plan_name']);
+  $plan_cost = $db_handle->sanitizePost($_POST['plan_cost']);
+  $plan_discount = $db_handle->sanitizePost($_POST['plan_discount']);
+  $course_plan_currency = $db_handle->sanitizePost($_POST['course_plan_currency']);
+  $plan_period = $db_handle->sanitizePost($_POST['plan_period']);
+  $plan_highlights = $db_handle->sanitizePost($_POST['plan_highlights']);
+
   $description = $db_handle->sanitizePost($_POST['description']);
-  $apply_info = $db_handle->sanitizePost($_POST['apply_info']);
-  $who_is_course_for = $db_handle->sanitizePost($_POST['who_is_course_for']);
-  $career_path = $db_handle->sanitizePost($_POST['career_path']);
-  $uploaddir = "../img/courses/";
-  $gallery = basename($_FILES['gallery']['name']);
+  $uploaddir = "../img/pricings/";
+  $gallery = basename($_FILES['plan_image']['name']);
   $gallery1 = $uploaddir . basename($gallery);
 
-  if (empty($course_title) || empty($location) || empty($description)) {
+  if (empty($plan_name) || empty($plan_cost) || empty($description)) {
     $message_error = "Please fill all the fields and try again.";
   } else {
     move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-    $result = $zenta_operation->add_course($course_title, $gallery, $study_method, $course_category, $course_subcategory, $course_fee, $fee_period, $course_currency, $course_institute, $course_type, $duration, $entry_requirements, $location, $course_overview, $description, $apply_info, $who_is_course_for, $career_path, $admin_id);
+    $result = $zenta_operation->add_event_pricing($plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
-      $message_success = "Course was added successfully.";
+      $message_success = "Event Pricing was added successfully.";
+      $plan_name = "";
+      $plan_cost = "";
+      $page_group = "";
+      $plan_discount = "";
+      $course_plan_currency = "";
+      $plan_period = "";
+      $description = "";
     } else {
-      $message_error = "Course was not added successfully.";
+      $message_error = "Event Pricing was not added successfully.";
     }
   }
 }
-$study_methods = $zenta_operation->get_study_methods();
-$study_levels = $zenta_operation->get_study_levels();
-$countries = $zenta_operation->get_all_countries();
-$course_locations = $zenta_operation->get_all_course_locations();
-$course_categories = $zenta_operation->get_course_categories();
-$course_subcategories = $zenta_operation->get_course_sub_categories();
-$course_types = $zenta_operation->get_course_types();
-$course_institutions = $zenta_operation->manage_institutions();
 $course_currencies = $zenta_operation->get_all_currencies();
 ?>
 <!DOCTYPE html>
