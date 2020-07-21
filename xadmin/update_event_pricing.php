@@ -8,26 +8,26 @@ if (!$session_admin->is_logged_in()) {
   redirect_to("log-in");
 }
 $sidi = $_GET['sid'];
-$content = $zenta_operation->get_event_detail($sidi);
+$content = $zenta_operation->get_event_pricing_detail($sidi);
 extract($content);
 
-if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
-  $event_id = $db_handle->sanitizePost($_POST['event_id']);
-  $event_title = $db_handle->sanitizePost($_POST['event_title']);
-  $startDate = $db_handle->sanitizePost($_POST['startDate']);
-  $endDate = $db_handle->sanitizePost($_POST['endDate']);
-  $location = $db_handle->sanitizePost($_POST['location']);
-  $summary = $db_handle->sanitizePost($_POST['summary']);
-  $content = $db_handle->sanitizePost($_POST['content']);
-  $uploaddir = "../img/events/";
-  $gallery = basename($_FILES['gallery']['name']);
+if (isset($_POST['update_event_pricing']) && !empty($_POST['update_event_pricing'])) {
+  $plan_name = $db_handle->sanitizePost($_POST['plan_name']);
+  $plan_cost = $db_handle->sanitizePost($_POST['plan_cost']);
+  $plan_discount = $db_handle->sanitizePost($_POST['plan_discount']);
+  $course_plan_currency = $db_handle->sanitizePost($_POST['course_plan_currency']);
+  $plan_period = $db_handle->sanitizePost($_POST['plan_period']);
+  $plan_highlights = $db_handle->sanitizePost($_POST['plan_highlights']);
+  $description = $db_handle->sanitizePost($_POST['description']);
+  $uploaddir = "../img/pricings/";
+  $gallery = basename($_FILES['plan_image']['name']);
   $gallery1 = $uploaddir . basename($gallery);
 
-  if (empty($event_title) || empty($location) || empty($content)) {
+  if (empty($plan_name) || empty($plan_cost) || empty($description)) {
     $message_error = "Please fill all the fields and try again.";
   } else {
     move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-    $result = $zenta_operation->update_event($event_id, $event_title, $event_author, $gallery, $startDate, $endDate, $location, $summary, $content);
+    $result = $zenta_operation->update_event_pricing($sidi, $plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
       $message_success = "Event Pricing was updated successfully.";
     } else {
@@ -35,7 +35,7 @@ if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
     }
   }
 }
-
+$course_currencies = $zenta_operation->get_all_currencies();
 ?>
 <!DOCTYPE html>
 <html lang="en">

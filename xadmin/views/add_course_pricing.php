@@ -31,12 +31,12 @@
         <?php
         foreach ($course_currencies as $row44) :
         ?>
-          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_id']) : ?>
-            <option selected="selected" value="<?php echo $row44['currency_id']; ?>">
+          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_symbol']) : ?>
+            <option selected="selected" value="<?php echo $row44['currency_symbol']; ?>">
               <?php echo $row44['currency_name']; ?>
             </option>
           <?php else : ?>
-            <option value="<?php echo $row44['currency_id']; ?>">
+            <option value="<?php echo $row44['currency_symbol']; ?>">
               <?php echo $row44['currency_name']; ?>
             </option>
           <?php endif ?>
@@ -45,15 +45,16 @@
         ?>
       </select>
     </div>
-    <div class='input-group'>
+    <div class='col-md-6'>
+      <label for="course_plan_currency" class="control-label">Currency</label><br>
       <select id="plan_period" required name="plan_period" data-required="true" class="form-control" data-live-search="true">
         <option value="">Select Plan Period</option>
-        <option value="1">1 Day</option>
-        <option value="2">1 Week</option>
-        <option value="3">1 Month</option>
-        <option value="4">3 Months</option>
-        <option value="5">6 Months</option>
-        <option value="6">1 Year</option>
+        <option value="1 Day">1 Day</option>
+        <option value="1 Week">1 Week</option>
+        <option value="1 Week">1 Month</option>
+        <option value="3 Months">3 Months</option>
+        <option value="6 Months">6 Months</option>
+        <option value="1 Year">1 Year</option>
       </select>
     </div>
 

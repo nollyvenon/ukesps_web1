@@ -10,9 +10,9 @@ $limit = 10;
 
 if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
   $search_text = $_POST['search_text'];
-  $query = "SELECT * FROM event_provider_plan WHERE event_id LIKE '%$search_text%' OR event_title LIKE '%$search_text%'  ORDER BY event_id DESC ";
+  $query = "SELECT * FROM event_provider_plans WHERE plan_id LIKE '%$search_text%' OR plan_name LIKE '%$search_text%'  ORDER BY plan_id DESC ";
 } else {
-  $query = "SELECT * FROM event_provider_plan order by event_id DESC ";
+  $query = "SELECT * FROM event_provider_plans order by plan_id DESC ";
 }
 $numrows = $db_handle->numRows($query);
 
@@ -200,8 +200,12 @@ $content = $db_handle->fetchAssoc($result);
                               <thead>
                                 <tr>
                                   <th width="10%">ID</th>
-                                  <th>Title</th>
-                                  <th>Excerpts</th>
+                                  <th>Name</th>
+                                  <th>Cost</th>
+                                  <th>Discount</th>
+                                  <th>Currency</th>
+                                  <th>Period</th>
+                                  <th>Highlights</th>
                                   <th width="10%">Action</th>
                                 </tr>
                               </thead>
@@ -209,11 +213,15 @@ $content = $db_handle->fetchAssoc($result);
                                 <?php if (isset($content) && !empty($content)) {
                                   foreach ($content as $row) { ?>
                                     <tr>
-                                      <td><?php echo $row['id']; ?></td>
-                                      <td><?php echo $row['event_title']; ?></td>
-                                      <td><?php echo limit_text($row['summary'], $limit); ?></td>
-                                      <td><a class="btn btn-border green" href="update_event_pricing.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Update</span></a>
-                                        <a class="btn btn-border dark" href="del_event_pricing.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Delete</span></a></td>
+                                      <td><?php echo $row['plan_id']; ?></td>
+                                      <td><?php echo $row['plan_name']; ?></td>
+                                      <td><?= $row['plan_cost'] ?></td>
+                                      <td><?= $row['plan_discount_cost'] ?></td>
+                                      <td><?= $row['plan_currency'] ?></td>
+                                      <td><?= $row['plan_period'] ?></td>
+                                      <td><?php echo limit_text($row['highlights'], $limit); ?></td>
+                                      <td><a class="btn btn-border green" title="Edit Event Pricing" href="update_event_pricing.php?action=view&sid=<?php echo $row['plan_id']; ?>"><i class="fa fa-edit"></i></a>
+                                        <a class="btn btn-border dark" title="Delete Event Pricing" href="del_event_pricing.php?action=view&sid=<?php echo $row['plan_id']; ?>"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 <?php }
                                 } else {

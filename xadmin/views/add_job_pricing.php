@@ -2,7 +2,6 @@
   <?php require_once '../layouts/feedback_message.php'; ?>
   <div class="row m-b-20">
     <div class="col-md-12">
-
       <label for="plan_name" class="control-label">Plan Name</label>
       <input type="text" class="form-control" id="plan_name" name="plan_name" value="<?= $plan_name ?>">
     </div>
@@ -12,7 +11,6 @@
       <label for="plan_image" class="control-label">Plan Image</label>
       <input name="plan_image" class="form-control" type="file" id="plan_image" />
     </div>
-
     <div class="col-md-6">
       <label for=" plan_cost" class="control-label">Plan Cost</label>
       <input type="text" class="form-control" id="plan_cost" name="plan_cost" value="<?= $plan_cost ?>">
@@ -30,12 +28,12 @@
         <?php
         foreach ($course_currencies as $row44) :
         ?>
-          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_id']) : ?>
-            <option selected="selected" value="<?php echo $row44['currency_id']; ?>">
+          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_symbol']) : ?>
+            <option selected="selected" value="<?php echo $row44['currency_symbol']; ?>">
               <?php echo $row44['currency_name']; ?>
             </option>
           <?php else : ?>
-            <option value="<?php echo $row44['currency_id']; ?>">
+            <option value="<?php echo $row44['currency_symbol']; ?>">
               <?php echo $row44['currency_name']; ?>
             </option>
           <?php endif ?>
@@ -49,15 +47,14 @@
       <div class='input-group'>
         <select id="plan_period" required name="plan_period" data-required="true" class="form-control" data-live-search="true">
           <option value="">Select Plan Period</option>
-          <option value="1">1 Day</option>
-          <option value="2">1 Week</option>
-          <option value="3">1 Month</option>
-          <option value="4">3 Months</option>
-          <option value="5">6 Months</option>
-          <option value="6">1 Year</option>
+          <option value="1 Day">1 Day</option>
+          <option value="1 Week">1 Week</option>
+          <option value="1 Week">1 Month</option>
+          <option value="3 Months">3 Months</option>
+          <option value="6 Months">6 Months</option>
+          <option value="1 Year">1 Year</option>
         </select>
       </div>
-
       <div class="col-md-6">
         <label for="plan_highlights" class="control-label">Plan Highlights</label>
         <div class='input-group'>

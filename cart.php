@@ -135,8 +135,6 @@ if ($_POST['deleteitem']) {
 							<tbody>
 								<?php
 								$total_amount = 0;
-								// print_r($_SESSION['cart']);
-								// var_dump($_SESSION['cart']);
 								$max = sizeof($_SESSION['cart']);
 								for ($i = 0; $i < $max; $i++) {
 									$course_id = $_SESSION['cart'][$i];

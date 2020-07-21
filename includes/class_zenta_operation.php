@@ -80,6 +80,17 @@ class zentabooksOperation
 
         return $state_name;
     }
+    public function get_course_pricing_detail($plan_id)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM course_provider_plans WHERE plan_id = '$plan_id' LIMIT 1";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+
+        return $fetched_data[0];
+    }
+
 
     public function get_course_location_by_id($location_id)
     {
@@ -129,7 +140,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "SELECT lga_id FROM lga WHERE lga_name = '$state_name'";
+        $query = "SELECT lga_id FROM lga WHERE lga_name = '$lga_name'";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
         $lga_id = $fetched_data[0];
@@ -712,7 +723,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "INSERT INTO job_provider_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
+        $query = "INSERT INTO recruiting_plans(plan_name, plan_cost, plan_discount_cost, plan_currency, plan_image, plan_period, highlights, description) VALUES ('$plan_name', '$plan_cost', '$plan_discount_cost', '$plan_currency', '$plan_image', '$plan_period', '$highlights', '$description')";
         $db_handle->runQuery($query);
         return $db_handle->insertedId();
     }
@@ -1012,6 +1023,14 @@ $headers = implode("\r\n", $headers);*/
         $result = $db_handle->runQuery($query);
 
         $query1 = "DELETE FROM events where event_id = '$event_id'";
+        $result1 = $db_handle->runQuery($query1);
+
+        return $db_handle->affectedRows() > 0 ? true : false;
+    }
+    public function del_event_pricing($plan_id)
+    {
+        global $db_handle;
+        $query1 = "DELETE FROM event_provider_plans where plan_id = '$plan_id'";
         $result1 = $db_handle->runQuery($query1);
 
         return $db_handle->affectedRows() > 0 ? true : false;
@@ -2226,7 +2245,15 @@ $headers = implode("\r\n", $headers);*/
 
         return $db_handle->affectedRows() > 0 ? true : false;
     }
+    public function update_course_pricing($plan_id, $plan_name, $plan_cost, $plan_discount_cost, $plan_currency, $plan_image, $plan_period, $highlights, $description)
+    {
 
+        global $db_handle;
+        $query = "UPDATE course_provider_plans SET plan_name = '$plan_name', plan_cost = '$plan_cost', plan_discount_cost = '$plan_discount_cost', plan_discount_cost = '$plan_discount_cost', plan_currency = '$plan_currency', plan_image = '$plan_image', plan_image = '$plan_image', plan_period = '$plan_period',highlights = '$highlights', description = '$description'   WHERE plan_id = '$plan_id'";
+        $db_handle->runQuery($query);
+
+        return $db_handle->affectedRows() > 0 ? true : false;
+    }
     public function update_job_location($location_id, $gallery, $location_name, $state_id, $country_id, $admin_id = NULL)
     {
 
@@ -2393,12 +2420,30 @@ $headers = implode("\r\n", $headers);*/
 
         return $desi_det;
     }
+    public function get_event_pricing_detail($plan_id)
+    {
+        global $db_handle;
+        $query = "SELECT * FROM event_provider_plans WHERE plan_id='$plan_id' ";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+        $desi_det = $fetched_data[0];
 
+        return $desi_det;
+    }
     public function update_event($event_id, $event_title, $event_img, $event_author, $startDate, $endDate, $location, $summary, $content = NULL, $admin = NULL)
     {
 
         global $db_handle;
         $query = "UPDATE user SET event_title = '$event_title', event_img = '$event_img', event_author = '$event_author', startDate = '$startDate', endDate = '$endDate', event_location = '$location', event_summary = '$summary', event_description = '$content'  WHERE event_id = '$event_id'";
+        $db_handle->runQuery($query);
+
+        return $db_handle->affectedRows() > 0 ? true : false;
+    }
+    public function update_event_pricing($plan_id, $plan_name, $plan_cost, $plan_discount_cost, $plan_currency, $plan_image, $plan_period, $highlights, $description)
+    {
+
+        global $db_handle;
+        $query = "UPDATE event_provider_plans SET plan_name = '$plan_name', plan_cost = '$plan_cost', plan_discount_cost = '$plan_discount_cost', plan_discount_cost = '$plan_discount_cost', plan_currency = '$plan_currency', plan_image = '$plan_image', plan_image = '$plan_image', plan_period = '$plan_period',highlights = '$highlights', description = '$description'   WHERE plan_id = '$plan_id'";
         $db_handle->runQuery($query);
 
         return $db_handle->affectedRows() > 0 ? true : false;
@@ -2686,6 +2731,14 @@ $headers = implode("\r\n", $headers);*/
         $db_handle->runQuery($query);
         return 'Course was successfully deleted';
     }
+    public function del_course_pricing($plan_id)
+    {
+        global $db_handle;
+
+        $query = "DELETE FROM course_provider_plans where plan_id='$plan_id'";
+        $db_handle->runQuery($query);
+        return 'Course Pricing was successfully deleted';
+    }
 
     public function del_course_category($course_category)
     {
@@ -2849,11 +2902,11 @@ $headers = implode("\r\n", $headers);*/
         return 'News Category added successfully';
     }
 
-    public function add_job($job_title, $recruiter_code, $email, $phone, $gallery, $job_company, $location_id, $country_id, $startDate, $endDate, $category_id, $sub_category_id, $jobstype, $joblevel, $jobsector, $description, $admin_id = NULL)
+    public function add_job($job_title, $recruiter_code, $email, $phone,  $location_id, $country_id, $startDate, $endDate, $category_id, $sub_category_id, $jobstype, $joblevel, $jobsector, $description, $admin_id = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO jobs(job_title,recruiter_code, email, phone, gallery, job_company, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript, admin_id) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$gallery', '$job_company','$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description', '$admin_id')";
+        $query = "INSERT INTO jobs(job_title,recruiter_code, email, phone, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript, admin_id) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description', '$admin_id')";
         $db_handle->runQuery($query);
         return 'Job added successfully';
     }

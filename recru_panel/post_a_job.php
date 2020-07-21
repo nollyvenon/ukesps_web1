@@ -46,7 +46,7 @@ $_SESSION['payment_category'] = '1'; //recruitment
 										</div>
 										<div class="price-pt"><sup><?= $row['plan_currency']; ?></sup><?= intval($row['plan_cost']); ?><sup>99</sup></div>
 										<p></p>
-										<p>per <?= $row['plan_period']; ?></p>
+										<p>for <?= $row['plan_period']; ?></p>
 										<ul>
 											<li><?= $row['highlights']; ?></li>
 										</ul>
