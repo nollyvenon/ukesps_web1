@@ -1,9 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 require_once("../includes/initialize_admin.php");
 $page_title = 'View job Detail';
 $page_group = 'Admin';
 //$page_tit = $_GET['sid'];
-require_once(LIB_PATH.DS."class_recruiter.php");
+require_once(LIB_PATH . DS . "class_recruiter.php");
 $recruit_object = new RecruitUser();
 
 if (!$session_admin->is_logged_in()) {
@@ -15,11 +17,12 @@ $id_encrypted = decrypt(str_replace(" ", "+", $id_encrypted));
 $hiss = preg_replace("/[^A-Za-z0-9 ]/", '', $id_encrypted);
 
 extract($zenta_operation->get_job_by_id($hiss));
- ?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo SITE_ACRONYM .' - '. $page_title;?></title>
+    <title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -42,7 +45,7 @@ extract($zenta_operation->get_job_by_id($hiss));
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-	<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/font-awesome/css/font-awesome.min.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
@@ -53,7 +56,7 @@ extract($zenta_operation->get_job_by_id($hiss));
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
@@ -104,13 +107,14 @@ extract($zenta_operation->get_job_by_id($hiss));
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-		<?php include('../bin/header.php');?>
-			
-			<?php //include('../bin/inner_sidebar_chat.php');?>
-            
+            <?php include('../bin/header.php'); ?>
+
+            <?php //include('../bin/inner_sidebar_chat.php');
+            ?>
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                     <?php include('../bin/sidebar.php');?>
+                    <?php include('../bin/sidebar.php'); ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
 
@@ -124,8 +128,8 @@ extract($zenta_operation->get_job_by_id($hiss));
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
-                                                        <h4><?=$page_group;?></h4>
-                                                        <span><?php echo $page_title;?></span>
+                                                        <h4><?= $page_group; ?></h4>
+                                                        <span><?php echo $page_title; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,14 +138,14 @@ extract($zenta_operation->get_job_by_id($hiss));
                                                     <ul class="breadcrumb-title">
                                                         <li class="breadcrumb-item">
                                                             <a href="#">
-                                                        <i class="icofont icofont-home"></i>
-                                                    </a>
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$User_Type;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$page_group;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -157,11 +161,11 @@ extract($zenta_operation->get_job_by_id($hiss));
                                                 <!-- HTML5 Export Buttons table start -->
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5><?php echo $page_title;?></h5>
+                                                        <h5><?php echo $page_title; ?></h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="dt-responsive table-responsive">
-                                 							<?php include_once('views/view_job.php');?>
+                                                            <?php include_once('views/view_job.php'); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -174,7 +178,7 @@ extract($zenta_operation->get_job_by_id($hiss));
                             </div>
                         </div>
                         <!-- Main-body end -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -228,32 +232,34 @@ extract($zenta_operation->get_job_by_id($hiss));
 </div>
 <![endif]-->
     <!-- Warning Section Ends -->
-	 <script>
-$( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
-</script>
+    <script>
+        $(".select2").select2({
+            placeholder: "",
+            maximumSelectionSize: 6
+        });
+    </script>
     <!-- Required Jquery -->
-<script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
-<script type="text/javascript" src="../bower_components/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
-<script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
+    <script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
 
-<!-- i18next.min.js -->
-<script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
-<script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-<script type="text/javascript"
-        src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-<script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
-<!-- Custom js -->
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+    <!-- Custom js -->
 
-<script src="../assets/js/pcoded.min.js"></script>
-<script src="../assets/js/demo-12.js"></script>
-<script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="../assets/js/script.js"></script>
-	<?php include('../includes/bottom-cache.php');?>
+    <script src="../assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/demo-12.js"></script>
+    <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="../assets/js/script.js"></script>
+    <?php include('../includes/bottom-cache.php'); ?>
 </body>
 
 </html>

@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 $page_title = 'Add Course';
 $page_group = 'Admin';
 $page_tit = $_GET['sid'];

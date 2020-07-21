@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
     redirect_to("log-in");
@@ -8,11 +10,11 @@ $page_title = 'Manage Events';
 $page_group = 'Events';
 $limit = 10;
 
-if(isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
+if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
     $search_text = $_POST['search_text'];
-	$query = "SELECT * FROM events WHERE event_id LIKE '%$search_text%' OR event_title LIKE '%$search_text%'  ORDER BY event_id DESC ";
+    $query = "SELECT * FROM events WHERE event_id LIKE '%$search_text%' OR event_title LIKE '%$search_text%'  ORDER BY event_id DESC ";
 } else {
-	$query = "SELECT * FROM events order by event_id DESC ";
+    $query = "SELECT * FROM events order by event_id DESC ";
 }
 $numrows = $db_handle->numRows($query);
 
@@ -27,26 +29,33 @@ if (isset($_POST['search_text'])) {
 $totalpages = ceil($numrows / $rowsperpage);
 // get the current page or set a default
 if (isset($_GET['pg']) && is_numeric($_GET['pg'])) {
-   $currentpage = (int) $_GET['pg'];
+    $currentpage = (int) $_GET['pg'];
 } else {
-   $currentpage = 1;
+    $currentpage = 1;
 }
-if ($currentpage > $totalpages) { $currentpage = $totalpages; }
-if ($currentpage < 1) { $currentpage = 1; }
+if ($currentpage > $totalpages) {
+    $currentpage = $totalpages;
+}
+if ($currentpage < 1) {
+    $currentpage = 1;
+}
 
 $prespagelow = $currentpage * $rowsperpage - $rowsperpage + 1;
 $prespagehigh = $currentpage * $rowsperpage;
-if($prespagehigh > $numrows) { $prespagehigh = $numrows; }
+if ($prespagehigh > $numrows) {
+    $prespagehigh = $numrows;
+}
 
 $offset = ($currentpage - 1) * $rowsperpage;
 $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content = $db_handle->fetchAssoc($result);
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo SITE_ACRONYM .' - '. $page_title;?></title>
+    <title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -69,7 +78,7 @@ $content = $db_handle->fetchAssoc($result);
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-	<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/font-awesome/css/font-awesome.min.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
@@ -89,7 +98,7 @@ $content = $db_handle->fetchAssoc($result);
 
 <body>
     <!-- Pre-loader start -->
-    <div class="theme-loader">
+    <!-- <div class="theme-loader">
         <div class="ball-scale">
             <div class='contain'>
                 <div class="ring">
@@ -124,19 +133,20 @@ $content = $db_handle->fetchAssoc($result);
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Pre-loader end -->
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-		<?php include('../bin/header.php');?>
-			
-			<?php //include('../bin/inner_sidebar_chat.php');?>
-            
+            <?php include('../bin/header.php'); ?>
+
+            <?php //include('../bin/inner_sidebar_chat.php');
+            ?>
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                     <?php include('../bin/sidebar.php');?>
+                    <?php include('../bin/sidebar.php'); ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
 
@@ -150,8 +160,8 @@ $content = $db_handle->fetchAssoc($result);
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
-                                                        <h4><?=$page_group;?></h4>
-                                                        <span><?php echo $page_title;?></span>
+                                                        <h4><?= $page_group; ?></h4>
+                                                        <span><?php echo $page_title; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,14 +170,14 @@ $content = $db_handle->fetchAssoc($result);
                                                     <ul class="breadcrumb-title">
                                                         <li class="breadcrumb-item">
                                                             <a href="#">
-                                                        <i class="icofont icofont-home"></i>
-                                                    </a>
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$User_Type;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$page_group;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -182,34 +192,38 @@ $content = $db_handle->fetchAssoc($result);
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5><?php echo $page_title;?></h5>
+                                                        <h5><?php echo $page_title; ?></h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        
-                                                            <?php require_once '../layouts/feedback_message.php'; ?>
-                                
-                                <table class="table table-responsive table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th width="10%">ID</th>
-                                            <th>Title</th>
-                                            <th>Excerpts</th>
-                                            <th width="10%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if(isset($content) && !empty($content)) { foreach ($content as $row) { ?>
-                                        <tr>
-                                            <td><?php echo $row['id']; ?></td>
-                                            <td><?php echo $row['event_title']; ?></td>
-                                            <td><?php echo limit_text($row['summary'], $limit); ?></td>
-                                            <td><a class="btn btn-border green" href="update_event.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Update</span></a>
-                                            <a class="btn btn-border dark" href="del_event.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Delete</span></a></td>
-                                        </tr>
-                                        <?php } } else { echo "<tr><td colspan='5' class='text-danger'><em>No results to display</em></td></tr>"; } ?>
-                                    </tbody>
-                                </table>
-                                                        
+
+                                                        <?php require_once '../layouts/feedback_message.php'; ?>
+
+                                                        <table class="table table-responsive table-striped table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="10%">ID</th>
+                                                                    <th>Title</th>
+                                                                    <th>Excerpts</th>
+                                                                    <th width="10%">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php if (isset($content) && !empty($content)) {
+                                                                    foreach ($content as $row) { ?>
+                                                                        <tr>
+                                                                            <td><?php echo $row['id']; ?></td>
+                                                                            <td><?php echo $row['event_title']; ?></td>
+                                                                            <td><?php echo limit_text($row['summary'], $limit); ?></td>
+                                                                            <td><a class="btn btn-border green" href="update_event.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Update</span></a>
+                                                                                <a class="btn btn-border dark" href="del_event.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Delete</span></a></td>
+                                                                        </tr>
+                                                                <?php }
+                                                                } else {
+                                                                    echo "<tr><td colspan='5' class='text-danger'><em>No results to display</em></td></tr>";
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -220,7 +234,7 @@ $content = $db_handle->fetchAssoc($result);
                             </div>
                         </div>
                         <!-- Main-body end -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -274,22 +288,25 @@ $content = $db_handle->fetchAssoc($result);
 </div>
 <![endif]-->
     <!-- Warning Section Ends -->
-	 <script>
-$( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
-</script>
+    <script>
+        $(".select2").select2({
+            placeholder: "",
+            maximumSelectionSize: 6
+        });
+    </script>
     <!-- Required Jquery -->
-<script type="text/javascript" src="../bower_components/jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
-<script type="text/javascript" src="../bower_components/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
-<script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
+    <script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
 
-<!-- data-table js -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <!-- data-table js -->
+    <script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="../assets/pages/data-table/js/jszip.min.js"></script>
     <script src="../assets/pages/data-table/js/pdfmake.min.js"></script>
@@ -304,19 +321,18 @@ $( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
     <script src="../bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-<!-- i18next.min.js -->
-<script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
-<script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-<script type="text/javascript"
-        src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-<script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
-<!-- Custom js -->
-<script src="../assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js"></script>
-<script src="../assets/js/pcoded.min.js"></script>
-<script src="../assets/js/demo-12.js"></script>
-<script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="../assets/js/script.js"></script>
-	<?php include('../includes/bottom-cache.php');?>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+    <!-- Custom js -->
+    <script src="../assets/pages/data-table/extensions/buttons/js/extension-btns-custom.js"></script>
+    <script src="../assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/demo-12.js"></script>
+    <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="../assets/js/script.js"></script>
+    <?php include('../includes/bottom-cache.php'); ?>
 </body>
 
 </html>
