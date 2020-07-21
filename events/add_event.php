@@ -3,12 +3,12 @@ require("z_db.php");
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 //check if the user is logged and has an active recruiting plan. If no, redirect to the buy plan page
-// if (!$session_event_prov->is_logged_in()) {
-//     redirect_to("login");
-// }
-// if (!$event_prov_object->is_provider_plan_valid($event_prov_code)) {
-//     redirect_to("post_a_event");
-// }
+if (!$session_event_prov->is_logged_in()) {
+	redirect_to("login");
+}
+if (!$event_prov_object->is_provider_plan_valid($event_prov_code)) {
+	redirect_to("post_a_event");
+}
 $event_title = "";
 $event_author = "";
 $event_type = "";
