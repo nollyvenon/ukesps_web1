@@ -1,14 +1,14 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
-$page_title = 'Add Course';
+$page_title = 'Add Job Pricing';
 $page_group = 'Admin';
 $page_tit = $_GET['sid'];
 require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
   redirect_to("log-in");
 }
-if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
+if (isset($_POST['add_job_pricing']) && !empty($_POST['add_job_pricing'])) {
   $plan_name = $db_handle->sanitizePost($_POST['plan_name']);
   $plan_cost = $db_handle->sanitizePost($_POST['plan_cost']);
   $plan_discount = $db_handle->sanitizePost($_POST['plan_discount']);

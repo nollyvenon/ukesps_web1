@@ -45,12 +45,16 @@
         ?>
       </select>
     </div>
-    <div class="col-md-6">
-      <label for="plan_period" class="control-label">Plan Period</label>
-      <div class='input-group'>
-        <input id="plan_period" name="plan_period" type='text' class="form-control" value="<?= $plan_period ?>" />
-        </span>
-      </div>
+    <div class='input-group'>
+      <select id="plan_period" required name="plan_period" data-required="true" class="form-control" data-live-search="true">
+        <option value="">Select Plan Period</option>
+        <option value="1">1 Day</option>
+        <option value="2">1 Week</option>
+        <option value="3">1 Month</option>
+        <option value="4">3 Months</option>
+        <option value="5">6 Months</option>
+        <option value="6">1 Year</option>
+      </select>
     </div>
 
     <div class="col-md-6">

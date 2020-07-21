@@ -21,7 +21,6 @@
       <label for="plan_discount" class="control-label">Plan Discount Cost</label>
       <div class='input-group'>
         <input id="plan_discount" name="plan_discount" type='text' class="form-control" value="<?= $plan_discount ?>" />
-        </span>
       </div>
     </div>
     <div class="col-md-6">
@@ -48,41 +47,46 @@
     <div class="col-md-6">
       <label for="plan_period" class="control-label">Plan Period</label>
       <div class='input-group'>
-        <input id="plan_period" name="plan_period" type='text' class="form-control" value="<?= $plan_period ?>" />
-        </span>
+        <select id="plan_period" required name="plan_period" data-required="true" class="form-control" data-live-search="true">
+          <option value="">Select Plan Period</option>
+          <option value="1">1 Day</option>
+          <option value="2">1 Week</option>
+          <option value="3">1 Month</option>
+          <option value="4">3 Months</option>
+          <option value="5">6 Months</option>
+          <option value="6">1 Year</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="plan_highlights" class="control-label">Plan Highlights</label>
+        <div class='input-group'>
+          <input id="plan_highlights" name="plan_highlights" type='text' class="form-control" value="<?= $plan_period ?>" />
+        </div>
       </div>
     </div>
+    <div class="row m-b-20">
+    </div>
+    <div class="row m-b-20">
 
-    <div class="col-md-6">
-      <label for="plan_highlights" class="control-label">Plan Highlights</label>
-      <div class='input-group'>
-        <input id="plan_highlights" name="plan_highlights" type='text' class="form-control" value="<?= $plan_period ?>" />
-        </span>
+      <div class="col-md-12">
+        <label for="description" class="control-label">Description</label>
+        <textarea id="description" name="description" rows="15" cols="40"><?= $description ?></textarea>
+        <script>
+          // Replace the <textarea id="editor1"> with a CKEditor
+          // instance, using default configuration.
+          CKEDITOR.replace('description', {
+            filebrowserBrowseUrl: 'filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+            filebrowserUploadUrl: 'filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+            "filebrowserImageUploadUrl": "ckeditor/plugins/imgupload/imgupload.php"
+          });
+        </script>
+      </div>
+
+    </div>
+    <div class="row m-t-30">
+      <div class="col-md-12">
+        <input name="add_job_pricing" type="submit" class="btn btn-primary btn-md waves-effect text-center m-b-20" value="Add Job Pricing">
       </div>
     </div>
-  </div>
-  <div class="row m-b-20">
-  </div>
-  <div class="row m-b-20">
-
-    <div class="col-md-12">
-      <label for="description" class="control-label">Description</label>
-      <textarea id="description" name="description" rows="15" cols="40"><?= $description ?></textarea>
-      <script>
-        // Replace the <textarea id="editor1"> with a CKEditor
-        // instance, using default configuration.
-        CKEDITOR.replace('description', {
-          filebrowserBrowseUrl: 'filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-          filebrowserUploadUrl: 'filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
-          "filebrowserImageUploadUrl": "ckeditor/plugins/imgupload/imgupload.php"
-        });
-      </script>
-    </div>
-
-  </div>
-  <div class="row m-t-30">
-    <div class="col-md-12">
-      <input name="add_job_pricing" type="submit" class="btn btn-primary btn-md waves-effect text-center m-b-20" value="Add Job Pricing">
-    </div>
-  </div>
 </form>
