@@ -22,11 +22,11 @@ $job_sector = $zenta_operation->get_job_sector(3);
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<!--styles -->
-	
-	  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -370,33 +370,33 @@ $job_sector = $zenta_operation->get_job_sector(3);
 	</div>
 
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body">
-		  <!--<input name="hidjobcat" type="hidden">-->
-		  <div class="fetched-data"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<!--<input name="hidjobcat" type="hidden">-->
+					<div class="fetched-data"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
 
-  </div>
-</div>
+		</div>
+	</div>
 	<!-- footer -->
 	<?php include_once('footer.php'); ?>
 	<!-- / footer -->
-	
-	
-	
+
+
+
 	<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox_packed.js"></script>-->
 	<script type='text/javascript' src='js/jquery.validate.min.js'></script>
@@ -424,19 +424,19 @@ $job_sector = $zenta_operation->get_job_sector(3);
 	<script src="js/retina.min.js"></script>
 	<script src="js/jquery.tweet.js"></script>
 	<script>
-		$(document).ready(function(){
-			$('#myModal').on('show.bs.modal', function (e) {
-        var rowid = $(e.relatedTarget).data('id');
-        $.ajax({
-            type : 'post',
-            url : 'modal_job_subcat_list.php', //Here you will fetch records 
-            data :  'rowid='+ rowid, //Pass $id
-            success : function(data){
-            $('.fetched-data').html(data);//Show fetched data from database
-			//$("input[name='hidjobcat']").val(data);
-            }
-        });
-     });
+		$(document).ready(function() {
+			$('#myModal').on('show.bs.modal', function(e) {
+				var rowid = $(e.relatedTarget).data('id');
+				$.ajax({
+					type: 'post',
+					url: 'modal_job_subcat_list.php', //Here you will fetch records 
+					data: 'rowid=' + rowid, //Pass $id
+					success: function(data) {
+						$('.fetched-data').html(data); //Show fetched data from database
+						//$("input[name='hidjobcat']").val(data);
+					}
+				});
+			});
 		});
 	</script>
 </body>

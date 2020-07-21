@@ -41,7 +41,7 @@ $similar_courses = $zenta_operation->get_similar_courses('5');
 <body>
 	<!-- page header -->
 	<?php include_once('header.php'); ?>
-	<!-- edu header --
+	<!-- edu header -- -->
 
 	<!-- / page header -->
 	<div class="page-content" style=" background-image: url('./img/courses/student2.png');">
@@ -76,22 +76,27 @@ $similar_courses = $zenta_operation->get_similar_courses('5');
 				<div class="row">
 					<?php
 					if (isset($similar_courses) && !empty($similar_courses)) {
-					foreach ($similar_courses as $row) {
+						foreach ($similar_courses as $row) {
 					?>
-					<div class="col-lg-2 col-md-2 col-sm-5">
-						<div class="cert-container">
-							<div class="title-text">
-								<h5><a href="course_det?sid=<?=$row['course_id'];?>"><?= $row['course_title'];?></a></h5>
+							<div class="col-lg-2 col-md-2 col-sm-5">
+								<div class="cert-container">
+									<div class="title-text">
+										<h5><a href="course_det?sid=<?= $row['course_id']; ?>"><?= $row['course_title']; ?></a></h5>
+									</div>
+									<span><?= $row['course_institution']; ?></span>
+									<h3><?php if ($row['course_fee'] == 0.00) {
+												echo "Free";
+											} else {
+												echo $row['course_currency'] . ' ' . $row['course_fee'];
+											} ?></h3>
+									<div class="date-schedule">
+										<p><span><i class="fa fa-book"></i></span><?= $row['course_method']; ?></p>
+										<p><span><i class="fa fa-clock-o"></i></span><?= $row['duration']; ?> Self Paced</p>
+									</div>
+								</div>
 							</div>
-							<span><?= $row['course_institution'];?></span>
-							<h3><?php if($row['course_fee']==0.00){ echo "Free";}else{ echo $row['course_currency'] .' '. $row['course_fee'];}?></h3>
-							<div class="date-schedule">
-								<p><span><i class="fa fa-book"></i></span><?= $row['course_method'];?></p>
-								<p><span><i class="fa fa-clock-o"></i></span><?= $row['duration'];?> Self Paced</p>
-							</div>
-						</div>
-					</div>
-					<?php } } ?>
+					<?php }
+					} ?>
 
 
 				</div>
@@ -128,8 +133,8 @@ $similar_courses = $zenta_operation->get_similar_courses('5');
 						</div>
 				<?php  }
 				} ?>
-				</div>
 			</div>
+		</div>
 
 		</div>
 	</section>
@@ -174,28 +179,28 @@ $similar_courses = $zenta_operation->get_similar_courses('5');
 					foreach ($course_types as $row) {
 
 				?>
-				<div class="grid-col grid-col-3 popular-courses">
-					<!-- course item -->
-					<div class="course-item list">
-						<div class="course-hover">
-							<div class="course-image">
-								<img src="img/course_types/<?php echo $row['type_img']; ?>" data-at2x="img/course_types/<?php echo $row['type_img']; ?>" alt>
-							</div>
-							<div class="hover-bg bg-color-2"></div>
+						<div class="grid-col grid-col-3 popular-courses">
+							<!-- course item -->
+							<div class="course-item list">
+								<div class="course-hover">
+									<div class="course-image">
+										<img src="img/course_types/<?php echo $row['type_img']; ?>" data-at2x="img/course_types/<?php echo $row['type_img']; ?>" alt>
+									</div>
+									<div class="hover-bg bg-color-2"></div>
 
-							<a href="course_type?sid=<?php echo $row['type_id']; ?>" class="course-link popular">
-								<?php echo $row['type_name']; ?>
-							</a>
+									<a href="course_type?sid=<?php echo $row['type_id']; ?>" class="course-link popular">
+										<?php echo $row['type_name']; ?>
+									</a>
+								</div>
+								<div class="course-name clear-fix">
+									<!--<span class="price">$75</span>-->
+									<h3><a href="course_type?sid=<?php echo $row['type_id']; ?>"><?php echo $row['type_name']; ?></a></h3>
+								</div>
+							</div>
+							<!-- / course item -->
 						</div>
-						<div class="course-name clear-fix">
-							<!--<span class="price">$75</span>-->
-							<h3><a href="course_type?sid=<?php echo $row['type_id']; ?>"><?php echo $row['type_name']; ?></a></h3>
-						</div>
-					</div>
-					<!-- / course item -->
-				</div>
-				<?php } 
-					}?>
+				<?php }
+				} ?>
 			</div>
 		</div>
 
@@ -231,29 +236,29 @@ $similar_courses = $zenta_operation->get_similar_courses('5');
 	<!-- footer -->
 	<?php include_once('footer.php'); ?>
 	<!-- / footer -->
-		<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body">
-		  <input name="hidcoucat" type="hidden">
-		  <div class="fetched-data"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 	<!-- Modal -->
-	
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<input name="hidcoucat" type="hidden">
+					<div class="fetched-data"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal -->
+
 	<script src="js/select2.js"></script>
 	<script type='text/javascript' src='js/jquery.validate.min.js'></script>
 	<script src="js/jquery.form.min.js"></script>

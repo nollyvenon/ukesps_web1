@@ -1,6 +1,6 @@
 <?php
 require_once("../includes/initialize_admin.php");
-$PHP_SELF = $_SERVER['SCRIPT_NAME'] ;
+$PHP_SELF = $_SERVER['SCRIPT_NAME'];
 $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
 $HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
 $HTTP_REFERER = $_SERVER['HTTP_REFERER'];
@@ -13,12 +13,12 @@ if ($session_admin->is_logged_in()) {
 if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $username = strip_tags(trim($_POST['username']));
     $password = strip_tags(trim($_POST['password']));
-    
+
     // Check database to see if username/password exist.
     $found_user = $admin_object->authenticate($username, $password);
-    print_r( $found_user);
-    if($found_user) {
-        if($admin_object->admin_is_active($username)) {
+    print_r($found_user);
+    if ($found_user) {
+        if ($admin_object->admin_is_active($username)) {
             $found_user = $found_user[0];
             $session_admin->login($found_user);
             redirect_to("dashboard");
@@ -34,7 +34,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
     $password = "";
 }
 
-if(isset($_GET['logout'])) {
+if (isset($_GET['logout'])) {
     $logout_code = $_GET['logout'];
     switch ($logout_code) {
         case 1:
@@ -45,7 +45,8 @@ if(isset($_GET['logout'])) {
             break;
     }
 }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -66,7 +67,8 @@ if(isset($_GET['logout'])) {
     <!-- Favicon icon -->
 
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font--><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
@@ -81,7 +83,7 @@ if(isset($_GET['logout'])) {
 
 <body class="fix-menu">
     <!-- Pre-loader start -->
-   <!-- <div class="theme-loader">
+    <!-- <div class="theme-loader">
     <div class="ball-scale">
         <div class='contain'>
             <div class="ring"><div class="frame"></div></div>
@@ -96,7 +98,7 @@ if(isset($_GET['logout'])) {
             <div class="ring"><div class="frame"></div></div>
         </div>
     </div>
-</div>
+</div>-->
     <!-- Pre-loader end -->
 
     <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
@@ -116,12 +118,12 @@ if(isset($_GET['logout'])) {
                                         <h3 class="text-left txt-primary">Sign In</h3>
                                     </div>
                                 </div>
-                                <hr/>
-								<div class="div-title col-sm-12">
-                        </div>
-                        <?php include_once('../layouts/feedback_message.php') ?>
+                                <hr />
+                                <div class="div-title col-sm-12">
+                                </div>
+                                <?php include_once('../layouts/feedback_message.php') ?>
                                 <div class="input-group">
-                                    <input type="text" name="username"  class="form-control" placeholder="Username/Email" required>
+                                    <input type="text" name="username" class="form-control" placeholder="Username/Email" required>
                                     <span class="md-line"></span>
                                 </div>
                                 <div class="input-group">
@@ -142,15 +144,15 @@ if(isset($_GET['logout'])) {
                                         </div>
                                     </div>
                                 </div>
-								<!-- end response from server -->
+                                <!-- end response from server -->
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                         <!--<button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign in</button>-->
-										<input type="submit" name="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" value="Login ">
+                                        <input type="submit" name="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" value="Login ">
                                     </div>
                                 </div>
-                                <hr/>
-								
+                                <hr />
+
                                 <div class="row">
                                     <div class="col-md-10">
                                         <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>
