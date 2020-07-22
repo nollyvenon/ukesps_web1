@@ -47,10 +47,10 @@ $cart_total = $recruit_object->get_cart_total($ssid);
 					</div><br><br>
 					<div class="grid-col-row">
 						<div class="grid-col grid-col-4 ">
-							<a href="https://paypal.com/paypal_payment?xxid=<?php echo encrypt($ssid); ?>"><img width="80%" src="../img/paypal-logo-png-512.png" alt="" /> </a>
+							<a href="paypal_payment?xxid=<?php echo encrypt($ssid); ?>"><img width="80%" src="../img/paypal-logo-png-512.png" alt="" /> </a>
 						</div>
 						<div class="grid-col grid-col-4 ">
-							<a href="https://paystack.com/paystack_create_payment?xxid=<?php echo encrypt($ssid); ?>"><img width="80%" src="../img/paystack-ii.png" alt="" /></a>
+							<a href="paystack_create_payment?xxid=<?php echo encrypt($ssid); ?>"><img width="80%" src="../img/paystack-ii.png" alt="" /></a>
 						</div>
 					</div>
 				</div>
