@@ -33,7 +33,7 @@ if ($_POST['delete_cart_action']) {
 	$unique = $_SESSION['unique'];
 	$clientOperation->delete_cart($unique);
 	unset($_SESSION['cart']);
-	mysql_query("DELETE from product_wishlist WHERE code='$unique'");
+	mysqli_query($admin_db_conn, "DELETE from product_wishlist WHERE code='$unique'");
 }
 
 if ($_POST['deleteitem']) {
@@ -159,7 +159,6 @@ if ($_POST['deleteitem']) {
 										<td align="center" class="product-quantity">
 											<div class="quantity buttons_added txtCal">
 												<input id="qty" type="number" step="1" min="0" name="qty[]" value="1" title="Qty" class="input-text qty text">
-
 											</div>
 										</td>
 										<td class="product-subtotal">
@@ -241,11 +240,9 @@ if ($_POST['deleteitem']) {
 				</div>
 			</div>
 		</section>
-
 		</div>
 	</div>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
 	<div id="id01" class="w3-modal">
 		<div class="w3-modal-content">
 			<div class="w3-container">

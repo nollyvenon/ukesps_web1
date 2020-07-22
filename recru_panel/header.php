@@ -7,9 +7,9 @@
 				<a href="mailto:info@ukesps.com" class="email"><i class="fa fa-envelope-o"></i>info@ukesps.com</a>
 			</address>
 			<div class="header-top-panel">
-				<a href="" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
-																											echo $cart_volume;
-																										} ?></sup></a>
+				<a href="<?= SITE_URL ?>/recru_panel/cart" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
+																																											echo $cart_volume;
+																																										} ?></sup></a>
 				<a href="login" class="fa fa-user login-icon"></a>
 				<div id="top_social_links_wrapper">
 					<div class="share-toggle-button"><i class="share-icon fa fa-share-alt"></i></div>
@@ -24,7 +24,6 @@
 		</div>
 	</div>
 	<!-- / header top panel -->
-
 	<section class="full-width-banner">
 		<div class="grid-row clear-fix">
 			<div class="menu-banner-container">
@@ -41,8 +40,6 @@
 			</div>
 		</div>
 	</section>
-
-
 	<!-- sticky menu -->
 	<div class="sticky-wrapper">
 		<div class="sticky-menu">
@@ -113,7 +110,7 @@
 						<a href="<?= SITE_URL ?>/events/add_event">Post Events</a>
 					</li>
 					<li class="entry-nav">
-						<a href="<?= SITE_URL ?>/cv_search">CV Search</a>
+						<a href="<?= SITE_URL ?>/recru_panel/cv_search">CV Search</a>
 					</li>
 					<li class="entry-nav"><a href="<?= SITE_URL ?>/search_job">Search Jobs</a></li>
 					<li class="entry-nav">

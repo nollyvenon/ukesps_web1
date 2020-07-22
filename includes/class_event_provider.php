@@ -283,7 +283,7 @@ www.ukesps.com";
         return $result ? true : false;
     }
 
-    public function deactivate_event_provider($user_id)
+    public function deactivate_event_provider($event_prov_code)
     {
         global $db_handle;
 

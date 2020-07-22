@@ -50,9 +50,9 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 					<a href="mailto:info@ukesps.com" class="email"><i class="fa fa-envelope-o"></i>info@ukesps.com</a>
 				</address>
 				<div class="header-top-panel">
-					<a href="" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
-																												echo $cart_volume;
-																											} ?></sup></a>
+					<a href="<?= SITE_URL ?>/cart" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
+																																					echo $cart_volume;
+																																				} ?></sup></a>
 					<a href="login" class="fa fa-user login-icon"></a>
 					<div id="top_social_links_wrapper">
 						<div class="share-toggle-button"><i class="share-icon fa fa-share-alt"></i></div>

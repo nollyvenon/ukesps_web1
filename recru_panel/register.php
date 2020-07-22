@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
     if ($recaptcha->score >= 0.5) {
         // valid submission
         // go ahead and do necessary stuff
-
         $account_username = $_POST['account_username'];
         $account_password = $_POST['account_password'];
         $last_name = $_POST['last_name'];

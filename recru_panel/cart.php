@@ -47,7 +47,7 @@ if ($_POST['delete_cart_action']) {
 	$unique = $_SESSION['unique'];
 	$recruit_object->delete_cart($unique);
 	unset($_SESSION['cart']);
-	mysql_query("DELETE from product_wishlist WHERE code='$unique'");
+	mysqli_query($admin_db_conn, "DELETE from product_wishlist WHERE code='$unique'");
 }
 
 if ($_POST['deleteitem']) {
@@ -70,6 +70,8 @@ if ($_POST['deleteitem']) {
 	<title>UKESPS - United Kingdom Education & Skills Placement Services Limited</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
 	<!-- style -->
 	<link rel="shortcut icon" href="../img/favicon.png">
 	<link rel="stylesheet" href="../css/font-awesome.css">
@@ -180,7 +182,7 @@ if ($_POST['deleteitem']) {
 										<span name="subtot1[]" id="subtot1" class="subtot1"><?= $plan_cost; ?><sup><?= $plan_currency; ?></sup></span>
 									</td>
 									<td class="product-remove">
-										<a onclick="document.getElementById('id01').style.display='block'" href="#myModal" data-toggle="modal" data-id="<?= $plan_id; ?>" class="remove " title="Remove this item"></a>
+										<a onclick="document.getElementById('id01<?= $plan_id ?>').style.display='block'" href="#myModal" data-toggle="modal" data-id="<?= $plan_id; ?>" class="remove " title="Remove this item"></a>
 									</td>
 								</tr>
 							<?php
@@ -226,6 +228,7 @@ if ($_POST['deleteitem']) {
 							</table>
 						</div>
 					</div>
+				</form>
 			</div>
 			<!--Shop -->
 			<section class="fullwidth-background testimonial padding-section">
@@ -258,7 +261,7 @@ if ($_POST['deleteitem']) {
 	</div>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-	<div id="id01" class="w3-modal">
+	<div id="id01<?= $plan_id ?>" class="w3-modal">
 		<div class="w3-modal-content">
 			<div class="w3-container">
 				<div class="modal-content">
@@ -274,15 +277,16 @@ if ($_POST['deleteitem']) {
 					<div class="modal-footer">
 						<form id="form1" name="form1" method="post" action="">
 							<input name="deleteitem" type="submit" class="btn btn-danger" value="Delete Item !">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-default" onclick="document.getElementById('id01').style.display='none'" data-dismiss="modal">Close</button>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-	</form>
+
+
+
 	<!-- Modal -->
 	<!--<div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">

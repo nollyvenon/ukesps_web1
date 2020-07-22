@@ -41,9 +41,9 @@ if (!$session_jobseek->is_logged_in()) {
 					<a href="mailto:info@ukesps.com" class="email"><i class="fa fa-envelope-o"></i>info@ukesps.com</a>
 				</address>
 				<div class="header-top-panel">
-					<a href="" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
-																												echo $cart_volume;
-																											} ?></sup></a>
+					<a href="<?= SITE_URL ?>/cart" class="fa fa-shopping-cart"><sup><?php if ($cart_volume > 0) {
+																																						echo $cart_volume;
+																																					} ?></sup></a>
 					<a href="login" class="fa fa-user login-icon"></a>
 					<div id="top_social_links_wrapper">
 						<div class="share-toggle-button"><i class="share-icon fa fa-share-alt"></i></div>
