@@ -129,6 +129,7 @@ if ($_POST['deleteitem']) {
 							$total_amount = 0;
 							$max = sizeof($_SESSION['cart']);
 							for ($i = 0; $i < $max; $i++) {
+								$plan_id = $_SESSION['cart'][$i];
 								$recru_detail = $event_prov_object->event_provider_plan_detail_by_id($plan_id);
 								extract($recru_detail);
 							?>

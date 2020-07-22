@@ -1,4 +1,4 @@
-<div class="col-lg-3 sidebar">
+<div class="col-lg-3 col-md-3 sidebar">
 	<!-- widget instructor -->
 	<aside class="widget-instructor">
 		<h2>Menu</h2>

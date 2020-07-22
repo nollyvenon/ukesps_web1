@@ -94,6 +94,8 @@ if ($session_recruiter->is_logged_in()) {
 	<title>UKESPS - United Kingdom Education & Skills Placement Services Limited</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<!-- Required Fremwork -->
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
 	<!-- style -->
 	<link rel="shortcut icon" href="../img/favicon.png">
 	<link rel="stylesheet" href="../css/font-awesome.css">
@@ -114,8 +116,8 @@ if ($session_recruiter->is_logged_in()) {
 
 	<div class="page-content woocommerce">
 		<div class="container clear-fix">
-			<div class="grid-col-row">
-				<div class="grid-col grid-col-9">
+			<div class="row">
+				<div class="col-lg-9 col-md-9">
 					<?php include_once("../layouts/feedback_message.php"); ?>
 					<div class="coupon-enter">
 						<p>Have a coupon? <a href="#">Click Here to enter your code</a></p>
@@ -124,8 +126,8 @@ if ($session_recruiter->is_logged_in()) {
 							<a href="#" class="cws-button border-radius small">Apply</a>
 						</div>
 					</div>
-					<div class="col2-set" id="customer_details">
-						<div class="col-1">
+					<div class="row" id="customer_details">
+						<div class="col-lg-6 col-md-6">
 							<h3>Billing Details</h3>
 							<form action="#" method="post">
 								<div class="woocommerce-billing-fields">
@@ -233,7 +235,7 @@ if ($session_recruiter->is_logged_in()) {
 								<?php } ?>
 							</form>
 						</div>
-						<div class="col-2">
+						<div class="col-lg-6 col-md-6">
 							<div class="cart_totals">
 								<h3>Your order</h3>
 								<table>
