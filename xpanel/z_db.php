@@ -1,5 +1,6 @@
 <?php
-//error_reporting(E_ALL); ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 // Initialize session
 if (!isset($_SESSION)) {
   session_start();
@@ -16,13 +17,13 @@ if ($IP == "::1") {
 }
 
 defined('DB_SERVER') ? null : define("DB_SERVER", "localhost");
-defined('DB_USER')   ? null : define("DB_USER", "mypraise");
-defined('DB_PASS')   ? null : define("DB_PASS", "nGzhPmYK68Mv");
+defined('DB_USER')   ? null : define("DB_USER", "root");
+defined('DB_PASS')   ? null : define("DB_PASS", "");
 
-defined('DB_NAME')   ? null : define("DB_NAME", "main_ukesps");
+defined('DB_NAME')   ? null : define("DB_NAME", "ukesps");
 
 defined('DS') ? NULL : define('DS', DIRECTORY_SEPARATOR);
-defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'E:\xampp72\htdocs\ukesps_web');
+defined('SITE_ROOT') ? NULL : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . '/ukesps_web');
 defined('LIB_PATH') ? NULL : define('LIB_PATH', SITE_ROOT . DS . 'includes');
 defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps_web");
 // Load basic functions so that everything after can use them

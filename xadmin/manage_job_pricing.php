@@ -10,9 +10,9 @@ $limit = 10;
 
 if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
   $search_text = $_POST['search_text'];
-  $query = "SELECT * FROM job_provider_plans WHERE plan_id LIKE '%$search_text%' OR plan_name LIKE '%$search_text%'  ORDER BY plan_id DESC ";
+  $query = "SELECT * FROM recruiting_plans WHERE plan_id LIKE '%$search_text%' OR plan_name LIKE '%$search_text%'  ORDER BY plan_id DESC ";
 } else {
-  $query = "SELECT * FROM job_provider_plans order by plan_id DESC ";
+  $query = "SELECT * FROM recruiting_plans order by plan_id DESC ";
 }
 $numrows = $db_handle->numRows($query);
 
@@ -212,8 +212,8 @@ $content = $db_handle->fetchAssoc($result);
                                       <td><?php echo $row['id']; ?></td>
                                       <td><?php echo $row['event_title']; ?></td>
                                       <td><?php echo limit_text($row['summary'], $limit); ?></td>
-                                      <td><a class="btn btn-border green" href="update_event.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Update</span></a>
-                                        <a class="btn btn-border dark" href="del_event.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Delete</span></a></td>
+                                      <td><a class="btn btn-border green" href="update_recruiter_pricing.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Update</span></a>
+                                        <a class="btn btn-border dark" href="del_recruiter_pricing.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Delete</span></a></td>
                                     </tr>
                                 <?php }
                                 } else {

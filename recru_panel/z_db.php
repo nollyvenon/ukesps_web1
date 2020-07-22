@@ -1,12 +1,9 @@
 <?php
 ob_start();
-// <<<<<<< HEAD
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-// =======
+
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
-// >>>>>>> 071d654e7df68e5849685472ebb81cecb1ff5e4c
+
 // Initialize session
 if (!isset($_SESSION)) {
     session_start();

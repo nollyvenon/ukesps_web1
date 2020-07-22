@@ -91,6 +91,16 @@ class zentabooksOperation
         return $fetched_data[0];
     }
 
+    public function get_recruiter_pricing_detail($plan_id)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM course_provider_plans WHERE plan_id = '$plan_id' LIMIT 1";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+
+        return $fetched_data[0];
+    }
 
     public function get_course_location_by_id($location_id)
     {
@@ -701,7 +711,15 @@ class zentabooksOperation
         $fetched_data = $db_handle->fetchAssoc($result);
         return $fetched_data[0];
     }
+    // public function cv_search_plan_by_id($plan_id)
+    // {
+    //     global $db_handle;
 
+    //     $query = "SELECT * FROM cv_search_plans WHERE plan_id='$plan_id' DESC";
+    //     $result = $db_handle->runQuery($query);
+    //     $fetched_data = $db_handle->fetchAssoc($result);
+    //     return $fetched_data[0];
+    // }
     ////////////////// ADD COURSE PRICING ///////////////////////////////////////////////////////////////////
     public function add_course_pricing($plan_name, $plan_cost, $plan_discount_cost, $plan_currency, $plan_image, $plan_period, $highlights, $description)
     {
