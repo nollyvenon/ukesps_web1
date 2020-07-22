@@ -42,7 +42,7 @@ $cart_total = $event_prov_object->get_cart_total($ssid);
 				<div class="grid-col grid-col-9">
 					<?php include_once("../layouts/feedback_message.php"); ?>
 					<div class="jumbotron text-center">
-						<h3>Recruitment Plan payment</h3>
+						<h3>Event Plan payment</h3>
 						<p>Select a payment method</p>
 					</div><br><br>
 					<div class="grid-col-row">
