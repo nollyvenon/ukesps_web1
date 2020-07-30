@@ -81,66 +81,74 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
       <div class="col-md-8">
         <main>
           <section class="clear-fix">
-            <h2>Upload Resume</h2>
-            <form action="" method="post">
-              <?php require_once '../layouts/feedback_message.php'; ?>
-              <div class="col-md-6 form-group">
-                <label for="resume" class="control-label">Select Resume</label>
-                <input name="resume" class="form-control" type="file" id="resume" />
-              </div>
-              <div class="row m-t-30">
-                <div class="col-md-12">
-                  <input name="upload_resume" type="submit" class="cws-button border-radius bt-color-1 alt" value="Upload Resume">
-                </div>
-              </div>
-            </form>
-            <hr>
-            <div class="grid-col-row">
-              <div class="grid-col grid-col-12">
-                <p>Don't have a resume? Fill this form below and get your resume designed to suit the job you're applying for</p>
-                <form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
-                  <?php require_once '../layouts/feedback_message.php'; ?>
-                  <div class="row mb-20">
-                    <div class="col-md-12">
-                      <label for="full_name" class="control-label">Full Name</label>
-                      <input type="text" class="form-control" id="full_name" name="full_name" value="">
-                    </div>
-                  </div>
-                  <div class="row mb-20">
-                    <div class="col-md-12">
-                      <label for=" address" class="control-label">Address</label>
-                      <input type="text" class="form-control" id="address" name="address" value="">
-                    </div>
-                    <div class="col-md-12">
-                      <label for="plan_discount" class="control-label">Email</label>
-                      <div class='input-group'>
-                        <input id="plan_discount" name="plan_discount" type='text' class="form-control" value="" />
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <label for="phone" class="control-label">Phone</label>
-                      <div class='input-group'>
-                        <input id="phone" name="phone" type='text' class="form-control" value="" />
-                        </span>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-lg-12">
-                      <div class="form-group">
-                        <label for="career_objectives" class="control-label">Career Objectives</label>
-                        <textarea id="career_objectives" class="form-control" name="career_objectives" rows="5"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-20">
-                  </div>
 
-                  <div class="row m-t-30">
-                    <div class="col-md-12">
-                      <input name="generate_cv" type="submit" class="cws-button border-radius bt-color-3 alt" value="Submit">
+
+            <div class="col-md-8 col-md-offset-2">
+              <!-- BEGIN SAMPLE TABLE PORTLET-->
+              <div class="portlet box green">
+                <div class="portlet-title">
+                  <div class="caption">
+                    <i class="fa fa-list"></i>ORDER DETAILS </div>
+                  <div class="tools">
+                    <button onclick="printContent('prnt')" class="btn btn-info btn-sm">PRINT</button>
+                  </div>
+                </div>
+                <div class="portlet-body">
+
+                  <div id="prnt">
+                    <div class="row">
+                      <div class="col-sm-8" style="max-width: 600px; float: left;">
+                        <h2> INVOICE # <?php echo $odet['invid']; ?></h2>
+
+                        <b>INVOICE TO:</b> <?php echo $uname[0]; ?> <br>
+                        <b>DELIVERY ADDRESS:</b> <?php echo $odet['daddr']; ?> <br>
+                        <b>CONTACT NUMBER:</b> <?php echo $odet['contactnum']; ?> <br>
+                      </div>
+                      <div class="col-sm-4" style="margin-top: 30px; max-width: 300px; float: right;">
+                        <img src="<?php echo "$baseurl/images/logo.png"; ?>" alt="LOGO" style="width: 100%">
+
+                        <?php
+                        $adrs = mysqli_fetch_array(mysqli_query($conn, "SELECT address, mobile, email, sitename FROM general_setting WHERE id='1'"));
+                        ?>
+
+
+                        <i class="fa fa-mobile"></i><span> <?php echo $adrs[1]; ?></span><br>
+                        <i class="fa fa-envelope"></i><span> <?php echo $adrs[2]; ?></span><br>
+                        <i class="fa fa-location-arrow"></i> <?php echo $adrs[0]; ?> <br>
+                      </div>
+
+                    </div>
+                    <hr>
+
+
+
+                    <div class="table">
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Product Name </th>
+                            <th> Rate </th>
+                            <th> Quantity </th>
+                            <th> Subtotal </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+
+                          <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td> <b>TOTAL</b> </td>
+                            <td> <b><?php echo "$full $curr[0]"; ?></b> </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                </form>
+                </div>
+                <!-- END SAMPLE TABLE PORTLET-->
               </div>
             </div>
           </section>

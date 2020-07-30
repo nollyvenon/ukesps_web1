@@ -27,26 +27,23 @@
 			</section>
 			<section class="grid-col grid-col-4 footer-latest">
 				<h2 class="corner-radius">Latest courses</h2>
-				<article>
-					<img src="http://placehold.it/83x83" data-at2x="http://placehold.it/83x83" alt>
-					<h3>Sed aliquet dui at auctor blandit</h3>
-					<div class="course-date">
-						<div>10<sup>00</sup></div>
-						<div>23.02.15</div>
-					</div>
-					<p>Sed pharetra lorem ut dolor dignissim,
-						sit amet pretium tortor mattis.</p>
-				</article>
-				<article>
-					<img src="http://placehold.it/83x83" data-at2x="http://placehold.it/83x83" alt>
-					<h3>Sed aliquet dui at auctor blandit</h3>
-					<div class="course-date">
-						<div>10<sup>00</sup></div>
-						<div>23.02.15</div>
-					</div>
-					<p>Sed pharetra lorem ut dolor dignissim,
-						sit amet pretium tortor mattis.</p>
-				</article>
+				<?php
+				if (isset($courses) && !empty($courses)) {
+					foreach ($courses as $row) {
+				?>
+						<article>
+							<img src="<?= SITE_URL ?>/img/courses/<?php echo $row['course_img']; ?>" data-at2x="<?= SITE_URL ?>/img/courses/<?php echo $row['course_img']; ?>" alt>
+							<h3><?php echo $row['course_title']; ?></h3>
+							<div class="course-date">
+								<div><?php echo date('H', strtotime($row['course_date'])); ?><sup><?php echo date('i', strtotime($row['course_date'])); ?></sup></div>
+								<div><?php echo date('d M, Y', strtotime($row['course_date'])); ?></div>
+							</div>
+							<p><?php echo limit_text($row['course_overview'], 15); ?></p>
+						</article>
+				<?php
+					}
+				}
+				?>
 			</section>
 			<section class="grid-col grid-col-4 footer-contact-form">
 				<h2 class="corner-radius">apply for instructor</h2>
@@ -63,29 +60,7 @@
 	</div>
 	<div class="footer-bottom">
 		<div class="grid-row clear-fix">
-			<div class="copyright">UKESPS<span></span> 2015 . All Rights Reserved</div>
-			<nav class="footer-nav">
-				<ul class="clear-fix">
-					<li>
-						<a href="index.html">Home</a>
-					</li>
-					<li>
-						<a href="courses-grid.html">Courses</a>
-					</li>
-					<li>
-						<a href="content-elements.html">Plans</a>
-					</li>
-					<li>
-						<a href="blog-default.html">News</a>
-					</li>
-					<li>
-						<a href="page-about-us.html">Pages</a>
-					</li>
-					<li>
-						<a href="contact-us.html">Contact</a>
-					</li>
-				</ul>
-			</nav>
+			<div class="copyright">UKESPS<span></span> <?= date('Y') ?> . All Rights Reserved</div>
 		</div>
 	</div>
 </footer>

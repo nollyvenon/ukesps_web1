@@ -75,6 +75,8 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="upload_cv">Upload Cv(Resume) <span> </span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
+							<a href="view_cv">View Resume <span> </span></a></li>
 					</ul>
 				</aside>
 			</div>
