@@ -34,12 +34,12 @@
         <?php
         foreach ($course_currencies as $row44) :
         ?>
-          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_id']) : ?>
-            <option selected="selected" value="<?php echo $row44['currency_id']; ?>">
+          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_code']) : ?>
+            <option selected="selected" value="<?php echo $row44['currency_code']; ?>">
               <?php echo $row44['currency_name']; ?>
             </option>
           <?php else : ?>
-            <option value="<?php echo $row44['currency_id']; ?>">
+            <option value="<?php echo $row44['currency_code']; ?>">
               <?php echo $row44['currency_name']; ?>
             </option>
           <?php endif ?>

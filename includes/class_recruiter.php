@@ -338,12 +338,12 @@ www.ukesps.com";
         return $db_handle->numOfRows($result) > 0 ? true : false;
     }
 
-    public function add_to_order($total_price = NULL, $total_qty = NULL, $unique = NULL)
+    public function add_to_order($total_price = NULL, $total_qty = NULL, $unique = NULL, $paymentmode = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO recruiting_plan_orders (session_id, total_price, total_qty, orderstatus) VALUES
-        ('$unique', '$total_price','$total_qty','0')";
+        $query = "INSERT INTO recruiting_plan_orders (session_id, total_price, total_qty, orderstatus, paymentmode) VALUES
+        ('$unique', '$total_price','$total_qty','0', '$paymentmode')";
         $db_handle->runQuery($query);
 
         return $db_handle->insertedId();

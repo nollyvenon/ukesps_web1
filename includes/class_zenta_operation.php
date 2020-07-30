@@ -705,21 +705,20 @@ class zentabooksOperation
     public function recruiting_plan_by_id($plan_id)
     {
         global $db_handle;
-
         $query = "SELECT * FROM recruiting_plans WHERE plan_id='$plan_id' DESC";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
         return $fetched_data[0];
     }
-    // public function cv_search_plan_by_id($plan_id)
-    // {
-    //     global $db_handle;
+    public function cv_search_plan_by_id($plan_id)
+    {
+        global $db_handle;
 
-    //     $query = "SELECT * FROM cv_search_plans WHERE plan_id='$plan_id' DESC";
-    //     $result = $db_handle->runQuery($query);
-    //     $fetched_data = $db_handle->fetchAssoc($result);
-    //     return $fetched_data[0];
-    // }
+        $query = "SELECT * FROM cv_search_plans WHERE plan_id='$plan_id' DESC";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+        return $fetched_data[0];
+    }
     ////////////////// ADD COURSE PRICING ///////////////////////////////////////////////////////////////////
     public function add_course_pricing($plan_name, $plan_cost, $plan_discount_cost, $plan_currency, $plan_image, $plan_period, $highlights, $description)
     {
@@ -1049,6 +1048,14 @@ $headers = implode("\r\n", $headers);*/
     {
         global $db_handle;
         $query1 = "DELETE FROM event_provider_plans where plan_id = '$plan_id'";
+        $result1 = $db_handle->runQuery($query1);
+
+        return $db_handle->affectedRows() > 0 ? true : false;
+    }
+    public function del_recruiter_pricing($plan_id)
+    {
+        global $db_handle;
+        $query1 = "DELETE FROM recruting_plans where plan_id = '$plan_id'";
         $result1 = $db_handle->runQuery($query1);
 
         return $db_handle->affectedRows() > 0 ? true : false;

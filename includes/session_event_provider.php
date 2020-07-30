@@ -41,6 +41,7 @@ class SessionEventProvider
             $_SESSION['event_prov_username'] = $user['username'];
             $_SESSION['event_prov_first_name'] = $user['first_name'];
             $_SESSION['event_prov_last_name'] = $user['last_name'];
+            $_SESSION['event_prov_middle_name'] = $user['middle_name'];
             $_SESSION['event_prov_active'] = $user['active'];
             $_SESSION['event_prov_email'] = $user['email'];
             $_SESSION['user_time'] = time();

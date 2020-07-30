@@ -7,6 +7,8 @@ if (isset($_GET['sssid'])) {
 	if (!in_array($_GET['sssid'], $_SESSION['cart'])) { //check if that plan ID already exists in the array, if no add
 		array_push($_SESSION['cart'], $_GET['sssid']);
 	}
+} else {
+	redirect_to('post_a_job');
 }
 //print_r( $_SESSION['cart']);
 $_SESSION['payment_category'] = $_GET['pptc'];
@@ -16,8 +18,11 @@ if ($_POST['proceed']) {
 	$total_qty = sizeof($_SESSION['cart']);
 	$total_price = $_POST['total_grand_amount'];
 
-	if ($_SESSION['payment_category'] == '1') { //recruitment
-		$OrderID = $recruit_object->add_to_order($total_price, $total_qty, $unique);
+	if ($_GET['pptc'] == '1') { //recruitment
+		$plan_id = $_GET['sssid'];
+		$recru_detail = $recruit_object->recruiting_plan_detail_by_id($plan_id);
+		$paymentmode = $recru_detail['plan_currency'];
+		$OrderID = $recruit_object->add_to_order($total_price, $total_qty, $unique, $paymentmode);
 		$_SESSION['OrderID'] = $OrderID;
 		$qty = $_POST['qty'];
 		$price = $_POST['price'];
@@ -28,8 +33,11 @@ if ($_POST['proceed']) {
 			$price = $_POST['price'][$a];
 			$recruit_object->add_to_cart($plan_id, $price, $qty, $OrderID, $unique);
 		}
-	} elseif ($_SESSION['payment_category'] == '2') { //cv search
-		$OrderID = $recruit_object->add_to_cvsearch_order($total_price, $total_qty, $unique);
+	} elseif ($_GET['pptc'] == '2') { //cv search
+		$plan_id = $_GET['sssid'];
+		$recru_detail = $recruit_object->recruiting_plan_detail_by_id($plan_id);
+		$paymentmode = $recru_detail['plan_currency'];
+		$OrderID = $recruit_object->add_to_cvsearch_order($total_price, $total_qty, $unique, $paymentmode);
 		$_SESSION['OrderID'] = $OrderID;
 		$qty = $_POST['qty'];
 		$price = $_POST['price'];
@@ -129,7 +137,7 @@ if ($_POST['deleteitem']) {
 			<!-- Shop -->
 			<div class="title clear-fix">
 				<h2 class="title-main">Cart</h2>
-				<a href="../courses" class="button-back">Back to shopping<i class="fa fa-angle-double-right"></i></a>
+				<a href="post_a_job" class="button-back">Back to shopping<i class="fa fa-angle-double-right"></i></a>
 			</div>
 			<div id="content" role="main">
 				<form action="#" method="post">
@@ -141,53 +149,52 @@ if ($_POST['deleteitem']) {
 								<th class="product-price">Price</th>
 								<th class="product-quantity">Quantity</th>
 								<th class="product-subtotal">Total</th>
-								<th class="product-remove">&nbsp;</th>
+								<!-- <th class="product-remove">&nbsp;</th> -->
 							</tr>
 						</thead>
 						<tbody>
 							<?php
 							$total_amount = 0;
 							$max = sizeof($_SESSION['cart']);
-							for ($i = 0; $i < $max; $i++) {
-								$plan_id = $_SESSION['cart'][$i];
-								if ($_SESSION['payment_category'] == '1') { //recruitment
-									$recru_detail = $recruit_object->recruiting_plan_detail_by_id($plan_id);
-									extract($recru_detail);
-								} elseif ($_SESSION['payment_category'] == '2') { //cv search
-									$cv_detail = $recruit_object->cvsearch_detail_by_id($plan_id);
-									extract($cv_detail);
-								}
-							?>
-								<tr class="cart_item">
-									<td class="product-thumbnail">
-										<a href="../recruit_plan_detail?sid=<?= $plan_id; ?>">
-											<img src="../img/recruit/<?= $plan_image; ?>" data-at2x="../img/recruit/<?= $plan_image; ?>" class="attachment-shop_thumbnail wp-post-image" alt="">
-										</a>
-									</td>
-									<td class="product-name">
-										<a href="../recruit_plan_detail?sid=<?= $plan_id; ?>"><?= $plan_name; ?></a>
-									</td>
-									<td class="product-price">
-										<span class="amount txtCal price"><?= $plan_cost; ?></span><input type="hidden" class="price" value="<?= $plan_cost; ?>" id="price" name="price[]" />
-										<input type="hidden" value="<?= $plan_id; ?>" name="planID[]" />
-									</td>
-									<td align="center" class="product-quantity">
-										<div class="quantity buttons_added txtCal">
-											<input id="qty" type="number" step="1" min="0" name="qty[]" value="1" title="Qty" class="input-text qty text">
-
-										</div>
-									</td>
-									<td class="product-subtotal">
-										<input type="hidden" class="subtot" value="<?= $plan_cost; ?>" name="subtot" />
-										<span name="subtot1[]" id="subtot1" class="subtot1"><?= $plan_cost; ?><sup><?= $plan_currency; ?></sup></span>
-									</td>
-									<td class="product-remove">
-										<a onclick="document.getElementById('id01<?= $plan_id ?>').style.display='block'" href="#myModal" data-toggle="modal" data-id="<?= $plan_id; ?>" class="remove " title="Remove this item"></a>
-									</td>
-								</tr>
-							<?php
-								$total_amount += $plan_cost;
+							// for ($i = 0; $i < $max; $i++) {
+							$plan_id = $_SESSION['cart'][0];
+							if ($_GET['pptc'] == '1') { //recruitment
+								$recru_detail = $recruit_object->recruiting_plan_detail_by_id($plan_id);
+								extract($recru_detail);
+							} elseif ($_GET['pptc'] == '2') { //cv search
+								$cv_detail = $recruit_object->cvsearch_detail_by_id($plan_id);
+								extract($cv_detail);
 							}
+							?>
+							<tr class="cart_item">
+								<td class="product-thumbnail">
+									<a href="../recruit_plan_detail?sid=<?= $plan_id; ?>">
+										<img src="../img/recruiter_plan/<?= $plan_image; ?>" data-at2x="../img/recruit/<?= $plan_image; ?>" class="attachment-shop_thumbnail wp-post-image" alt="">
+									</a>
+								</td>
+								<td class="product-name">
+									<a href="../recruit_plan_detail?sid=<?= $plan_id; ?>"><?= $plan_name; ?></a>
+								</td>
+								<td class="product-price">
+									<span class="amount txtCal price"><?= $plan_cost; ?></span><input type="hidden" class="price" value="<?= $plan_cost; ?>" id="price" name="price[]" />
+									<input type="hidden" value="<?= $plan_id; ?>" name="planID[]" />
+								</td>
+								<td align="center" class="product-quantity">
+									<div class="quantity buttons_added txtCal">
+										<input id="qty" type="number" step="1" min="0" name="qty[]" value="1" title="Qty" class="input-text qty text">
+									</div>
+								</td>
+								<td class="product-subtotal">
+									<input type="hidden" class="subtot" value="<?= $plan_cost; ?>" name="subtot" />
+									<span name="subtot1[]" id="subtot1" class="subtot1"><?= $plan_cost; ?><sup><?= $plan_currency; ?></sup></span>
+								</td>
+								<!-- <td class="product-remove">
+									<a onclick="document.getElementById('id01<?= $plan_id ?>').style.display='block'" href="" data-id="<?= $plan_id; ?>" class="remove " title="Remove this item"></a>
+								</td> -->
+							</tr>
+							<?php
+							$total_amount += $plan_cost;
+							// }
 							?>
 							<tr>
 								<td colspan="6" class="actions">
@@ -259,7 +266,7 @@ if ($_POST['deleteitem']) {
 
 		</div>
 	</div>
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 	<div id="id01<?= $plan_id ?>" class="w3-modal">
 		<div class="w3-modal-content">
@@ -283,7 +290,7 @@ if ($_POST['deleteitem']) {
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 

@@ -178,7 +178,7 @@ class EventProviderUser
     }
 
     // Add a new event_providers profile
-    public function add_new_event_provider($first_name = NULL, $last_name = NULL, $phone = NULL, $email, $username = '', $password, $billing_company, $billing_address_1, $billing_address_2, $billing_city, $billing_state, $billing_country)
+    public function add_new_event_provider($first_name = NULL, $last_name = NULL, $middle_name = NULL, $phone = NULL, $email, $username = '', $password, $billing_company, $billing_address_1, $billing_address_2, $billing_city, $billing_state, $billing_country)
     {
         global $db_handle;
         global $system_object;
@@ -193,7 +193,7 @@ class EventProviderUser
         $pass_salt = generateHash($password);
 
 
-        $query = "INSERT INTO event_providers (event_prov_code, username, email, pass_salt, password, first_name, last_name, status, phone, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_country) VALUES ('$event_prov_code', '$username', '$email', '$pass_salt', '$password', '$first_name', '$last_name', '1', '$phone', '$billing_company', '$billing_address_1', '$billing_address_2', '$billing_city', '$billing_state', '$billing_country')";
+        $query = "INSERT INTO event_providers (event_prov_code, username, email, pass_salt, password, first_name, last_name, middle_name, status, phone, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_country) VALUES ('$event_prov_code', '$username', '$email', '$pass_salt', '$password', '$first_name', '$last_name', '$middle_name', '1', '$phone', '$billing_company', '$billing_address_1', '$billing_address_2', '$billing_city', '$billing_state', '$billing_country')";
         $db_handle->runQuery($query);
 
         if ($db_handle->affectedRows() > 0) {
@@ -345,12 +345,12 @@ www.ukesps.com";
     }
 
 
-    public function add_to_order($total_price = NULL, $total_qty = NULL, $unique = NULL)
+    public function add_to_order($total_price = NULL, $total_qty = NULL, $unique = NULL, $paymentmode = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO event_provider_plan_orders (session_id, total_price, total_qty, orderstatus) VALUES
-        ('$unique', '$total_price','$total_qty','0')";
+        $query = "INSERT INTO event_provider_plan_orders (session_id, total_price, total_qty, orderstatus, paymentmode) VALUES
+        ('$unique', '$total_price','$total_qty','0','$paymentmode')";
         $db_handle->runQuery($query);
 
         return $db_handle->insertedId();
@@ -394,7 +394,7 @@ www.ukesps.com";
 
         if ($db_handle->numOfRows($result) > 0) {
             $fetched_data = $db_handle->fetchAssoc($result);
-            return $fetched_data[0]['total_price'];
+            return end($fetched_data)['total_price'];
         } else {
             return false;
         }

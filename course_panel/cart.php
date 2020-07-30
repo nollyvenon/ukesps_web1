@@ -13,7 +13,10 @@ if ($_POST['proceed']) {
 	$xxid = encrypt($unique);
 	$total_qty = sizeof($_SESSION['cart']);
 	$total_price = $_POST['total_grand_amount'];
-	$OrderID = $course_prov_object->add_to_order($total_price, $total_qty, $unique);
+	$plan_id = $_GET['sssid'];
+	$co_prov_det = $course_prov_object->course_provider_plan_detail_by_id($plan_id);
+	$paymentmode = $co_prov_det['plan_currency'];
+	$OrderID = $course_prov_object->add_to_order($total_price, $total_qty, $unique, $paymentmode);
 	$_SESSION['OrderID'] = $OrderID;
 	$qty = $_POST['qty'];
 	$price = $_POST['price'];

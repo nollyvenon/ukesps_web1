@@ -4,7 +4,7 @@ include_once("z_db.php");
 if ($session_recruiter->is_logged_in() && $recruit_object->is_recruit_plan_valid($recruiter_code)) {
   redirect_to("cv_search");
 }
-$recruiting_plans = $zenta_operation->recruiting_plans();
+$recruiting_plans = $recruit_object->get_recruiting_cv_plans();
 $_SESSION['payment_category'] = '4'; //recruitment
 ?>
 <!DOCTYPE HTML>
@@ -50,8 +50,8 @@ $_SESSION['payment_category'] = '4'; //recruitment
                     <ul>
                       <li><?= $row['highlights']; ?></li>
                     </ul>
-                    <p><a href="cart?sssid=<?= $row['plan_id']; ?>&pptc=4" class="cws-button border-radius bt-color-3  alt">Buy Now</a></p>
-                    <p><a href="../cv_search_plan_detail?sid=<?= $row['plan_id']; ?>&pptc=4" class="cws-button border-radius bt-color-2 alt">View Details</a></p>
+                    <p><a href="cart?sssid=<?= $row['plan_id']; ?>&pptc=2" class="cws-button border-radius bt-color-3  alt">Buy Now</a></p>
+                    <p><a href="../cv_search_plan_detail?sid=<?= $row['plan_id']; ?>&pptc=2" class="cws-button border-radius bt-color-2 alt">View Details</a></p>
                   </article>
                 </div>
             <?php }

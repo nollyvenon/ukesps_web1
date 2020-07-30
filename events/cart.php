@@ -3,9 +3,14 @@ require_once("z_db.php");
 if (!isset($_SESSION['cart'])) {
 	$_SESSION['cart'] = array();
 }
-if (!in_array($_GET['sssid'], $_SESSION['cart'])) { //check if that plan ID already exists in the array, if no add
-	array_push($_SESSION['cart'], $_GET['sssid']);
+if (isset($_GET['sssid'])) {
+	if (!in_array($_GET['sssid'], $_SESSION['cart'])) { //check if that plan ID already exists in the array, if no add
+		array_push($_SESSION['cart'], $_GET['sssid']);
+	}
+} else {
+	redirect_to('post_event');
 }
+
 //print_r( $_SESSION['cart']);
 $_SESSION['payment_category'] = $_GET['pptc'];
 if ($_POST['proceed']) {
@@ -13,7 +18,10 @@ if ($_POST['proceed']) {
 	$xxid = encrypt($unique);
 	$total_qty = sizeof($_SESSION['cart']);
 	$total_price = $_POST['total_grand_amount'];
-	$OrderID = $event_prov_object->add_to_order($total_price, $total_qty, $unique);
+	$plan_id = $_GET['sssid'];
+	$recru_detail = $event_prov_object->event_provider_plan_detail_by_id($plan_id);
+	$paymentmode = $recru_detail['plan_currency'];
+	$OrderID = $event_prov_object->add_to_order($total_price, $total_qty, $unique, $paymentmode);
 	$_SESSION['OrderID'] = $OrderID;
 	$qty = $_POST['qty'];
 	$price = $_POST['price'];
@@ -128,40 +136,40 @@ if ($_POST['deleteitem']) {
 							<?php
 							$total_amount = 0;
 							$max = sizeof($_SESSION['cart']);
-							for ($i = 0; $i < $max; $i++) {
-								$plan_id = $_SESSION['cart'][$i];
-								$recru_detail = $event_prov_object->event_provider_plan_detail_by_id($plan_id);
-								extract($recru_detail);
+							// for ($i = 0; $i < $max; $i++) {
+							$plan_id = $_GET['sssid'];
+							$recru_detail = $event_prov_object->event_provider_plan_detail_by_id($plan_id);
+							extract($recru_detail);
 							?>
-								<tr class="cart_item">
-									<td class="product-thumbnail">
-										<a href="../course_prov_plan_detail?sid=<?= $plan_id; ?>">
-											<img src="../img/course_prov/<?= $plan_image; ?>" data-at2x="../img/course_prov/<?= $plan_image; ?>" class="attachment-shop_thumbnail wp-post-image" alt="">
-										</a>
-									</td>
-									<td class="product-name">
-										<a href="../course_prov_plan_detail?sid=<?= $plan_id; ?>"><?= $plan_name; ?></a>
-									</td>
-									<td class="product-price">
-										<span class="amount txtCal price"><?= $plan_cost; ?></span><input type="hidden" class="price" value="<?= $plan_cost; ?>" id="price" name="price[]" />
-										<input type="hidden" value="<?= $plan_id; ?>" name="planID[]" />
-									</td>
-									<td align="center" class="product-quantity">
-										<div class="quantity buttons_added txtCal">
-											<input id="qty" type="number" step="1" min="0" name="qty[]" value="1" title="Qty" class="input-text qty text">
-										</div>
-									</td>
-									<td class="product-subtotal">
-										<input type="hidden" class="subtot" value="<?= $plan_cost; ?>" name="subtot" />
-										<span name="subtot1[]" id="subtot1" class="subtot1"><?= $plan_cost; ?><sup><?= $plan_currency; ?></sup></span>
-									</td>
-									<td class="product-remove">
-										<a onclick="document.getElementById('id01').style.display='block'" href="#myModal" data-toggle="modal" data-id="<?= $plan_id; ?>" class="remove " title="Remove this item"></a>
-									</td>
-								</tr>
+							<tr class="cart_item">
+								<td class="product-thumbnail">
+									<a href="../event_prov_plan_detail?sid=<?= $plan_id; ?>">
+										<img src="../img/event_prov/<?= $plan_image; ?>" data-at2x="../img/event_prov/<?= $plan_image; ?>" class="attachment-shop_thumbnail wp-post-image" alt="">
+									</a>
+								</td>
+								<td class="product-name">
+									<a href="../event_prov_plan_detail?sid=<?= $plan_id; ?>"><?= $plan_name; ?></a>
+								</td>
+								<td class="product-price">
+									<span class="amount txtCal price"><?= $plan_cost; ?></span><input type="hidden" class="price" value="<?= $plan_cost; ?>" id="price" name="price[]" />
+									<input type="hidden" value="<?= $plan_id; ?>" name="planID[]" />
+								</td>
+								<td align="center" class="product-quantity">
+									<div class="quantity buttons_added txtCal">
+										<input id="qty" type="number" step="1" min="0" name="qty[]" value="1" title="Qty" class="input-text qty text">
+									</div>
+								</td>
+								<td class="product-subtotal">
+									<input type="hidden" class="subtot" value="<?= $plan_cost; ?>" name="subtot" />
+									<span name="subtot1[]" id="subtot1" class="subtot1"><?= $plan_cost; ?><sup><?= $plan_currency; ?></sup></span>
+								</td>
+								<td class="product-remove">
+									<a onclick="document.getElementById('id01').style.display='block'" href="#myModal" data-toggle="modal" data-id="<?= $plan_id; ?>" class="remove " title="Remove this item"></a>
+								</td>
+							</tr>
 							<?php
-								$total_amount += $plan_cost;
-							}
+							$total_amount += $plan_cost;
+							// }
 							?>
 							<tr>
 								<td colspan="6" class="actions">

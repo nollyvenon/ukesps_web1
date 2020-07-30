@@ -41,9 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             goto exitpoint;
         };
 
-        $event_providers = $event_prov_object->add_new_event_provider($first_name, $last_name, $phone, $email, $account_username, $account_password, $billing_company, $mailing_address, "", "",  "", $country);
+        $event_providers = $event_prov_object->add_new_event_provider($first_name, $last_name, $middle_name, $phone, $email, $account_username, $account_password, $billing_company, $mailing_address, "", "",  "", $country);
         $found_client = $event_prov_object->authenticate($account_username, $account_password);
-
+        // var_dump($found_client);
+        // die();
         if ($found_client) {
             $event_prov_code = $found_client[0]['event_prov_code'];
             if ($event_prov_object->event_provider_is_active($event_prov_code)) {
@@ -55,8 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
                 $message_error = "Your profile is currently inactive, suspended or your subscription has expired, please contact support for assistance.";
             }
         } else {
-            // username/password combo was not found in the database
-            $message_error = "Username and password combination do not match.";
+            if ($event_providers) {
+                $message_success =  "<b>Congratulations!</b><br>Registration Successful. <a href='login'>Click Here to Login</a>";
+                $message_success .= $event_providers;
+            } else {
+                // username/password combo was not found in the database
+                $message_error = "Registration not complete. Please try again!";
+            }
         }
     } else {
         // spam submission

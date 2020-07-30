@@ -105,17 +105,17 @@ $_SESSION['payment_category'] = '2'; //cv search
 						<div id="one_day">
 							<br>
 							<h4><b><?php echo $rec_plan[0]['plan_currency'] . $rec_plan[0]['plan_cost']; ?></b></h4><br>
-							<a href="cart?sssid=<?= $rec_plan[0]['plan_cost']; ?>" class="cws-button bt-color-2 border-radius">Buy now</a>
+							<a href="cart?sssid=<?= $rec_plan[0]['plan_cost']; ?>&pptc=2" class="cws-button bt-color-2 border-radius">Buy now</a>
 						</div>
 						<div id="one_week" style="display: none">
 							<br>
 							<h4><b><?php echo $rec_plan[1]['plan_currency'] . $rec_plan[1]['plan_cost']; ?></b></h4><br>
-							<a href="cart?sssid=<?= $rec_plan[2]['plan_cost']; ?>" class="cws-button bt-color-2 border-radius">Buy now</a>
+							<a href="cart?sssid=<?= $rec_plan[2]['plan_cost']; ?>&pptc=2" class="cws-button bt-color-2 border-radius">Buy now</a>
 						</div>
 						<div id="one_month" style="display: none">
 							<br>
 							<h4><b><?php echo $rec_plan[2]['plan_currency'] . $rec_plan[2]['plan_cost']; ?></b></h4><br>
-							<a href="cart?sssid=<?= $rec_plan[2]['plan_cost']; ?>" class="cws-button bt-color-2 border-radius">Buy now</a>
+							<a href="cart?sssid=<?= $rec_plan[2]['plan_cost']; ?>&pptc=2" class="cws-button bt-color-2 border-radius">Buy now</a>
 						</div>
 
 					</div>

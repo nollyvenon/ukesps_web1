@@ -7,7 +7,7 @@ if (!$session_event_prov->is_logged_in()) {
 	redirect_to("login");
 }
 if (!$event_prov_object->is_provider_plan_valid($event_prov_code)) {
-	redirect_to("post_a_event");
+	redirect_to("post_event");
 }
 $event_title = "";
 $event_author = "";
