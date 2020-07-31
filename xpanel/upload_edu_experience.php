@@ -78,19 +78,8 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
       <div class="col-md-8">
         <main>
           <section class="clear-fix">
-            <h2>Upload Resume</h2>
-            <form action="" method="post">
-              <?php require_once '../layouts/feedback_message.php'; ?>
-              <div class="col-md-6 form-group">
-                <label for="resume" class="control-label">Select Resume</label>
-                <input name="resume" class="form-control" type="file" id="resume" />
-              </div>
-              <div class="row m-t-30">
-                <div class="col-md-12">
-                  <input name="upload_resume" type="submit" class="cws-button border-radius bt-color-1 alt" value="Upload Resume">
-                </div>
-              </div>
-            </form>
+            <h2>Upload Educational Experience</h2>
+
             <hr>
             <div class="grid-col-row">
               <div class="grid-col grid-col-12">

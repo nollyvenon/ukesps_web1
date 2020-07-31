@@ -54,7 +54,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 
 	$details = $client_operation->applicant_detail($user_code);
 
-	if ($_POST['submit']) {
+	if (isset($_POST['submit'])) {
 
 		$resume = $_FILES['resume']['name'];
 		$cover_letter = $_FILES['cover_letter']['name'];
@@ -107,32 +107,29 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 				<!-- widget search -->
 
 				<!-- widget categories -->
-				<aside class="widget-categories" style="boder:1px solid red;">
-					<h2>Navigations</h2>
-					<hr class="divider-big" />
-					<ul>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="index">My Profile<span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="upload_biodata">Update Profile<span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="applications">VIEW Application STATUS <span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="job_prefs">My job Preference <span></span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="upload_cv">Upload Cv(Resume) <span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="view_cv">View Resume <span> </span></a></li> -->
-					</ul>
+				<aside class="widget-categories" style="border:1px solid red; padding:10px;border-radius:5px;">
+					<div class="container-fluid">
+						<h2>Navigations</h2>
+						<hr class="divider-big" />
+						<ul>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="index">My Profile<span> </span></a></li>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="upload_biodata">Update Profile<span> </span></a></li>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
+							<!-- <li class="cat-item cat-item-1 current-cat">
+							<a href="applications">VIEW Application STATUS <span> </span></a></li> -->
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="<?= SITE_URL ?>/courses">Buy more courses<span> (14) </span></a></li>
+
+						</ul>
+					</div>
 				</aside>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-8 col-lg-8 col-sm-12">
 				<h4>Upload Your biodata</h4>
 				<?php include_once("../layouts/feedback_message.php"); ?>
 				<form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">

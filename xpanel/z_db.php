@@ -39,6 +39,7 @@ require_once(LIB_PATH . DS . "PHPMailer" . DS . "PHPMailerAutoload.php");
 require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_system.php");
 require_once(LIB_PATH . DS . "class_client.php");
+require_once("db_class.php");
 
 //require_once("includes/PHPMailer/PHPMailerAutoload.php");
 

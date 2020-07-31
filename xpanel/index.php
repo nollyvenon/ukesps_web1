@@ -51,44 +51,39 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 	<div class="page-content container clear-fix">
 
 		<div class="row">
-			<div class="col-md-3 sidebar">
+			<div class="col-md-3 col-sm-12 col-lg-3 sidebar">
 				<!-- widget search -->
 
 				<!-- widget categories -->
-				<aside class="widget-categories" style="boder:1px solid red;">
-					<h2>Navigations</h2>
-					<hr class="divider-big" />
-					<ul>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="index">My Profile<span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="upload_biodata">Update Profile<span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
-						<!-- <li class="cat-item cat-item-1 current-cat">
+				<aside class="widget-categories" style="border:1px solid red; padding:10px; border-radius:5px;">
+					<div class="container-fluid">
+						<h2>Navigations</h2>
+						<hr class="divider-big" />
+						<ul>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="index">My Profile<span> </span></a></li>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="upload_biodata">Update Profile<span> </span></a></li>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
+							<!-- <li class="cat-item cat-item-1 current-cat">
 							<a href="applications">VIEW Application STATUS <span> </span></a></li> -->
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="<?= SITE_URL ?>/courses">Buy more courses<span> (14) </span></a></li>
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="job_prefs">My job Preference <span></span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li> -->
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="upload_cv">Upload Cv(Resume) <span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="view_cv">View Resume <span> </span></a></li> -->
-					</ul>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="<?= SITE_URL ?>/courses">Buy more courses<span> (14) </span></a></li>
+
+						</ul>
+					</div>
 				</aside>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-8 col-lg-8 col-sm-12">
 				<main>
 					<section class="clear-fix">
 						<h2>My Profile</h2>
 						<hr>
 						<div class="grid-col-row">
-							<div class="grid-col grid-col-12">
+							<div class="">
 								<div class="row">
 
 									<a href="#!" class="col-md-6">

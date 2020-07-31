@@ -28,19 +28,26 @@
 			<section class="grid-col grid-col-4 footer-latest">
 				<h2 class="corner-radius">Latest courses</h2>
 				<?php
-				if (isset($courses) && !empty($courses)) {
-					foreach ($courses as $row) {
+				$courses = $zenta_operation->get_all_courses('3');
 				?>
-						<article>
-							<img src="<?= SITE_URL ?>/img/courses/<?php echo $row['course_img']; ?>" data-at2x="<?= SITE_URL ?>/img/courses/<?php echo $row['course_img']; ?>" alt>
-							<h3><?php echo $row['course_title']; ?></h3>
-							<div class="course-date">
-								<div><?php echo date('H', strtotime($row['course_date'])); ?><sup><?php echo date('i', strtotime($row['course_date'])); ?></sup></div>
-								<div><?php echo date('d M, Y', strtotime($row['course_date'])); ?></div>
-							</div>
-							<p><?php echo limit_text($row['course_overview'], 15); ?></p>
-						</article>
 				<?php
+				if (isset($courses) && !empty($courses)) {
+					$i = 0;
+					foreach ($courses as $row) {
+						if ($i < 3) {
+				?>
+							<article>
+								<img src="<?= SITE_URL ?>/img/courses/<?php echo $row['course_img']; ?>" data-at2x="<?= SITE_URL ?>/img/courses/<?php echo $row['course_img']; ?>" alt>
+								<h3><a href="course?id=<?= $row["course_id"] ?>"><?php echo $row['course_title']; ?></a></h3>
+								<div class="course-date">
+									<div><?php echo date('H', strtotime($row['course_date'])); ?><sup><?php echo date('i', strtotime($row['course_date'])); ?></sup></div>
+									<div><?php echo date('d M, Y', strtotime($row['course_date'])); ?></div>
+								</div>
+								<!-- <p><?php echo limit_text($row['course_overview'], 15); ?></p> -->
+							</article>
+				<?php
+						}
+						$i++;
 					}
 				}
 				?>

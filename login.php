@@ -1,5 +1,8 @@
 <?php
 include("xpanel/z_db.php");
+if (isset($_SESSION['client_first_name'])) {
+	redirect_to(SITE_URL . "/xpanel/index");
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])) {
 
 	// Build POST request:

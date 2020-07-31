@@ -52,7 +52,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 	<div class="grid-col grid-col-9">
 		<main>
 			<section class="clear-fix">
-				<h2>Past Applied Jobs</h2>
+				<h2>Course</h2>
 				<hr>
 				<!-- Shop -->
 				<div role="main">
@@ -68,9 +68,9 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 									<div class="picture">
 										<div class="hover-effect"></div>
 										<div class="link-cont">
-											<a href="http://placehold.it/270x200" class="fancy fa fa-search"></a>
+											<a href="course?id=<?= $row["course_id"] ?>" class="fancy fa fa-search"></a>
 										</div>
-										<img src='<?= $row["course_img"] ?>' data-at2x="http://placehold.it/270x200" alt>
+										<img src='../img/courses/<?= $row["course_img"] ?>' data-at2x="../img/courses/<?= $row["course_img"] ?>" alt>
 									</div>
 									<h3><?= limit_text($row["course_title"], 10) ?></h3>
 									<div>
@@ -117,7 +117,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 										</div>
 									</div>
 								</div>
-								<div class="grid-col-row">
+								<div class="grid-col-row" style="cursor:pointer" onclick='location="course?id=<?= $row["course_id"] ?>"'>
 									<div class="owl-carousel owl-three-item">
 										<div class="gallery-item">
 											<!-- product -->

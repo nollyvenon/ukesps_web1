@@ -1,5 +1,6 @@
 <?php
 require_once("z_db.php");
+
 if (!$session_client->is_logged_in()) {
 	redirect_to(SITE_URL . "/login.php");
 }
@@ -58,83 +59,95 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 		$rowsperpage = 20;
 	}
 
-	// $totalpages = ceil($numrows / $rowsperpage);
-	// // get the current page or set a default
-	// if (isset($_GET['pg']) && is_numeric($_GET['pg'])) {
-	//    $currentpage = (int) $_GET['pg'];
-	// } else {
-	//    $currentpage = 1;
-	// }
-	// if ($currentpage > $totalpages) { $currentpage = $totalpages; }
-	// if ($currentpage < 1) { $currentpage = 1; }
 
-	// $prespagelow = $currentpage * $rowsperpage - $rowsperpage + 1;
-	// $prespagehigh = $currentpage * $rowsperpage;
-	// if($prespagehigh > $numrows) { $prespagehigh = $numrows; }
-
-	// $offset = ($currentpage - 1) * $rowsperpage;
-	// $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
-	// $result = $db_handle->runQuery($query);
-	// $applied_jobs = $db_handle->fetchAssoc($result);
 	$courses = $db_class->fetch_courses();
 	?>
+	<div class="page-content container clear-fix">
 
-	<main>
-		<section class="clear-fix">
-			<h2>View Courses</h2>
-			<hr>
-			<div class="grid-col-row">
-				<div class="grid-col grid-col-12">
-					<main>
-						<?php
+		<div class="row">
+			<div class="col-md-3 sidebar">
+				<!-- widget search -->
 
-						if (isset($courses) && !empty($courses)) {
-							foreach ($courses as $row) {
-
-						?>
-								<!-- item -->
-								<div style="cursor:pointer" class="category-item list clear-fix" onclick='location="course?id=<?= $row["course_id"] ?>"'>
-									<div class="picture">
-										<div class="hover-effect"></div>
-										<div class="link-cont">
-											<a href="http://placehold.it/270x200" class="fancy fa fa-search"></a>
-										</div>
-										<img src='../assets/images/courses/<?= $row["course_img"] ?>' data-at2x="http://placehold.it/270x200" alt>
-									</div>
-									<h3><?= limit_text($row["course_title"], 10) ?></h3>
-									<div>
-										<div class="star-rating" title="Rated 4.00 out of 5">
-											<span style="width:100%"></span>
-										</div>
-										<div class="count-reviews">( reviews 10 )</div>
-									</div>
-									<p><?= limit_text(htmlspecialchars($row["description"]), 70) ?></p>
-									<div class="category-info">
-										<span class="price">
-											<span class="amount">
-												<b><?= $row['course_fee'] ?> $</b>
-											</span>
-
-										</span>
-										<span class="price">
-
-
-										</span>
-										<div class="count-users"><i class="fa fa-user"></i> 25 students</div>
-										<div class="course-lector">
-
-										</div>
-									</div>
-								</div>
-
-								<!-- / item -->
-						<?php  }
-						} ?>
-					</main>
-				</div>
+				<!-- widget categories -->
+				<aside class="widget-categories" style="border:1px solid red; padding:10px; border-radius:5px">
+					<h2>Navigations</h2>
+					<hr class="divider-big" />
+					<ul>
+						<li class="cat-item cat-item-1 current-cat">
+							<a href="index">My Profile<span> </span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
+							<a href="upload_biodata">Update Profile<span> </span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
+							<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
+						<!-- <li class="cat-item cat-item-1 current-cat">
+							<a href="applications">VIEW Application STATUS <span> </span></a></li> -->
+						<li class="cat-item cat-item-1 current-cat">
+							<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
+							<a href="<?= SITE_URL ?>/courses">Buy more courses<span> (14) </span></a></li>
+					</ul>
+				</aside>
 			</div>
-		</section>
-	</main>
+			<div class="col-md-8">
+				<main>
+					<section class="clear-fix">
+						<h2>View Courses</h2>
+						<hr>
+						<div class="grid-col-row">
+							<div class="grid-col grid-col-12">
+								<main>
+									<?php
+
+									if (isset($courses) && !empty($courses)) {
+										foreach ($courses as $row) {
+
+									?>
+											<!-- item -->
+											<div style="cursor:pointer" class="category-item list clear-fix" onclick='location="course?id=<?= $row["course_id"] ?>"'>
+												<div class="picture">
+													<div class="hover-effect"></div>
+													<div class="link-cont">
+														<a href="<?= SITE_URL ?>/img/courses/<?= $row["course_img"] ?>" class="fancy fa fa-search"></a>
+													</div>
+													<img src='<?= SITE_URL ?>/img/courses/<?= $row["course_img"] ?>' data-at2x="<?= SITE_URL ?>/img/courses/<?= $row["course_img"] ?>" alt>
+												</div>
+												<h3><?= limit_text($row["course_title"], 10) ?></h3>
+												<div>
+													<div class="star-rating" title="Rated 4.00 out of 5">
+														<span style="width:100%"></span>
+													</div>
+													<div class="count-reviews">( reviews 10 )</div>
+												</div>
+												<p><?= limit_text(htmlspecialchars($row["description"]), 70) ?></p>
+												<div class="category-info">
+													<span class="price">
+														<span class="amount">
+															<b><?= $row['course_fee'] ?> $</b>
+														</span>
+
+													</span>
+													<span class="price">
+
+
+													</span>
+													<div class="count-users"><i class="fa fa-user"></i> 25 students</div>
+													<div class="course-lector">
+
+													</div>
+												</div>
+											</div>
+
+											<!-- / item -->
+									<?php  }
+									} ?>
+								</main>
+							</div>
+						</div>
+					</section>
+				</main>
+			</div>
+		</div>
+	</div>
 	<?php include("footer.php") ?>
 	<script src="../js/jquery.min.js"></script>
 	<script type='text/javascript' src='../js/jquery.validate.min.js'></script>

@@ -1,6 +1,6 @@
 <?php
 require_once("z_db.php");
-require_once("db_class.php");
+
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 if (!$session_client->is_logged_in()) {
@@ -62,7 +62,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 				<!-- widget search -->
 
 				<!-- widget categories -->
-				<aside class="widget-categories" style="boder:1px solid red;">
+				<aside class="widget-categories" style="border:1px solid red; padding:10px; border-radius:5px">
 					<h2>Navigations</h2>
 					<hr class="divider-big" />
 					<ul>
@@ -72,27 +72,19 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 							<a href="upload_biodata">Update Profile<span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="applications">VIEW Application STATUS <span> </span></a></li> -->
+
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="<?= SITE_URL ?>/courses">Buy more courses<span> (14) </span></a></li>
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="job_prefs">My job Preference <span></span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li> -->
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="upload_cv">Upload Cv(Resume) <span> </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="view_cv">View Resume <span> </span></a></li> -->
+
 					</ul>
 				</aside>
 			</div>
 			<div class="col-md-8">
 				<main>
 					<section class="clear-fix">
-						<h2>Courses</h2>
+						<h2>Course</h2>
 						<hr style="margin-bottom:5px;" />
 						<!-- Shop -->
 						<div role="main">
@@ -105,13 +97,13 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 
 								?>
 										<!-- item -->
-										<div style="cursor:pointer;margin-bottom:5px;" class="category-item list clear-fix" onclick='location="course?id=<?= $row["course_id"] ?>"'>
+										<div style="cursor:pointer;margin-bottom:5px;" class="category-item list clear-fix">
 											<div class="picture">
 												<div class="hover-effect"></div>
 												<div class="link-cont">
-													<a href="http://placehold.it/270x200" class="fancy fa fa-search"></a>
+													<a href="<?= SITE_URL ?>/img/courses/<?= $row["course_img"] ?>" class="fancy fa fa-search"></a>
 												</div>
-												<img src='../assets/images/courses/<?= $row["course_img"] ?>' data-at2x="http://placehold.it/270x200" alt>
+												<img src='<?= SITE_URL ?>/img/courses/<?= $row["course_img"] ?>' data-at2x="<?= SITE_URL ?>/img/courses/<?= $row["course_img"] ?>" alt>
 											</div>
 											<h3><?= $row["course_title"] ?></h3>
 											<div>
@@ -173,16 +165,16 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 															<!-- product -->
 															<div class="product new">
 																<div class="picture">
-																	<img src='../assets/images/courses/<?php echo $row["course_img"] ?>' data-at2x="http://placehold.it/270x200" alt="">
+																	<img src='<?= SITE_URL ?>/img/courses/<?php echo $row["course_img"] ?>' data-at2x="<?= SITE_URL ?>/img/courses/<?php echo $row["course_img"] ?>" alt="">
 																	<span class="hover-effect"></span>
 																	<div class="link-cont">
-																		<a href="http://placehold.it/270x200" class="cws-right fancy cws-slide-left "><i class="fa fa-search"></i></a>
-																		<a href="shop-single-product.html" class=" cws-left cws-slide-right"><i class="fa fa-link"></i></a>
+																		<a href="course?id=<?= $row["course_id"] ?>" class="cws-right fancy cws-slide-left "><i class="fa fa-search"></i></a>
+																		<a href="course?id=<?= $row["course_id"] ?>" class=" cws-left cws-slide-right"><i class="fa fa-link"></i></a>
 																	</div>
 
 																</div>
 																<div class="product-name">
-																	<a href="shop-single-product.html"><?php echo substr($row["course_title"], 0, 40) . '....' ?></a>
+																	<a href="course?id=<?= $row["course_id"] ?>"><?php echo substr($row["course_title"], 0, 40) . '....' ?></a>
 																</div>
 																<div class="star-rating" title="Rated 5.00 out of 5">
 																	<span style="width:80%"><strong class="rating">4.00</strong> out of 5</span>
