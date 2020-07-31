@@ -83,19 +83,19 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
             <hr>
             <div class="grid-col-row">
               <div class="grid-col grid-col-12">
-                <p>Don't have a resume? Fill this form below and get your resume designed to suit the job you're applying for</p>
                 <form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
                   <?php require_once '../layouts/feedback_message.php'; ?>
+                  <h2>Tetiary Education</h2>
                   <div class="row mb-20">
                     <div class="col-md-12">
-                      <label for="full_name" class="control-label">Full Name</label>
-                      <input type="text" class="form-control" id="full_name" name="full_name" value="">
+                      <label for="tertiary_education" class="control-label">School Name</label>
+                      <input type="text" class="form-control" id="tertiary_education" name="tertiary_education" value="">
                     </div>
                   </div>
                   <div class="row mb-20">
                     <div class="col-md-12">
-                      <label for=" address" class="control-label">Address</label>
-                      <input type="text" class="form-control" id="address" name="address" value="">
+                      <label for=" qualification" class="control-label">Qualification</label>
+                      <input type="text" class="form-control" id="qualification" name="qualification" value="">
                     </div>
                     <div class="col-md-12">
                       <label for="plan_discount" class="control-label">Email</label>
