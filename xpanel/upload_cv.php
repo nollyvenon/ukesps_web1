@@ -1,7 +1,7 @@
 <?php
 require_once("z_db.php");
 if (!$session_client->is_logged_in()) {
-  redirect_to("<?= SITE_URL ?>/login.php");
+  redirect_to(SITE_URL . "/login.php");
 }
 error_reporting(-1);
 $firstname = $zenta_operation->get_user_by_code($user_code)['first_name'];
@@ -55,7 +55,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
         <!-- widget search -->
 
         <!-- widget categories -->
-        <aside class="widget-categories" style="boder:1px solid red;">
+        <aside class="widget-categories" style="border:1px solid red; border-radius:5px; padding:10px">
           <h2>Navigations</h2>
           <hr class="divider-big" />
           <ul>

@@ -23,7 +23,7 @@ defined('DB_PASS')   ? null : define("DB_PASS", "");
 defined('DB_NAME')   ? null : define("DB_NAME", "ukesps");
 
 defined('DS') ? NULL : define('DS', DIRECTORY_SEPARATOR);
-defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'E:\xampp72\htdocs\ukesps_web');
+defined('SITE_ROOT') ? NULL : define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . '/ukesps_web');
 defined('LIB_PATH') ? NULL : define('LIB_PATH', SITE_ROOT . DS . 'includes');
 defined('SITE_URL') ? NULL : define('SITE_URL', "http://localhost/ukesps_web");
 

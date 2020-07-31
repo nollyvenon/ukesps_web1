@@ -1,7 +1,7 @@
 <?php
 require_once("z_db.php");
 if (!$session_client->is_logged_in()) {
-	redirect_to("<?= SITE_URL ?>/login.php");
+	redirect_to(SITE_URL . "/login.php");
 }
 error_reporting(-1);
 $firstname = $zenta_operation->get_user_by_code($user_code)['first_name'];
@@ -65,18 +65,20 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 							<a href="upload_biodata">Update Profile<span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="applications">VIEW Application STATUS <span> </span></a></li>
+						<!-- <li class="cat-item cat-item-1 current-cat">
+							<a href="applications">VIEW Application STATUS <span> </span></a></li> -->
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="last_view_courses">Last viewed courses<span> (14) </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
+							<a href="<?= SITE_URL ?>/courses">Buy more courses<span> (14) </span></a></li>
+						<!-- <li class="cat-item cat-item-1 current-cat">
 							<a href="job_prefs">My job Preference <span></span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
-							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
+							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li> -->
+						<!-- <li class="cat-item cat-item-1 current-cat">
 							<a href="upload_cv">Upload Cv(Resume) <span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
-							<a href="view_cv">View Resume <span> </span></a></li>
+							<a href="view_cv">View Resume <span> </span></a></li> -->
 					</ul>
 				</aside>
 			</div>

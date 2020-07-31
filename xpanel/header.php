@@ -9,8 +9,7 @@
 			</address>
 			<div class="header-top-panel">
 				<a href="<?= SITE_URL ?>/cart" class="fa fa-shopping-cart"><sup></sup></a>
-				<a href="<?= SITE_URL ?>/login" class="fa fa-user login-icon"></a>
-
+				<a href="logout" class="fa fa-user login-icon"></a>
 				<div id="top_social_links_wrapper">
 					<div class="share-toggle-button"><i class="share-icon fa fa-share-alt"></i></div>
 					<div class="cws_social_links"><a href="<?= SITE_URL ?>/https://plus.google.com/" class="cws_social_link" title="Google +"><i class="share-icon fa fa-google-plus" style="transform: matrix(0, 0, 0, 0, 0, 0);"></i></a><a href="<?= SITE_URL ?>/http://twitter.com/" class="cws_social_link" title="Twitter"><i class="share-icon fa fa-twitter"></i></a><a href="<?= SITE_URL ?>/http://facebook.com" class="cws_social_link" title="Facebook"><i class="share-icon fa fa-facebook"></i></a><a href="<?= SITE_URL ?>/http://dribbble.com" class="cws_social_link" title="Dribbble"><i class="share-icon fa fa-dribbble"></i></a></div>
