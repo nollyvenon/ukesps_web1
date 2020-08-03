@@ -3,12 +3,14 @@ include_once("z_db.php");
 if (!$session_recruiter->is_logged_in()) {
 	redirect_to("login");
 }
-if (!$recruit_object->is_active_paid($recruiter_code) || !$session_recruiter->is_logged_in()) {
-	redirect_to("cv_search_plans");
-}
+// if (!$recruit_object->is_active_paid($recruiter_code) || !$session_recruiter->is_logged_in()) {
+// 	redirect_to("cv_search_plans");
+// }
 $rec_plan = $recruit_object->get_recruiting_cv_plans();
 $_SESSION['payment_category'] = '2'; //cv search
-if ($_POST['search2']) {
+if (isset($_POST['search2'])) {
+	// var_dump($_POST);
+	// die();
 	$search_text = encrypt($_POST['search_text']);
 	$search_town = encrypt($_POST['search_town']);
 	$minsalary = encrypt($_POST['minsalary']);
@@ -20,6 +22,11 @@ if ($_POST['search2']) {
 	$skill_name = encrypt($_POST['skill_name']);
 	$build_query = "search_text=$search_text&search_town=$search_town&minsalary=$minsalary&maxsalary=$maxsalary&sector_name=$sector_name&sl_name=$sl_name&jobexperience_name=$jobexperience_name&joblevel_name=joblevel_name&skill_name=$skill_name";
 	redirect_to("cv_search_result?$build_query");
+} else if (isset($_POST['search1'])) {
+	// var_dump($_POST);
+	// die();
+	$search_text = encrypt($_POST['search_text']);
+	$search_town = encrypt($_POST['search_town']);
 }
 ?>
 <!DOCTYPE HTML>
@@ -80,7 +87,6 @@ if ($_POST['search2']) {
 						<div class="col-sm-3">
 							<input type="text" class="form-control-plaintext" id="maxsalary" name="maxsalary" value="" placeholder="£">
 						</div>
-
 					</div>
 					<div class="form-group row">
 						<label for="inputPassword" class="col-sm-2 col-form-label">Sectors</label>

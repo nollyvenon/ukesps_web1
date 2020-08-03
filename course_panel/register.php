@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             $message_error .= "First Name is compulsory";
         }
 
-
         if ($db_handle->numRows("SELECT username FROM course_providers WHERE email = '$email' OR username = '$account_username'") > 0) {
             $message_error .= "Username/Email already exists in our database.";
             goto exitpoint;
