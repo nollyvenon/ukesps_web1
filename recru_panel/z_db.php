@@ -44,6 +44,7 @@ require_once(LIB_PATH . DS . "class_recruiter.php");
 require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_system.php");
 require_once(LIB_PATH . DS . "class_payment.php");
+require_once(LIB_PATH . DS . "functions_status_messages.php");
 
 
 $recruit_object = new RecruitUser();

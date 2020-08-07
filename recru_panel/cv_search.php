@@ -9,24 +9,22 @@ if (!$session_recruiter->is_logged_in()) {
 $rec_plan = $recruit_object->get_recruiting_cv_plans();
 $_SESSION['payment_category'] = '2'; //cv search
 if (isset($_POST['search2'])) {
-	// var_dump($_POST);
-	// die();
 	$search_text = encrypt($_POST['search_text']);
 	$search_town = encrypt($_POST['search_town']);
 	$minsalary = encrypt($_POST['minsalary']);
 	$maxsalary = encrypt($_POST['maxsalary']);
-	$sector_name = encrypt($_POST['sector_name']);
-	$sl_name = encrypt($_POST['sl_name']);
-	$jobexperience_name = encrypt($_POST['jobexperience_name']);
-	$joblevel_name = encrypt($_POST['joblevel_name']);
-	$skill_name = encrypt($_POST['skill_name']);
+	$sector_name = encrypt(implode(',', $_POST['sector_name']));
+	$sl_name = encrypt(implode(',', $_POST['sl_name']));
+	$jobexperience_name = encrypt(implode(',', $_POST['jobexperience_name']));
+	$joblevel_name = encrypt(implode(',', $_POST['joblevel_name']));
+	$skill_name = encrypt(implode(',', $_POST['skill_name']));
 	$build_query = "search_text=$search_text&search_town=$search_town&minsalary=$minsalary&maxsalary=$maxsalary&sector_name=$sector_name&sl_name=$sl_name&jobexperience_name=$jobexperience_name&joblevel_name=joblevel_name&skill_name=$skill_name";
 	redirect_to("cv_search_result?$build_query");
 } else if (isset($_POST['search1'])) {
-	// var_dump($_POST);
-	// die();
 	$search_text = encrypt($_POST['search_text']);
 	$search_town = encrypt($_POST['search_town']);
+	$build_query = "search_text=$search_text&search_town=$search_town";
+	redirect_to("cv_search_result?$build_query");
 }
 ?>
 <!DOCTYPE HTML>
@@ -66,9 +64,9 @@ if (isset($_POST['search2'])) {
 						<i class="fa fa-search"></i>
 						<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
 							&nbsp;What
-							<input name="search_text" type="text" size="10" class="input-text" value placeholder="e.g software developer">
+							<input name="search_text" type="text" oninput="document.getElementById('search_text').value = value" size="10" class="input-text" value placeholder="e.g software developer">
 							Where
-							<input name="search_town" type="text" style="width: 30%;" size="10" value="" value placeholder="town or postcode">
+							<input name="search_town" type="text" oninput="document.getElementById('search_town').value = value" style="width: 30%;" size="10" value="" value placeholder="town or postcode">
 							<button name="search1" type="submit" class="cws-button smaller border-radius alt">Search</button>
 						</form>
 					</div>
@@ -76,6 +74,8 @@ if (isset($_POST['search2'])) {
 					<!-- / search -->
 				</div>
 				<form action="" method="post" class="form-horizontal">
+					<input name="search_text" type="hidden" id="search_text">
+					<input name="search_town" type="hidden" id="search_town">
 					<div class="form-group row mt-3">
 						<label for="staticEmail" class="col-sm-2 col-form-label">Salary</label>
 						<div class="col-sm-3">
@@ -106,8 +106,8 @@ if (isset($_POST['search2'])) {
 									$sector_name = $row['sector_name'];
 									$cat_info .= "<div style=\"height:50px;\" class=\"columns-col columns-col-2 \">
 								<div class=\"checkbox\">
-                                  <input type=\"checkbox\" id=\"$sector_id\" name=\"sector_name[]\" value=\"$sector_id\" >
-                                  <label for=\"sector_id\"></label>
+                                  <input type=\"checkbox\" id=\"sector_id$sector_id\" name=\"sector_name[]\" value=\"$sector_id\" >
+                                  <label for=\"sector_id$sector_id\"></label>
                                 </div>
 								$sector_name
 							</div>";

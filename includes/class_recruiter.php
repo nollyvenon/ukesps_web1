@@ -801,12 +801,12 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $con = (!empty($application_title) && ($application_title != 'NULL')) ? " WHERE appl.application_title LIKE '%{$application_title}%' " : "";
-        if (!empty($con)) {
-            $con .= !empty($search_town) ? " OR jlo.location_name = '$search_town' " : "";
-        } else {
-            $con .= !empty($search_town) && ($search_town != 'NULL') ? " WHERE (jlo.location_name = '$search_town' OR jlo.location_id = '$search_town') " : "";
-        }
+        $con = (!empty($application_title) && $application_title != 'NULL') ? "WHERE appl.application_title LIKE '%{$application_title}%' " : "";
+        // if (!empty($con)) {
+        //     $con .= !empty($search_town) ? " OR jlo.location_name = '$search_town' " : "";
+        // } else {
+        //     $con .= !empty($search_town) && ($search_town != 'NULL') ? "WHERE (jlo.location_name = '$search_town' OR jlo.location_id = '$search_town') " : "";
+        // }
         if (!empty($con)) {
             if (!empty($minsalary) && !empty($maxsalary)) {
                 $con .= " OR appl.desired_salary BETWEEN '$minsalary' AND '$maxsalary' ";
@@ -824,30 +824,35 @@ www.ukesps.com";
                 $con .= " WHERE appl.desired_salary < '$maxsalary' ";
             }
         }
+        $sect_name = explode(",", $sector_name);
+        $studyl_name = explode(",", $studylevel_name);
+        $jobex_name = explode(",", $jobexperience_name);
+        $joblev_name = explode(",", $joblevel_name);
+        $skl_name = explode(",", $skill_name);
         if (!empty($con)) {
-            $con .= !empty($sector_name) ? " OR jbset.sector_id = '$sector_name' " : "";
+            $con .= !empty($sector_name) ? " OR jbset.sector_id = '$sect_name[0]' " : "";
         } else {
-            $con .= !empty($sector_name) && ($sector_name != 'NULL') ? " WHERE jbset.sector_id = '$sector_name' " : "";
+            $con .= !empty($sector_name) && ($sector_name != 'NULL') ? " WHERE jbset.sector_id = '$sect_name[0]' " : "";
         }
         if (!empty($con)) {
-            $con .= !empty($studylevel_name) ? " OR stulvl.sl_id = '$studylevel_name' " : "";
+            $con .= !empty($studylevel_name) ? " OR stulvl.sl_id = '$studyl_name[0]' " : "";
         } else {
-            $con .= !empty($studylevel_name) && ($studylevel_name != 'NULL') ? " WHERE stulvl.sl_id = '$studylevel_name' " : "";
+            $con .= !empty($studylevel_name) && ($studylevel_name != 'NULL') ? " WHERE stulvl.sl_id = '$studyl_name[0]' " : "";
         }
         if (!empty($con)) {
-            $con .= !empty($jobexperience_name) ? " OR jb_exper.jobexperience_id = '$jobexperience_name' " : "";
+            $con .= !empty($jobexperience_name) ? " OR jb_exper.jobexperience_id = '$jobex_name[0]' " : "";
         } else {
-            $con .= !empty($jobexperience_name) && ($jobexperience_name != 'NULL') ? " WHERE jb_exper.jobexperience_id = '$jobexperience_name' " : "";
+            $con .= !empty($jobexperience_name) && ($jobexperience_name != 'NULL') ? " WHERE jb_exper.jobexperience_id = '$jobex_name[0]' " : "";
         }
         if (!empty($con)) {
-            $con .= !empty($joblevel_name) ? " OR joblvl.joblevel_id = '$joblevel_name' " : "";
+            $con .= !empty($joblevel_name) ? " OR joblvl.joblevel_id = '$joblev_name[0]' " : "";
         } else {
-            $con .= !empty($joblevel_name) && ($joblevel_name != 'NULL') ? " WHERE joblvl.joblevel_id = '$joblevel_name' " : "";
+            $con .= !empty($joblevel_name) && ($joblevel_name != 'NULL') ? " WHERE joblvl.joblevel_id = '$joblev_name[0]' " : "";
         }
         if (!empty($con)) {
-            $con .= !empty($skill_name) ? " OR jobsk.skill_id = 'skill_name' " : "";
+            $con .= !empty($skill_name) ? " OR jobsk.skill_id = '$skl_name[0]' " : "";
         } else {
-            $con .= !empty($skill_name) && ($skill_name != 'NULL') ? " WHERE jobsk.skill_id = '$skill_name' " : "";
+            $con .= !empty($skill_name) && ($skill_name != 'NULL') ? " WHERE jobsk.skill_id = '$skl_name[0]' " : "";
         }
 
 
@@ -856,24 +861,35 @@ www.ukesps.com";
         } else {
             $con .= "ORDER BY appl.appl_id DESC";
         }
-        $query = "SELECT appl.*, appl.status AS appl_status, us.recruiter_code, us.last_name As last_name, us.first_name AS first_name, us.email AS appl_email, jbs.job_title, jobc.category_name AS category_name, jobsc.category_name AS sub_category_name, co.country_name AS appl_country FROM applications appl 
-		INNER JOIN applicant_details appl_det ON appl_det.applicant_code=appl.applicant_code 
-		INNER JOIN job_locations jlo ON us.location=jlo.location_id 
-		INNER JOIN countries co ON us.country=co.country_id 
-		INNER JOIN jobs jbs ON appl.job_id=jbs.jobs_id 
-		INNER JOIN job_sectors jbset ON appl.job_sector=jbset.sector_id 
-		INNER JOIN study_levels stulvl ON appl_det.highest_study_level=stulvl.sl_id 
-		INNER JOIN job_experience jb_exper ON appl_det.years_of_experience=jb_exper.jobexperience_id 
-		INNER JOIN job_levels joblvl ON appl_det.current_work_experience_level_1=joblvl.joblevel_id
-		INNER JOIN job_skills jobsk ON appl_det.skills=jobsk.skill_id
-		INNER JOIN users us ON appl.applicant_code=us.recruiter_code
-		INNER JOIN job_categories jobc ON jobc.category_id=jbs.job_category
-		INNER JOIN job_sub_categories jobsc ON jobsc.subcat_id=jbs.job_subcategory $con";
+
+        // $query = "SELECT appl.* FROM applications appl WHERE application_title='$application_title'";
+
+        $query = "SELECT appl.*, us.user_code, us.last_name, us.first_name, us.email AS appl_email, appl.status AS appl_status
+        --  appl.status AS appl_status, us.user_code, us.last_name AS last_name, us.first_name AS first_name, us.email AS appl_email, jbs.job_title, jobc.category_name AS category_name, jobsc.category_name AS sub_category_name, co.country_name AS appl_country
+          FROM applications appl 
+           INNER JOIN users us ON appl.applicant_code=us.user_code
+        INNER JOIN applicant_details appl_det ON appl_det.applicant_code=appl.applicant_code 
+        -- INNER JOIN job_locations jlo ON us.location=jlo.location_id 
+        -- INNER JOIN countries co ON us.country=co.country_id 
+        -- INNER JOIN jobs jbs ON appl.job_id=jbs.jobs_id 
+        INNER JOIN job_sectors jbset ON appl.job_sector=jbset.sector_id 
+        INNER JOIN study_levels stulvl ON appl_det.highest_study_level=stulvl.sl_id 
+        INNER JOIN job_experience jb_exper ON appl_det.years_of_experience=jb_exper.jobexperience_id 
+        INNER JOIN job_levels joblvl ON appl_det.current_work_experience_level_1=joblvl.joblevel_id
+        INNER JOIN job_skills jobsk ON appl_det.skills=jobsk.skill_id
+       
+        -- INNER JOIN job_categories jobc ON jobc.category_id=jbs.job_category
+        -- INNER JOIN job_sub_categories jobsc ON jobsc.subcat_id=jbs.job_subcategory
+        $con";
 
         $result = $db_handle->runQuery($query);
         $content = $db_handle->fetchAssoc($result);
-
-        return $content;
+        // return $con;
+        if ($content != NULL) {
+            return $content;
+        } else {
+            return "0";
+        }
     }
 
     public function update_cart_with_recruiter_code($recruiter_code, $unique = NULL, $payment_category = NULL)
