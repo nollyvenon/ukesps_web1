@@ -167,7 +167,7 @@ if (!$session_jobseek->is_logged_in()) {
 				<!-- widget search -->
 
 				<!-- widget categories -->
-				<aside class="widget-categories" style="boder:1px solid red;">
+				<aside class="widget-categories" style="border:1px solid red; padding:10px; border-radius:5px">
 					<h2>Navigations</h2>
 					<hr class="divider-big" />
 					<ul>
@@ -181,8 +181,8 @@ if (!$session_jobseek->is_logged_in()) {
 							<a href="last_view_jobs">Last viewed Jobs<span> (14) </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="job_prefs">My job Preference <span></span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="upload_cv">Upload CV <span></span></a></li>
+						<!-- <li class="cat-item cat-item-1 current-cat">
+							<a href="upload_cv">Upload CV <span></span></a></li> -->
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
 						<!-- <li class="cat-item cat-item-1 current-cat">
