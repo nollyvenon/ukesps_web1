@@ -3,21 +3,89 @@ require_once("z_db.php");
 if (!$session_jobseek->is_logged_in()) {
 	redirect_to("login");
 }
-$details = $client_operation->applicant_detail($jobseek_code);
+$details = $jobsk_operation->applicant_detail($jobseek_code);
 extract($details);
 
 if ($_POST['submit']) {
-	$uploaddir = "../img/cover_letters/";
-	$cover_letter = basename($_FILES['cover_letter']['name']);
-	$cover_letter1 = $uploaddir . basename($cover_letter);
-	move_uploaded_file($_FILES['cover_letter']['tmp_name'], $cover_letter1);
 
-	$uploaddir = "../img/resumes/";
-	$cover_letter = basename($_FILES['resume']['name']);
-	$resume1 = $uploaddir . basename($resume);
-	move_uploaded_file($_FILES['resume']['tmp_name'], $resume1);
+	if (isset($_FILES)) {
 
-	$biodata = $client_operation->upload_cv($applicant_code, $resume, $cover_letter);
+		if ($_FILES["resume"]["name"] != NULL) {
+			$allowedExts = array("pdf");
+			$temp = explode(".", $_FILES["resume"]["name"]);
+			$details["serial_number"] = substr(sha1(time()), 0, 7);
+			$resume = $jobseek_code . $details['serial_number'] . '.' . end($temp);
+			$extension = end($temp);
+			switch ($_FILES['resume']['error']) {
+				case UPLOAD_ERR_OK:
+					break;
+				case UPLOAD_ERR_NO_FILE:
+					$message_error = "Resume upload wasn't successful.";
+				default:
+					$message_error = "Resume upload wasn't successful.";
+			}
+			// You should also check filesize here. 
+			if ($_FILES['resume']['size'] > 8107795) {
+				$message_error = "Resume file too large";
+			}
+
+			$finfo = new finfo(FILEINFO_MIME_TYPE);
+			if (false === $ext = array_search(
+				$finfo->file($_FILES['resume']['tmp_name']),
+				array(
+					'pdf' => 'application/pdf'
+				),
+				true
+			)) {
+				$message_error = "Please upload a valid pdf file";
+			}
+			$file =	move_uploaded_file($_FILES["resume"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $resume);
+		}
+		if ($_FILES["cover_letter"]["name"] != NULL) {
+			$allowedExts = array("pdf");
+			$temp = explode(".", $_FILES["cover_letter"]["name"]);
+			$details["serial_number"] = substr(sha1(time()), 0, 7);
+			$cover_letter = $jobseek_code . $details['serial_number'] . '2.' . end($temp);
+			$extension = end($temp);
+			switch ($_FILES['cover_letter']['error']) {
+				case UPLOAD_ERR_OK:
+					break;
+				case UPLOAD_ERR_NO_FILE:
+					$message_error = "cover_letter upload wasn't successful.";
+				default:
+					$message_error = "cover_letter upload wasn't successful.";
+			}
+			// You should also check filesize here. 
+			if ($_FILES['cover_letter']['size'] > 8107795) {
+				$message_error = "cover_letter file too large";
+			}
+
+			$finfo = new finfo(FILEINFO_MIME_TYPE);
+			if (false === $ext = array_search(
+				$finfo->file($_FILES['cover_letter']['tmp_name']),
+				array(
+					'pdf' => 'application/pdf'
+				),
+				true
+			)) {
+				$message_error = "Please upload a valid pdf file";
+			}
+			$file =	move_uploaded_file($_FILES["cover_letter"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $cover_letter);
+		}
+	}
+
+
+	// $uploaddir = "../img/cover_letters/";
+	// $cover_letter = basename($_FILES['cover_letter']['name']);
+	// $cover_letter1 = $uploaddir . basename($cover_letter);
+	// move_uploaded_file($_FILES['cover_letter']['tmp_name'], $cover_letter1);
+
+	// $uploaddir = "../img/resumes/";
+	// $cover_letter = basename($_FILES['resume']['name']);
+	// $resume1 = $uploaddir . basename($resume);
+	// move_uploaded_file($_FILES['resume']['tmp_name'], $resume1);
+
+	$biodata = $jobsk_operation->upload_cv($jobseek_code, $resume, $cover_letter);
 	if ($biodata) {
 		$message_success = "CV Upload was successful.";
 	} else {
@@ -71,6 +139,8 @@ if ($_POST['submit']) {
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="index">My Profile<span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
+							<a href="upload_cv">Upload CV <span></span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
 							<a href="upload_biodata">Update Profile<span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="applications">VIEW Application STATUS <span> </span></a></li>
@@ -78,8 +148,7 @@ if ($_POST['submit']) {
 							<a href="last_view_jobs">Last viewed Jobs<span> (14) </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="job_prefs">My job Preference <span></span></a></li>
-						<li class="cat-item cat-item-1 current-cat">
-							<a href="upload_cv">Upload CV <span></span></a></li>
+
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
 						<!-- <li class="cat-item cat-item-1 current-cat">
@@ -96,25 +165,25 @@ if ($_POST['submit']) {
 						<div class="grid-col-row">
 							<div class="grid-col grid-col-11">
 								<div class="row">
-
 									<?php include_once("../layouts/feedback_message.php"); ?>
 									<div class="col-md-12">
 										<h5>Dear <?= $first_name . ' ' . $last_name; ?></h5>
 									</div>
-
 									<form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
 										<div class="row mb-3">
-											<div class="col-md-8">Resume <input type="file" name="resume" id="resume" class="form-control"></div>
+											<div class="col-md-8">Resume <input type="file" name="resume" id="resume" class="form-control">
+												<a href="docsxxx/<?= $details[0]['resume']; ?>">Your current CV</a></div>
 										</div>
 										<div class="row mb-2">
-											<div class="col-md-8">Cover Letter <input type="file" name="cover_letter" id="cover_letter" class="form-control"></div>
+											<div class="col-md-8">Cover Letter <input type="file" name="cover_letter" id="cover_letter" class="form-control">
+												<a href="docsxxx/<?= $details[0]['cover_letter']; ?>">Your current cover Letter</a></div>
 										</div>
 										<input class="cws-button border-radius alt" name="submit" type="submit" id="submit" value="Upload">
 
 									</form>
 								</div>
 								<hr>
-								<div class="grid-col-row">
+								<!-- <div class="grid-col-row">
 									<div class="grid-col grid-col-12">
 										<p>Don't have a resume? Fill this form below and get your resume designed to suit the job you're applying for</p>
 										<form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
@@ -161,7 +230,7 @@ if ($_POST['submit']) {
 											</div>
 										</form>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</section>

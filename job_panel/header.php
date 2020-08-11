@@ -174,6 +174,8 @@ if (!$session_jobseek->is_logged_in()) {
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="index">My Profile<span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
+							<a href="upload_cv">Upload CV <span></span></a></li>
+						<li class="cat-item cat-item-1 current-cat">
 							<a href="upload_biodata">Update Profile<span> </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="applications">VIEW Application STATUS <span> </span></a></li>
@@ -181,8 +183,7 @@ if (!$session_jobseek->is_logged_in()) {
 							<a href="last_view_jobs">Last viewed Jobs<span> (14) </span></a></li>
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="job_prefs">My job Preference <span></span></a></li>
-						<!-- <li class="cat-item cat-item-1 current-cat">
-							<a href="upload_cv">Upload CV <span></span></a></li> -->
+
 						<li class="cat-item cat-item-1 current-cat">
 							<a href="past_applied_jobs">VIEW Past Applied Jobs<span> (11) </span></a></li>
 						<!-- <li class="cat-item cat-item-1 current-cat">

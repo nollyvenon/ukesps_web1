@@ -3,9 +3,9 @@ include_once("z_db.php");
 if (!$session_recruiter->is_logged_in()) {
 	redirect_to("login");
 }
-// if (!$recruit_object->is_active_paid($recruiter_code) || !$session_recruiter->is_logged_in()) {
-// 	redirect_to("cv_search_plans");
-// }
+if (!$recruit_object->is_active_paid($recruiter_code) || !$session_recruiter->is_logged_in()) {
+	redirect_to("cv_search_plans");
+}
 $rec_plan = $recruit_object->get_recruiting_cv_plans();
 $_SESSION['payment_category'] = '2'; //cv search
 if (isset($_POST['search2'])) {

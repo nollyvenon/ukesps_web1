@@ -105,19 +105,16 @@ $content = $db_handle->fetchAssoc($result);
         </tbody>
     </table>
     <!-- pagination -->
-    <div class="page-pagination clear-fix">
+    <!-- <div class="page-pagination clear-fix">
         <?php $pg = intval($_GET['pg']);
         if ($pg > 1) { ?>
             <a href="?pg=<?= $pg - 1; ?>"><i class="fa fa-angle-double-left"></i></a>
             <a href="?pg=<?= $pg; ?>" class="active"><?= $pg; ?></a>
         <?php } ?>
-        <!-- 
-                                    --><a href="?pg=<?= $pg + 1; ?>"><?= $pg + 1; ?></a>
-        <!-- 
-                                    --><a href="?pg=<?= $pg + 2; ?>"><?= $pg + 2; ?></a>
-        <!-- 
-                                    --><a href="?pg=<?= $pg + 3; ?>"><i class="fa fa-angle-double-right"></i></a>
-    </div>
+       <a href="?pg=<?= $pg + 1; ?>"><?= $pg + 1; ?></a>
+        <a href="?pg=<?= $pg + 2; ?>"><?= $pg + 2; ?></a>
+       <a href="?pg=<?= $pg + 3; ?>"><i class="fa fa-angle-double-right"></i></a>
+    </div> -->
     <!-- / pagination -->
 <?php } else {
     echo "<tr><td colspan='5' class='text-danger'><em>No results to display</em></td></tr>";
