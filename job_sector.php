@@ -12,10 +12,10 @@ if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 } else {
 	$query = "SELECT jbv.*, jbc.sector_id, jbc.sector_name, jbl.location_name FROM jobs jbv
         INNER JOIN job_sectors jbc ON jbv.job_sector=jbc.sector_id
- 		INNER JOIN job_locations jbl ON jbv.job_location=jbl.location_id
-       WHERE (jbc.sector_id='$sector_id' OR jbc.sector_name='$sector_id') order by jbv.jobs_id DESC ";
+	INNER JOIN job_locations jbl ON jbv.job_location=jbl.location_id	
+       WHERE (jbv.job_sector='$sector_id') order by jbv.jobs_id DESC ";
 }
-$numrows = $db_handle->numRows($query);
+echo $numrows = $db_handle->numRows($query);
 
 // For search, make rows per page equal total rows found, meaning, no pagination
 // for search results
