@@ -1546,12 +1546,12 @@ $headers = implode("\r\n", $headers);*/
                 $cat_info .= "<div class=\"pb-sm-4 grid-col grid-col-4 job-sector\">
 									<div class=\"course-item\">
 										<div class=\"jobcompany_div\">
-											<a href=\"job_company?seid=$company_id\">
+											<a href=\"job_company?sid=$company_id\">
                                                 <img class=\"jobcompany_img\" src=\"img/job_companies/$company_img\" data-at2x=\"img/job_companies/$company_img\" alt>
 											</a>
 										</div>
 										<div class=\"course-name clear-fix\">
-											<h3><a href=\"job_company?seid=$company_id\">Jobs at $company_name</a></h3>
+											<h3><a href=\"job_company?sid=$company_id\">Jobs at $company_name</a></h3>
 										</div>
 									</div>
 								</div>";
@@ -1589,7 +1589,7 @@ $headers = implode("\r\n", $headers);*/
 									<div class=\"course-item \">
 										<div class=\"box4image \">
                                             <div class=\"text\">
-                                                <h5><a href=\"job_sector?seid=$sector_id\">$sector_name jobs</a></h5>
+                                                <h5><a href=\"job_sector?sid=$sector_id\">$sector_name jobs</a></h5>
                                             </div>
                                             <div class=\"middle_hover\">
                                                 <div class=\"text_hover\"></div>
@@ -1674,7 +1674,7 @@ $headers = implode("\r\n", $headers);*/
 									<div class=\"course-item \">
 										<div class=\"box4image \">
                                             <div class=\"text\">
-                                                <h5><a href=\"job_location?seid=$location_id\">Jobs in $location_name</a></h5>
+                                                <h5><a href=\"job_location?sid=$location_id\">Jobs in $location_name</a></h5>
                                             </div>
                                             <div class=\"middle_hover\">
                                                 <div class=\"text_hover\"></div>
@@ -1720,7 +1720,7 @@ $headers = implode("\r\n", $headers);*/
                 $location_id = $row['location_id'];
                 $location_name = $row['location_name'];
                 $cat_info .= "<div class=\"pt-sm-1  course-item\">
-								<div class=\"content-title\"><a href=\"job_location?seid=$location_id\">Jobs in $location_name</a></div> 
+								<div class=\"content-title\"><a href=\"job_location?sid=$location_id\">Jobs in $location_name</a></div> 
 							</div>";
                 if ($cat_count % 3 == 2 && $cat_count != $num_Cat) {
                     $cat_info .= "</div><div class=\"grid-col grid-col-3\">";
