@@ -13,8 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 
     // Take action based on the score returned:
     if ($recaptcha->score >= 0.5) {
+
         // valid submission
         // go ahead and do necessary stuff
+        $company_name = $_POST['company_name'];
+        $company_info = $_POST['company_info'];
+        // $company_img = "no image";
         $account_username = $_POST['account_username'];
         $account_password = $_POST['account_password'];
         $last_name = $_POST['last_name'];
@@ -40,11 +44,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
             goto exitpoint;
         };
 
+        if (isset($_FILES['company_logo']['name']) && !empty($_FILES['company_logo']['name'])) {
+            // var_dump($_FILES['company_logo']['name']);
+            // die();
+            $ext_first = explode(".", $_FILES['company_logo']['name']);
+            $serial_number = substr(sha1(time()), 0, 7);
+            $company_img = $serial_number . "." . end($ext_first);
+
+            if (!isset($_FILES['company_logo']['error']) || is_array($_FILES['company_logo']['error'])) {
+                $message_error .= "please upload a valid image";
+                goto exitpoint;
+            }
+            //check $_FILES['upfile']['error'] value
+            switch ($_FILES['company_logo']['error']) {
+                case UPLOAD_ERR_OK:
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $message_error .= "please upload a valid image";
+                    goto exitpoint;
+                default:
+                    $message_error .= "please upload a valid image";
+                    goto exitpoint;
+            }
+
+            if ($_FILES['company_logo']['size'] > 8107795) {
+                $message_error .= "Image file too large";
+                goto exitpoint;
+            }
+            $resize = new Resize();
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            if (false === $ext = array_search(
+                $finfo->file($_FILES['company_logo']['tmp_name']),
+                array(
+                    'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'jpg' => 'image/jpg'
+                ),
+                true
+            )) {
+                $message_error .= "please upload a valid image";
+                goto exitpoint;
+            }
+            $ext_prop = explode(".", $_FILES['company_logo']['name']);
+            if ($resize->changeSize($_FILES['company_logo']['tmp_name'], SITE_ROOT . "/img/job_companies/" . $company_img, 500, 500, end($ext_prop), 100)) {
+                $message_error .= "Company Image not uploaded try again";
+                goto exitpoint;
+            }
+        }
+
         $recruiters = $recruit_object->add_new_recruiter($first_name, $last_name, $phone, $email, $account_username, $account_password, $billing_company, $mailing_address, "", "",  "", $country);
         $found_client = $recruit_object->authenticate($account_username, $account_password);
 
         if ($found_client) {
             $recruiter_code = $found_client[0]['recruiter_code'];
+            $new_company = $recruit_object->add_new_company($recruiter_code, $company_name, $company_info, $company_img);
+
             if ($recruit_object->recruiter_is_active($recruiter_code)) {
                 $found_client = $found_client[0];
                 $session_recruiter->login($found_client);
@@ -116,7 +170,13 @@ $countries = $zenta_operation->get_all_countries();
                     <?php if ($message_success == "") { ?>
 
                         <form action="" method="post" class="form-horizontal tasi-form" name="searchmereg" enctype="multipart/form-data">
-
+                            <div class="form-group">
+                                <label class="col-md-3">
+                                    Company Name*:
+                                    <span class="required"></span>
+                                </label>
+                                <div class="col-md-9 col-xs-11"><input name="company_name" required class="form-control" type="text" id="company_name" size="30" /></div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-3">
                                     Family Name/Surname (as in passport)*:
@@ -187,7 +247,21 @@ $countries = $zenta_operation->get_all_countries();
                                     </select></div>
                             </div>
 
-
+                            <div class="form-group">
+                                <label class="col-md-2">
+                                    Company Logo/Image:
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-xs-11"><input name="company_logo" required class="form-control" type="file" id="company_logo" /></div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2">Company Info
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-10 col-xs-11 message-form-message">
+                                    <textarea name="company_info" cols="45" rows="8" aria-required="true"></textarea>
+                                </div>
+                            </div>
                             <div class="form-group ">
                                 <label class="col-md-2">Address
                                     <span class="required">*</span>

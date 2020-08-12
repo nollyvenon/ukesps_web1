@@ -2,7 +2,7 @@
 include_once("z_db.php");
 require_once(LIB_PATH . DS . "class_recruiter.php");
 $recruit_object = new RecruitUser();
-$sector_id = $_GET['sid'];
+$sector_id = $_GET['seid'];
 if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 	$search_text = $_POST['search_text'];
 	$query = "SELECT jbv.*, jbc.sector_id, jbc.sector_name, jbl.location_name FROM jobs jbv
@@ -15,7 +15,9 @@ if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 	INNER JOIN job_locations jbl ON jbv.job_location=jbl.location_id	
        WHERE (jbv.job_sector='$sector_id') order by jbv.jobs_id DESC ";
 }
-echo $numrows = $db_handle->numRows($query);
+
+
+$numrows = $db_handle->numRows($query);
 
 // For search, make rows per page equal total rows found, meaning, no pagination
 // for search results
@@ -49,6 +51,7 @@ $offset = ($currentpage - 1) * $rowsperpage;
 $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content = $db_handle->fetchAssoc($result);
+
 ?>
 <!DOCTYPE HTML>
 <html>

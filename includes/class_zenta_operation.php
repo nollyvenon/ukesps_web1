@@ -353,6 +353,34 @@ class zentabooksOperation
             return false;
         }
     }
+    public function get_job_companies()
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM job_companies ORDER BY company_id ASC";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+
+        if ($fetched_data) {
+            return $fetched_data;
+        } else {
+            return false;
+        }
+    }
+    public function get_job_company($recruiter_code)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM job_companies WHERE recruiter_code='$recruiter_code' ORDER BY company_id ASC";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+
+        if ($fetched_data) {
+            return $fetched_data;
+        } else {
+            return false;
+        }
+    }
     public function get_job_by_id($job_id = NULL)
     {
         global $db_handle;
@@ -2941,11 +2969,11 @@ $headers = implode("\r\n", $headers);*/
         return 'News Category added successfully';
     }
 
-    public function add_job($job_title = NULL, $recruiter_code = NULL, $email = NULL, $phone = NULL,  $location_id = NULL, $country_id = NULL, $startDate = NULL, $endDate = NULL, $category_id = NULL, $sub_category_id = NULL, $jobstype = NULL, $joblevel = NULL, $jobsector = NULL, $description = NULL)
+    public function add_job($job_title = NULL, $recruiter_code = NULL, $email = NULL, $phone = NULL,  $location_id = NULL, $country_id = NULL, $startDate = NULL, $endDate = NULL, $category_id = NULL, $sub_category_id = NULL, $jobstype = NULL, $joblevel = NULL, $jobsector = NULL, $description = NULL, $requirements = NULL, $job_company = NULL, $amount_per_period = NULL, $salary_period = NULL, $apply_info = NULL, $job_img = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO jobs(job_title, recruiter_code, email, phone, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description')";
+        $query = "INSERT INTO jobs(job_title, recruiter_code, email, phone, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript, requirements, job_company, amount_per_period, salary_period, apply_info, job_img) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description', '$requirements', '$job_company', '$amount_per_period', '$salary_period', '$apply_info', '$job_img')";
         return $db_handle->runQuery($query);
         //  'Job added successfully';
     }

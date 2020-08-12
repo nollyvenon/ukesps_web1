@@ -2,7 +2,7 @@
 ob_start();
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 // Initialize session
 if (!isset($_SESSION)) {
@@ -45,6 +45,7 @@ require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_system.php");
 require_once(LIB_PATH . DS . "class_payment.php");
 require_once(LIB_PATH . DS . "functions_status_messages.php");
+require_once(LIB_PATH . DS . "Resize.php");
 
 
 $recruit_object = new RecruitUser();
