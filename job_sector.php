@@ -15,13 +15,9 @@ if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 	INNER JOIN job_locations jbl ON jbv.job_location=jbl.location_id	
        WHERE (jbv.job_sector='$sector_id') order by jbv.jobs_id DESC ";
 }
-<<<<<<< HEAD
 
 
 $numrows = $db_handle->numRows($query);
-=======
-echo $numrows = $db_handle->numRows($query);
->>>>>>> 6af211eb5899061acda03ce53539c98a8876c44a
 
 // For search, make rows per page equal total rows found, meaning, no pagination
 // for search results
