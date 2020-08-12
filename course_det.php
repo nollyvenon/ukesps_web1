@@ -3,8 +3,7 @@ include_once("z_db.php");
 $detail_id = $_GET['sid'];
 $course_det = $zenta_operation->get_course_by_id($detail_id);
 extract($course_det);
-var_dump($course_det);
-die();
+
 $_SESSION['payment_category'] = '4'; //courses
 if (isset($user_code)) {
 	$user_id = $_SESSION['client_unique_code'];
