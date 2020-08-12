@@ -1,6 +1,6 @@
 <?php
 include_once("z_db.php");
-$sid = $_GET['sidi'];
+$sid = $_GET['sid'];
 $event_detail = $zenta_operation->get_event_detail($sid);
 extract($event_detail);
 ?><!DOCTYPE HTML>

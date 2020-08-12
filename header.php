@@ -59,20 +59,20 @@
 						<li><a href="<?= SITE_URL ?>/page_sup?sid=about">About</a></li>
 						<li><a href="javascript:void(0)" class="dropdown_item">Services<i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-parent">
-								<li class="mi-news"><a href="<?= SITE_URL ?>/page_sup?sidi=scholarships" title="News"><span>Scholarships</span></a></li>
-								<li class="mi-events"><a href="<?= SITE_URL ?>/page_sup?sidi=scholarships" title="University Visits"><span>University Representation</span></a></li>
-								<li class="mi-testimonials"><a href="<?= SITE_URL ?>/page_sup?sidi=scholarships" title="Student Testimonials"><span>English Tests</span></a></li>
-								<li class="mi-university-comments"><a href="<?= SITE_URL ?>/page_sup?sidi=accomodation_support" title="Accomodation Support"><span>Accommodation Support</span></a></li>
-								<li class="mi-faqs"><a href="<?= SITE_URL ?>/page_sup?sidi=student_support" title="FAQs"><span>Student Support</span></a></li>
-								<li class="mi-faqs"><a href="<?= SITE_URL ?>/page_sup?sidi=exhibition_events" title="FAQs"><span>Exhibition and Events</span></a></li>
+								<li class="mi-news"><a href="<?= SITE_URL ?>/page_sup?sid=scholarships" title="News"><span>Scholarships</span></a></li>
+								<li class="mi-events"><a href="<?= SITE_URL ?>/page_sup?sid=scholarships" title="University Visits"><span>University Representation</span></a></li>
+								<li class="mi-testimonials"><a href="<?= SITE_URL ?>/page_sup?sid=scholarships" title="Student Testimonials"><span>English Tests</span></a></li>
+								<li class="mi-university-comments"><a href="<?= SITE_URL ?>/page_sup?sid=accomodation_support" title="Accomodation Support"><span>Accommodation Support</span></a></li>
+								<li class="mi-faqs"><a href="<?= SITE_URL ?>/page_sup?sid=student_support" title="FAQs"><span>Student Support</span></a></li>
+								<li class="mi-faqs"><a href="<?= SITE_URL ?>/page_sup?sid=exhibition_events" title="FAQs"><span>Exhibition and Events</span></a></li>
 							</ul>
 						</li>
 						<li>
 							<a href="javascript:void(0)" class="dropdown_item">Study Match<i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-parent">
-								<li class="mi-events"><a href="<?= SITE_URL ?>/page_sup?sidi=study_abroad" title="Studying Abroad"><span>Studying Abroad</span></a></li>
-								<li class="mi-news"><a href="<?= SITE_URL ?>/page_sup?sidi=universities" title="Universities"><span>Universities</span></a></li>
-								<li class="mi-faqs"><a href="<?= SITE_URL ?>/page_sup?sidi=enquiry_now" title="FAQs"><span>Enquire Now</span></a></li>
+								<li class="mi-events"><a href="<?= SITE_URL ?>/page_sup?sid=study_abroad" title="Studying Abroad"><span>Studying Abroad</span></a></li>
+								<li class="mi-news"><a href="<?= SITE_URL ?>/page_sup?sid=universities" title="Universities"><span>Universities</span></a></li>
+								<li class="mi-faqs"><a href="<?= SITE_URL ?>/page_sup?sid=enquiry_now" title="FAQs"><span>Enquire Now</span></a></li>
 							</ul>
 						</li>
 						<li><a href="javascript:void(0)" class="dropdown_item">Users Portal <i class="fa fa-angle-down"></i></a>
