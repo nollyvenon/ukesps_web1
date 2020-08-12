@@ -86,12 +86,12 @@ $content = $db_handle->fetchAssoc($result);
 										<div class=\"course-hover\">
                                             <img src=\"img/job_locations/$location_img\" data-at2x=\"img/job_locations/$location_img\" alt>
                                             <div class=\"hover-bg bg-color-1\"></div>
-											<a href=\"job_location?seid=$location_id\">
+											<a href=\"job_location?sid=$location_id\">
                                                 $location_name
 											</a>
 										</div>
 										<div class=\"course-name clear-fix\">
-											<h3><a href=\"job_location?seid=$location_id\">$location_name Jobs</a></h3>
+											<h3><a href=\"job_location?sid=$location_id\">$location_name Jobs</a></h3>
 										</div>
 									</div>
 								</div>";

@@ -98,11 +98,11 @@ $job_sector = $zenta_operation->get_job_sector(3);
 										<div class="course-hover">
 											<img src="img/job_sectors/<?php echo $row['sector_img']; ?>" data-at2x="img/job_sectors/<?php echo $row['sector_img']; ?>" alt>
 											<div class="hover-bg bg-color-1"></div>
-											<a href="job_sector?seid=<?php echo $row['sector_id']; ?>"><?php echo $row['sector_name']; ?></a>
+											<a href="job_sector?sid=<?php echo $row['sector_id']; ?>"><?php echo $row['sector_name']; ?></a>
 										</div>
 										<div class="course-name clear-fix">
 											<!--<span class="price">$75</span>-->
-											<h3><a href="job_sector?seid=<?php echo $row['sector_id']; ?>"><?php echo $row['sector_name']; ?></a></h3>
+											<h3><a href="job_sector?sid=<?php echo $row['sector_id']; ?>"><?php echo $row['sector_name']; ?></a></h3>
 										</div>
 									</div>
 									<!-- / course item -->

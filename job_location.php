@@ -2,7 +2,7 @@
 include_once("z_db.php");
 require_once(LIB_PATH.DS."class_recruiter.php");
 $recruit_object = new RecruitUser();
-$location_id = $_GET['seid'];
+$location_id = $_GET['sid'];
 if(isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
     $search_text = $_POST['search_text'];
 	if ($location_id != ""){
@@ -149,15 +149,15 @@ $content = $db_handle->fetchAssoc($result);
 					<div class="page-pagination clear-fix">
 						<?php 
 							if($currentpage  > 1){?>
-						<a href="?seid=<?=$_GET['seid'];?>&pg=<?=$currentpage-1;?>"><i class="fa fa-angle-double-left"></i></a>
+						<a href="?sid=<?=$_GET['sid'];?>&pg=<?=$currentpage-1;?>"><i class="fa fa-angle-double-left"></i></a>
 						<?php } 
 						for($currentpage = $totalpages; $currentpage < $totalpages; $i++): if($currentpage <= $totalpages): ?>
-						<a href="?seid=<?=$_GET['seid'];?>&=<?=$currentpage;?>" class="active"><?=$pg;?>
+						<a href="?sid=<?=$_GET['sid'];?>&=<?=$currentpage;?>" class="active"><?=$pg;?>
 						<?php endif; endfor;
 							if ($currentpage > $totalpages) { ?>
-						--><a href="?seid=<?=$_GET['seid'];?>&pg=<?=$currentpage+1;?>"><?=$currentpage+1;?></a><!-- 
-						--><a href="?seid=<?=$_GET['seid'];?>&pg=<?=$currentpage+2;?>"><?=$currentpage+2;?></a><!-- 
-						--><a href="?seid=<?=$_GET['seid'];?>&pg=<?=$currentpage+3;?>"><i class="fa fa-angle-double-right"></i></a>
+						--><a href="?sid=<?=$_GET['sid'];?>&pg=<?=$currentpage+1;?>"><?=$currentpage+1;?></a><!-- 
+						--><a href="?sid=<?=$_GET['sid'];?>&pg=<?=$currentpage+2;?>"><?=$currentpage+2;?></a><!-- 
+						--><a href="?sid=<?=$_GET['sid'];?>&pg=<?=$currentpage+3;?>"><i class="fa fa-angle-double-right"></i></a>
 						<?php }  ?>
 					</div>
 					<!-- / pagination -->
