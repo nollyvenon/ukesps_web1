@@ -33,7 +33,8 @@ if ($_POST['submit']) {
 				$finfo->file($_FILES['resume']['tmp_name']),
 				array(
 					'pdf' => 'application/pdf',
-					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+					'doc' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 				),
 				true
 			)) {
@@ -44,6 +45,14 @@ if ($_POST['submit']) {
 					$file =	move_uploaded_file($_FILES["resume"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $resume);
 				} else {
 					$pdf 	=  new PdfToText($_FILES["resume"]["tmp_name"]);
+					$previous_work_experience_company_1 = explode("Work Experience", $pdf) != null ? substr(explode("Work Experience", $pdf)[1], 0, 60) : substr(explode("work experience", strtolower($pdf))[1], 0, 60);
+
+					$edu_institution_1 = explode("Education", $pdf) != NULL ? substr(explode("Education", $pdf)[1], 0, 60) : substr(explode("education", strtolower($pdf))[1], 0, 60);
+					$languages = explode("Languages", $pdf) != NULL ? substr(explode("Languages", $pdf)[1], 3, 30) : substr(explode("language", strtolower($pdf))[1], 3, 30);
+					$linkedin_profile =	explode("LinkedIn", $pdf) != NULL ? substr(explode("LinkedIn", $pdf)[1], 0, 60) :	substr(explode("linkedin", strtolower($pdf))[1], 0, 60);
+					$twitter_profile = explode("Twitter", $pdf) != NULL ? substr(explode("Twitter", $pdf)[1], 0, 60) : substr(explode("twitter", strtolower($pdf))[1], 0, 60);
+					$hobbies = explode("Hobbies", $pdf) != NULL ? substr(explode("Hobbies", $pdf)[1], 0, 100) :	substr(explode("hobbies", strtolower($pdf))[1], 0, 100);
+					$skills = explode("Skills", $pdf) != NULL ? substr(explode("Skills", $pdf)[1], 0, 100) :	substr(explode("skills", strtolower($pdf))[1], 0, 100);
 					$file =	move_uploaded_file($_FILES["resume"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $resume);
 				}
 			}
@@ -86,17 +95,8 @@ if ($_POST['submit']) {
 	}
 
 
-	// $uploaddir = "../img/cover_letters/";
-	// $cover_letter = basename($_FILES['cover_letter']['name']);
-	// $cover_letter1 = $uploaddir . basename($cover_letter);
-	// move_uploaded_file($_FILES['cover_letter']['tmp_name'], $cover_letter1);
-
-	// $uploaddir = "../img/resumes/";
-	// $cover_letter = basename($_FILES['resume']['name']);
-	// $resume1 = $uploaddir . basename($resume);
-	// move_uploaded_file($_FILES['resume']['tmp_name'], $resume1);
-
 	$biodata = $jobsk_operation->upload_cv($jobseek_code, $resume, $cover_letter);
+	$cv_bio = $jobsk_operation->generate_bio($jobseek_code, $previous_work_experience_company_1, $edu_institution_1, $languages, $linkedin_profile, $twitter_profile, $hobbies, $skills);
 	if ($biodata) {
 		$message_success = "Upload was successful. Please check to confirm your details";
 		redirect_to('upload_biodata');

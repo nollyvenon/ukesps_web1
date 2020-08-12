@@ -459,6 +459,13 @@ $headers = implode("\r\n", $headers);*/
 		}
 		// return true;
 	}
+	public function generate_bio($user_code, $previous_work_experience_company_1 = NULL,  $edu_institution_1 = NULL, $languages = NULL, $linkedin_profile = NULL, $twitter_profile = NULL, $hobbies = NULL, $skills = NULL)
+	{
+		global $db_handle;
+		$query = "UPDATE applicant_details SET edu_institution_1='$edu_institution_1', previous_work_experience_company_1='$previous_work_experience_company_1', languages='$languages', linkedin_profile='$linkedin_profile', twitter_profile='$twitter_profile', hobbies='$hobbies', skills='$skills' WHERE applicant_code = '$user_code'";
+		return $db_handle->runQuery($query);
+	}
+
 	public function add_biodata($user_code, $place_of_birth = NULL,  $location = NULL, $country_of_residence = NULL, $country_of_nationality = NULL, $languages = NULL, $linkedin_profile = NULL, $twitter_profile = NULL, $hobbies = NULL, $skills = NULL)
 	{
 		global $db_handle;
