@@ -1,12 +1,14 @@
 <?php
 require_once("header.php");
-
 if (!$session_jobseek->is_logged_in()) {
 	redirect_to("login.php");
 }
 
 $details = $jobsk_operation->applicant_detail($jobseek_code);
 extract($details);
+
+// var_dump(explode('Facebook', $pdf->Text)[1]);
+// die();
 if ($_POST['submit']) {
 
 	$place_of_birth = $_POST['place_of_birth'];

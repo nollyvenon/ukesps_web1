@@ -339,6 +339,20 @@ class zentabooksOperation
         }
     }
 
+    public function get_all_job_sectors()
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM job_sectors ORDER BY sector_id ASC";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+
+        if ($fetched_data) {
+            return $fetched_data;
+        } else {
+            return false;
+        }
+    }
     public function get_job_by_id($job_id = NULL)
     {
         global $db_handle;
@@ -2927,13 +2941,13 @@ $headers = implode("\r\n", $headers);*/
         return 'News Category added successfully';
     }
 
-    public function add_job($job_title, $recruiter_code, $email, $phone,  $location_id, $country_id, $startDate, $endDate, $category_id, $sub_category_id, $jobstype, $joblevel, $jobsector, $description, $admin_id = NULL)
+    public function add_job($job_title = NULL, $recruiter_code = NULL, $email = NULL, $phone = NULL,  $location_id = NULL, $country_id = NULL, $startDate = NULL, $endDate = NULL, $category_id = NULL, $sub_category_id = NULL, $jobstype = NULL, $joblevel = NULL, $jobsector = NULL, $description = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO jobs(job_title,recruiter_code, email, phone, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript, admin_id) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description', '$admin_id')";
-        $db_handle->runQuery($query);
-        return 'Job added successfully';
+        $query = "INSERT INTO jobs(job_title, recruiter_code, email, phone, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description')";
+        return $db_handle->runQuery($query);
+        //  'Job added successfully';
     }
 
     public function get_current_jobs()

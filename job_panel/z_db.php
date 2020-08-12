@@ -43,6 +43,7 @@ require_once(LIB_PATH . DS . "class_system.php");
 require_once(LIB_PATH . DS . "class_client.php");
 require_once(LIB_PATH . DS . "class_jobseeker.php");
 require_once(SITE_ROOT . '/xpanel/db_class.php');
+require_once(LIB_PATH . DS . '/pdf_to_text/PdfToText.phpclass');
 
 //require_once("includes/PHPMailer/PHPMailerAutoload.php");
 

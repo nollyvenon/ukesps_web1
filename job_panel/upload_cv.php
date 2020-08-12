@@ -5,7 +5,6 @@ if (!$session_jobseek->is_logged_in()) {
 }
 $details = $jobsk_operation->applicant_detail($jobseek_code);
 extract($details);
-
 if ($_POST['submit']) {
 
 	if (isset($_FILES)) {
@@ -20,26 +19,34 @@ if ($_POST['submit']) {
 				case UPLOAD_ERR_OK:
 					break;
 				case UPLOAD_ERR_NO_FILE:
-					$message_error = "Resume upload wasn't successful.";
+					$message_error .= "Resume upload wasn't successful.</br>";
 				default:
-					$message_error = "Resume upload wasn't successful.";
+					$message_error .= "Resume upload wasn't successful.</br>";
 			}
 			// You should also check filesize here. 
 			if ($_FILES['resume']['size'] > 8107795) {
-				$message_error = "Resume file too large";
+				$message_error .= "Resume file too large";
 			}
 
 			$finfo = new finfo(FILEINFO_MIME_TYPE);
 			if (false === $ext = array_search(
 				$finfo->file($_FILES['resume']['tmp_name']),
 				array(
-					'pdf' => 'application/pdf'
+					'pdf' => 'application/pdf',
+					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 				),
 				true
 			)) {
-				$message_error = "Please upload a valid pdf file";
+				$message_error .= "Please upload a valid pdf file for resume.</br>";
+				$resume = NULL;
+			} else {
+				if (end($temp) != "pdf") {
+					$file =	move_uploaded_file($_FILES["resume"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $resume);
+				} else {
+					$pdf 	=  new PdfToText($_FILES["resume"]["tmp_name"]);
+					$file =	move_uploaded_file($_FILES["resume"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $resume);
+				}
 			}
-			$file =	move_uploaded_file($_FILES["resume"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $resume);
 		}
 		if ($_FILES["cover_letter"]["name"] != NULL) {
 			$allowedExts = array("pdf");
@@ -51,26 +58,30 @@ if ($_POST['submit']) {
 				case UPLOAD_ERR_OK:
 					break;
 				case UPLOAD_ERR_NO_FILE:
-					$message_error = "cover_letter upload wasn't successful.";
+					$message_error .= "cover_letter upload wasn't successful.</br>";
 				default:
-					$message_error = "cover_letter upload wasn't successful.";
+					$message_error .= "cover_letter upload wasn't successful.</br>";
 			}
 			// You should also check filesize here. 
 			if ($_FILES['cover_letter']['size'] > 8107795) {
-				$message_error = "cover_letter file too large";
+				$message_error .= "cover_letter file too large";
 			}
 
 			$finfo = new finfo(FILEINFO_MIME_TYPE);
 			if (false === $ext = array_search(
 				$finfo->file($_FILES['cover_letter']['tmp_name']),
 				array(
-					'pdf' => 'application/pdf'
+					'pdf' => 'application/pdf',
+					'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+					'doc' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+
 				),
 				true
 			)) {
-				$message_error = "Please upload a valid pdf file";
+				$message_error .= "Please upload a valid document file for cover letter.</br>";
+			} else {
+				$file =	move_uploaded_file($_FILES["cover_letter"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $cover_letter);
 			}
-			$file =	move_uploaded_file($_FILES["cover_letter"]["tmp_name"], SITE_ROOT . "/job_panel/docsxxx/" . $cover_letter);
 		}
 	}
 
@@ -87,9 +98,10 @@ if ($_POST['submit']) {
 
 	$biodata = $jobsk_operation->upload_cv($jobseek_code, $resume, $cover_letter);
 	if ($biodata) {
-		$message_success = "CV Upload was successful.";
+		$message_success = "Upload was successful. Please check to confirm your details";
+		redirect_to('upload_biodata');
 	} else {
-		$message_error = "CV Upload wasn't successful.";
+		$message_error .= "Upload wasn't successful please check the file.</br>";
 	}
 }
 ?>
@@ -171,8 +183,14 @@ if ($_POST['submit']) {
 									</div>
 									<form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
 										<div class="row mb-3">
-											<div class="col-md-8">Resume <input type="file" name="resume" id="resume" class="form-control">
-												<a href="docsxxx/<?= $details[0]['resume']; ?>">Your current CV</a></div>
+											<div class="col-md-5">Resume <input type="file" name="resume" id="resume" class="form-control">
+												<small>upload in pdf format</small>
+												<a href="docsxxx/<?= $details[0]['resume']; ?>">Your current CV</a>
+											</div>
+											<div class="col-md-5 col-lg-5" style="margin-top: 20px; margin-bottom: 20px;">
+												<h4>You can download our sample resume here and edit.</h4>
+												<a href="docsxxx/sample.docx">Download Sample here</a>
+											</div>
 										</div>
 										<div class="row mb-2">
 											<div class="col-md-8">Cover Letter <input type="file" name="cover_letter" id="cover_letter" class="form-control">
