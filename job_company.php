@@ -7,13 +7,8 @@ if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 	$search_text = $_POST['search_text'];
 	$query = "SELECT jbv.*, jbc.company_id, jbc.company_name, jbl.location_name FROM jobs jbv
         INNER JOIN job_companies jbc ON jbv.job_company=jbc.company_id
-<<<<<<< HEAD
 		INNER JOIN job_locations jbl ON jbv.location_id=jbl.location_id
         WHERE (jbc.company_name LIKE '%$search_text%' OR jbv.job_title LIKE '%$search_text%') AND (jbc.company_id='$company_id' OR jbc.company_name='$company_id') order by jbv.jobs_id DESC ";
-=======
-		INNER JOIN job_locations jbl ON jbv.job_location=jbl.location_id
-        WHERE (jbc.company_name LIKE '%$search_text%' OR jbv.job_title LIKE '%$search_text%') AND (jbc.company_id='company_id' OR jbc.company_name='$company_id') order by jbv.jobs_id DESC ";
->>>>>>> f8c4f943863aa4b027e659e0cf1a9f937b482e05
 } else {
 	$query = "SELECT jbv.*, jbc.company_id, jbc.company_name, jbl.location_name FROM jobs jbv
         INNER JOIN job_companies jbc ON jbv.job_company=jbc.company_id
