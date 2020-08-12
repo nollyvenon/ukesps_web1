@@ -114,7 +114,7 @@ $content = $db_handle->fetchAssoc($result);
 									<div class="picture">
 										<div class="hover-effect"></div>
 										<div class="link-cont">
-											<a href="job_det?sidi=<?= $jobs_id; ?>" class="fancy fa fa-search"></a>
+											<a href="job_det?sid=<?= $jobs_id; ?>" class="fancy fa fa-search"></a>
 										</div>
 										<img src="img/jobs/<?= $job_img; ?>" data-at2x="img/jobs/<?= $job_img; ?>" alt>
 									</div>

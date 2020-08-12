@@ -42,10 +42,10 @@ $events = $zenta_operation->upcoming_events(date('Y-m-d'));
 								<div class="course-hover">
 									<img src="img/events/<?php echo $row['event_img']; ?>" data-at2x="img/events/<?php echo $row['event_img']; ?>" alt>
 									<div class="hover-bg bg-color-1"></div>
-									<a href="event_det?sidi=<?php echo $row['event_id']; ?>"><?php echo $row['event_title']; ?></a>
+									<a href="event_det?sid=<?php echo $row['event_id']; ?>"><?php echo $row['event_title']; ?></a>
 								</div>
 								<div class="course-name clear-fix">
-									<h3><a href="event_det?sidi=<?php echo $row['event_id']; ?>"><?php echo $row['event_title']; ?></a></h3>
+									<h3><a href="event_det?sid=<?php echo $row['event_id']; ?>"><?php echo $row['event_title']; ?></a></h3>
 								</div>
 							</div>
 							<!-- / course item -->
