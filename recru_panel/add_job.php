@@ -108,7 +108,13 @@ $job_sector = $zenta_operation->get_all_job_sectors();
 						<div class="form-group">
 							<div class="col-md-10 col-xs-11"><input name="recruiter_code" class="form-control" type="hidden" id="recruiter_code" size="30" value="<?php echo $_SESSION['recruit_unique_code'] ?>" /></div>
 						</div>
-
+						<div class="form-group">
+							<label class="col-md-3">
+								Name/Company*:
+								<span class="required"></span>
+							</label>
+							<div class="col-md-9 col-xs-11"><input name="name" required class="form-control" type="text" id="name" size="30" /></div>
+						</div>
 						<div class="form-group">
 							<label class="col-md-4">
 								Email:
