@@ -8,7 +8,7 @@ if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 	$query = "SELECT jbv.*, jbl.location_id, jbl.location_name, jbl.location_img FROM jobs jbv
 		LEFT JOIN job_locations jbl ON jbv.job_location=jbl.location_id
         WHERE jbv.job_title LIKE '%$search_text%' or jbl.location_name LIKE '%$job_loc%' order by jbv.jobs_id DESC ";
-echo $numrows = $db_handle->numRows($query);
+ $numrows = $db_handle->numRows($query);
 
 // For search, make rows per page equal total rows found, meaning, no pagination
 // for search results
