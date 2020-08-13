@@ -1399,8 +1399,15 @@ $headers = implode("\r\n", $headers);*/
         global $db_handle;
         $con = "";
 
-        $query = "SELECT cous.*, coul.location_id, coul.location_name, couc.type_name, couca.category_name, cousca.category_name AS sub_category_name, cou_sls.sl_name AS study_level_name, 
-		cosmm.cs_method AS study_method_name, coule.institute_name FROM courses cous
+        $query = "SELECT cous.*, coul.location_id,
+        coul.location_name,
+        couc.type_name,
+        couca.category_name, 
+        cousca.category_name AS sub_category_name,
+        cou_sls.sl_name AS study_level_name, 
+		cosmm.cs_method AS study_method_name,
+        coule.institute_name 
+        FROM courses cous
         INNER JOIN course_locations coul ON cous.location=coul.location_id
 		INNER JOIN course_study_methods cosmm ON cous.study_method=cosmm.csm_id
 		INNER JOIN study_levels cou_sls ON cous.study_level=cou_sls.sl_id
@@ -1893,13 +1900,12 @@ $headers = implode("\r\n", $headers);*/
     }
 
     // add a course
-    public function add_course($course_title = NULL, $course_img = NULL, $study_method = NULL, $course_category = NULL, $course_subcategory = NULL, $course_fee = NULL, $fee_period = NULL, $course_currency = NULL, $course_institute = NULL,  $course_type = NULL, $duration = NULL, $entry_requirements = NULL, $location = NULL, $course_overview = NULL, $description = NULL, $apply_info = NULL, $who_is_course_for = NULL, $career_path = NULL, $couprov_code = NULL)
+    public function add_course($course_title = NULL, $course_img = NULL, $study_method = NULL, $course_category = NULL, $course_subcategory = NULL, $course_fee = NULL, $fee_period = NULL, $course_currency = NULL, $course_institute = NULL,  $course_type = NULL, $duration = NULL, $entry_requirements = NULL, $location = NULL, $course_overview = NULL, $description = NULL, $apply_info = NULL, $who_is_course_for = NULL, $career_path = NULL, $couprov_code = NULL, $country = NULL, $course_structure = NULL, $study_level = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO courses (course_title, course_img, study_method, course_category, course_subcategory, course_fee, duration, course_type, entry_requirements, location, course_overview, description, who_is_course_for, career_path, fee_period, course_currency, course_institute, apply_info, couprov_code) VALUES ('$course_title', '$course_img', '$study_method', '$course_category', '$course_subcategory', '$course_fee', '$duration', '$course_type', '$entry_requirements', '$location', '$course_overview', '$description', '$who_is_course_for', '$career_path', '$fee_period', '$course_currency', '$course_institute', '$apply_info', '$couprov_code')";
-        $db_handle->runQuery($query);
-
+        $query = "INSERT INTO courses (course_title, course_img, study_method, course_category, course_subcategory, course_fee, duration, course_type, entry_requirements, qualification, location, course_overview, description, who_is_course_for, career_path, fee_period, course_currency, course_institute, apply_info, couprov_code, country, course_structure, study_level) VALUES ('$course_title', '$course_img', '$study_method', '$course_category', '$course_subcategory', '$course_fee', '$duration', '$course_type', '$entry_requirements', '$entry_requirements', '$location', '$course_overview', '$description', '$who_is_course_for', '$career_path', '$fee_period', '$course_currency', '$course_institute', '$apply_info', '$couprov_code', '$country', '$course_structure', '$study_level')";
+        return $db_handle->runQuery($query);
         return $db_handle->insertedId();
     }
 

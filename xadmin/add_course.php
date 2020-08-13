@@ -8,11 +8,15 @@ require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
     redirect_to("log-in");
 }
+
 if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
+
     $course_title = $db_handle->sanitizePost($_POST['course_title']);
     $study_method = $db_handle->sanitizePost($_POST['study_method']);
+    $study_level = $db_handle->sanitizePost($_POST['study_level']);
     $course_category = $db_handle->sanitizePost($_POST['category_id']);
     $course_subcategory = $db_handle->sanitizePost($_POST['sub_category_id']);
+    $duration = $db_handle->sanitizePost($_POST['duration']);
     $course_fee = $db_handle->sanitizePost($_POST['course_fee']);
     $fee_period = $db_handle->sanitizePost($_POST['fee_period']);
     $course_currency = $db_handle->sanitizePost($_POST['course_currency']);
@@ -20,7 +24,9 @@ if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
     $course_type = $db_handle->sanitizePost($_POST['course_type']);
     $entry_requirements = $db_handle->sanitizePost($_POST['entry_requirements']);
     $location = $db_handle->sanitizePost($_POST['location']);
+    $country = $db_handle->sanitizePost($_POST['country_id']);
     $course_overview = $db_handle->sanitizePost($_POST['course_overview']);
+    $course_outline = $db_handle->sanitizePost($_POST['course_outline']);
     $description = $db_handle->sanitizePost($_POST['description']);
     $apply_info = $db_handle->sanitizePost($_POST['apply_info']);
     $who_is_course_for = $db_handle->sanitizePost($_POST['who_is_course_for']);
@@ -33,7 +39,9 @@ if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
         $message_error = "Please fill all the fields and try again.";
     } else {
         move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-        $result = $zenta_operation->add_course($course_title, $gallery, $study_method, $course_category, $course_subcategory, $course_fee, $fee_period, $course_currency, $course_institute, $course_type, $duration, $entry_requirements, $location, $course_overview, $description, $apply_info, $who_is_course_for, $career_path, $admin_id);
+        $result = $zenta_operation->add_course($course_title, $gallery, $study_method, $course_category, $course_subcategory, $course_fee, $fee_period, $course_currency, $course_institute, $course_type, $duration, $entry_requirements, $location, $course_overview, $description, $apply_info, $who_is_course_for, $career_path, $admin_id, $country, $course_outline, $study_level);
+        var_dump($result);
+        die();
         if ($result) {
             $message_success = "Course was added successfully.";
         } else {
