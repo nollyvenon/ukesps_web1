@@ -2539,9 +2539,7 @@ $headers = implode("\r\n", $headers);*/
         }
         $query = "SELECT * FROM events  WHERE endDate>='$current_date' $con";
         $result = $db_handle->runQuery($query);
-        $fetched_data = $db_handle->fetchAssoc($result);
-
-        return $fetched_data;
+        return $db_handle->fetchAssoc($result);
     }
 
     public function upcoming_events_query($current_date, $limit = NULL, $random = '1', $event_provider = NULL)

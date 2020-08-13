@@ -85,33 +85,35 @@ if (isset($user_code)) {
 									</div>
 								</div>
 							</div>
-							<div itemprop="description">
-								<p><strong>Quick Overview:</strong><?= $course_overview; ?></p>
-							</div>
-							<div class="main-features">
-								<p class="head"><strong>Career Path:</strong></p>
-								<?= $career_path; ?>
-							</div>
-							<div class="main-features">
-								<p class="head"><strong>Who is the Course For?:</strong></p>
-								<?= $who_is_course_for; ?>
-							</div>
-							<div class="category-info">
-								<span class="price">
-									<span class="amount">
-										<?= $course_fee; ?><sup><?= $course_currency; ?></sup>
-									</span>
-									<span class="description-price"><?= $fee_period; ?></span>
-								</span>
-								<div class="count-users"><i class="fa fa-location-arrow"></i> <?= $location_name; ?></div>
-								<div class="course-lector">
-									<img src="img/11_administrator.png" data-at2x="img/11_administrator.png" class="avatar" alt>
-									<div class="lector-name">
-										<h4>Posted by</h4>
-										<span>Admin</span>
-									</div>
+							<div class="grid-col grid-col-12" style="clear: both;">
+								<div itemprop="description">
+									<p><strong>Quick Overview:</strong><?= $course_overview; ?></p>
 								</div>
-								<div class="count-users"><a href="add_to_cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div>
+								<div class="main-features">
+									<p class="head"><strong>Career Path:</strong></p>
+									<?= $career_path; ?>
+								</div>
+								<div class="main-features">
+									<p class="head"><strong>Who is the Course For?:</strong></p>
+									<?= $who_is_course_for; ?>
+								</div>
+								<div class="category-info">
+									<span class="price">
+										<span class="amount">
+											<?= $course_fee; ?><sup><?= $course_currency; ?></sup>
+										</span>
+										<span class="description-price"><?= $fee_period; ?></span>
+									</span>
+									<div class="count-users"><i class="fa fa-location-arrow"></i> <?= $location_name; ?></div>
+									<div class="course-lector">
+										<img src="img/11_administrator.png" data-at2x="img/11_administrator.png" class="avatar" alt>
+										<div class="lector-name">
+											<h4>Posted by</h4>
+											<span>Admin</span>
+										</div>
+									</div>
+									<div class="count-users"><a href="add_to_cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div>
+								</div>
 							</div>
 							<!-- woocommerce tabs -->
 							<!-- tabs -->
