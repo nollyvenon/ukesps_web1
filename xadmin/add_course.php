@@ -40,8 +40,6 @@ if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
     } else {
         move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
         $result = $zenta_operation->add_course($course_title, $gallery, $study_method, $course_category, $course_subcategory, $course_fee, $fee_period, $course_currency, $course_institute, $course_type, $duration, $entry_requirements, $location, $course_overview, $description, $apply_info, $who_is_course_for, $career_path, $admin_id, $country, $course_outline, $study_level);
-        var_dump($result);
-        die();
         if ($result) {
             $message_success = "Course was added successfully.";
         } else {

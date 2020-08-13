@@ -1909,18 +1909,19 @@ $headers = implode("\r\n", $headers);*/
         return $db_handle->insertedId();
     }
 
-    public function edit_course($course_id, $course_title = NULL, $course_img = NULL, $study_method = NULL, $study_level = NULL, $course_category = NULL, $course_subcategory = NULL, $course_fee = NULL, $course_type = NULL, $duration = NULL, $entry_requirements = NULL, $location = NULL, $country = NULL, $course_overview = NULL, $description = NULL, $who_is_course_for = NULL, $career_path = NULL, $admin = NULL)
+    public function edit_course($course_id, $course_title = NULL, $course_img = NULL, $study_method = NULL, $course_category = NULL, $course_subcategory = NULL, $course_fee = NULL, $fee_period = NULL, $course_currency = NULL, $course_institute = NULL,  $course_type = NULL, $duration = NULL, $entry_requirements = NULL, $location = NULL, $course_overview = NULL, $description = NULL, $apply_info = NULL, $who_is_course_for = NULL, $career_path = NULL, $couprov_code = NULL, $country = NULL, $course_structure = NULL, $study_level = NULL)
     {
 
         global $db_handle;
         if (empty($course_img)) {
-            $query = "UPDATE courses SET course_title = '$course_title', study_method = '$study_method', study_level = '$study_level', course_category = '$course_category', course_subcategory = '$course_subcategory', course_fee = '$course_fee', course_type = '$course_type', duration = '$duration', entry_requirements = '$entry_requirements', location = '$location', country = '$country', course_overview = '$course_overview', description = '$description', who_is_course_for = '$who_is_course_for', admin_id = '$admin'  WHERE course_id = '$course_id'";
+            $query = "UPDATE courses SET course_title= '$course_title', course_img= '$course_img', study_method= '$study_method', course_category = '$course_category', course_subcategory= '$course_subcategory', course_fee= '$course_fee', duration = '$duration', course_type = '$course_type', entry_requirements='$entry_requirements', qualification='$entry_requirements', location= '$location', course_overview= '$course_overview', description= '$description', who_is_course_for= '$who_is_course_for', career_path='$career_path', fee_period='$fee_period', course_currency='$course_currency', course_institute='$course_institute', apply_info='$apply_info', couprov_code='$couprov_code', country='$country', course_structure='$course_structure', study_level='$study_level'  WHERE course_id = '$course_id'";
         } else {
-            $query = "UPDATE courses SET course_title = '$course_title', course_img = '$course_img', study_method = '$study_method', study_level = '$study_level', course_category = '$course_category', course_subcategory = '$course_subcategory', course_fee = '$course_fee', course_type = '$course_type', duration = '$duration', qualification = '$qualification', location = '$location', country = '$country', course_overview = '$course_overview', description = '$description', who_is_course_for = '$who_is_course_for', admin_id = '$admin'  WHERE course_id = '$course_id'";
+            $query = "UPDATE courses SET course_title= '$course_title', course_img= '$course_img', study_method= '$study_method', course_category = '$course_category', course_subcategory= '$course_subcategory', course_fee= '$course_fee', duration = '$duration', course_type = '$course_type', entry_requirements='$entry_requirements', qualification='$entry_requirements', location= '$location', course_overview= '$course_overview', description= '$description', who_is_course_for= '$who_is_course_for', career_path='$career_path', fee_period='$fee_period', course_currency='$course_currency', course_institute='$course_institute', apply_info='$apply_info', couprov_code='$couprov_code', country='$country', course_structure='$course_structure', study_level='$study_level'  WHERE course_id = '$course_id'";
         }
-        $db_handle->runQuery($query);
+        // return $course_img;
+        return $db_handle->runQuery($query);
 
-        return $db_handle->affectedRows() > 0 ? true : false;
+        // return $db_handle->affectedRows() > 0 ? true : false;
     }
 
     public function get_course_category_by_courseid($course_id)

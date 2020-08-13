@@ -6,9 +6,9 @@ if (!$session_admin->is_logged_in()) {
 $page_title = 'Manage Courses';
 $page_group = 'Admin';
 $page_tit = 'Courses';
-if(isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
+if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
     $search_text = $_POST['search_text'];
-	$query = "SELECT cou.*, jc.category_name As category_name, jsc.category_name AS sub_category_name, inst.institute_name AS course_institution, co.country_name, stm.cs_method AS course_method FROM courses cou 
+    $query = "SELECT cou.*, jc.category_name As category_name, jsc.category_name AS sub_category_name, inst.institute_name AS course_institution, co.country_name, stm.cs_method AS course_method FROM courses cou 
 	INNER JOIN countries co ON cou.country_id=co.country_id 
 	INNER JOIN course_categories jc ON cou.course_category=jc.category_id 
 	INNER JOIN course_sub_categories jsc ON cou.course_subcategory=jsc.subcat_id
@@ -16,12 +16,13 @@ if(isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
 	INNER JOIN course_study_methods stm ON cou.study_method=stm.sm_id 
 	WHERE cou.course_title LIKE '%$search_text%' OR jc.category_name LIKE '%$search_text%' OR jsc.category_name LIKE '%$search_text%' OR jlo.location LIKE '%$search_text%' OR stm.sm_name LIKE '%$search_text%' ORDER BY course_id DESC ";
 } else {
-	$query = "SELECT cou.*, jc.category_name As category_name, jsc.category_name AS sub_category_name, inst.institute_name AS course_institution, co.country_name, stm.cs_method AS course_method FROM courses cou 
-	INNER JOIN countries co ON cou.country_id=co.country_id 
+    $query = "SELECT cou.*, jc.category_name, jsc.category_name AS sub_category_name, inst.institute_name AS course_institution, co.country_name, stm.cs_method AS course_method FROM courses cou 
+	INNER JOIN countries co ON cou.country=co.country_id 
 	INNER JOIN course_categories jc ON cou.course_category=jc.category_id 
 	INNER JOIN course_sub_categories jsc ON cou.course_subcategory=jsc.subcat_id
 	INNER JOIN institutions inst ON cou.course_institute=inst.institute_id 
-	INNER JOIN course_study_methods stm ON cou.study_method=stm.sm_id ";
+	INNER JOIN course_study_methods stm ON cou.study_method=stm.csm_id
+     ";
 }
 $numrows = $db_handle->numRows($query);
 
@@ -36,26 +37,33 @@ if (isset($_POST['search_text'])) {
 $totalpages = ceil($numrows / $rowsperpage);
 // get the current page or set a default
 if (isset($_GET['pg']) && is_numeric($_GET['pg'])) {
-   $currentpage = (int) $_GET['pg'];
+    $currentpage = (int) $_GET['pg'];
 } else {
-   $currentpage = 1;
+    $currentpage = 1;
 }
-if ($currentpage > $totalpages) { $currentpage = $totalpages; }
-if ($currentpage < 1) { $currentpage = 1; }
+if ($currentpage > $totalpages) {
+    $currentpage = $totalpages;
+}
+if ($currentpage < 1) {
+    $currentpage = 1;
+}
 
 $prespagelow = $currentpage * $rowsperpage - $rowsperpage + 1;
 $prespagehigh = $currentpage * $rowsperpage;
-if($prespagehigh > $numrows) { $prespagehigh = $numrows; }
+if ($prespagehigh > $numrows) {
+    $prespagehigh = $numrows;
+}
 
 $offset = ($currentpage - 1) * $rowsperpage;
 $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content = $db_handle->fetchAssoc($result);
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo SITE_ACRONYM .' - '. $page_title;?></title>
+    <title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -76,7 +84,7 @@ $content = $db_handle->fetchAssoc($result);
     <!-- Required Fremwork -->
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-	<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
     <!-- flag icon framework css -->
@@ -87,12 +95,12 @@ $content = $db_handle->fetchAssoc($result);
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
-	    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="ckeditor/ckeditor.js"></script> 
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -100,13 +108,13 @@ $content = $db_handle->fetchAssoc($result);
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-		<?php include('../bin/header.php');?>
-			
-			<?php include('../bin/inner_sidebar_chat.php');?>
-            
+            <?php include('../bin/header.php'); ?>
+
+            <?php include('../bin/inner_sidebar_chat.php'); ?>
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                     <?php include('../bin/sidebar.php');?>
+                    <?php include('../bin/sidebar.php'); ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
 
@@ -120,8 +128,8 @@ $content = $db_handle->fetchAssoc($result);
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
-                                                        <h4><?=$page_group;?></h4>
-                                                        <span><?php echo $page_title;?></span>
+                                                        <h4><?= $page_group; ?></h4>
+                                                        <span><?php echo $page_title; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,14 +138,14 @@ $content = $db_handle->fetchAssoc($result);
                                                     <ul class="breadcrumb-title">
                                                         <li class="breadcrumb-item">
                                                             <a href="#">
-                                                        <i class="icofont icofont-home"></i>
-                                                    </a>
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$User_Type;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$page_group;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -152,11 +160,11 @@ $content = $db_handle->fetchAssoc($result);
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5><?php echo $page_title;?></h5>
+                                                        <h5><?php echo $page_title; ?></h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="dt-responsive table-responsive">
-                                                            <?php include_once('views/manage_courses.php');?>
+                                                            <?php include_once('views/manage_courses.php'); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,7 +176,7 @@ $content = $db_handle->fetchAssoc($result);
                             </div>
                         </div>
                         <!-- Main-body end -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -222,26 +230,29 @@ $content = $db_handle->fetchAssoc($result);
 </div>
 <![endif]-->
     <!-- Warning Section Ends -->
-	 <script>
-$( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
-</script>
+    <script>
+        $(".select2").select2({
+            placeholder: "",
+            maximumSelectionSize: 6
+        });
+    </script>
     <!-- Required Jquery -->
-<script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
-<script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
+    <script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
 
-<!-- Custom js -->
-    
+    <!-- Custom js -->
 
-<script src="../assets/js/pcoded.min.js"></script>
-<script src="../assets/js/demo-12.js"></script>
-<script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="../assets/js/script.js"></script>
-	<?php include('../includes/bottom-cache.php');?>
+
+    <script src="../assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/demo-12.js"></script>
+    <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="../assets/js/script.js"></script>
+    <?php include('../includes/bottom-cache.php'); ?>
 </body>
 
 </html>

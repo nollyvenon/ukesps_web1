@@ -9,7 +9,7 @@
 	<div class="row m-b-20">
 		<div class="col-md-5">
 			<label for="user_code" class="control-label">Course Image</label>
-			<input name="gallery" class="form-control" type="file" id="gallery" size="30" />
+			<input name="gallery" class="form-control" type="file" id="gallery" />
 		</div>
 
 		<div class="col-md-5">
