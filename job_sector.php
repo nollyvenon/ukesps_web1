@@ -116,7 +116,7 @@ $content = $db_handle->fetchAssoc($result);
 										<div class="link-cont">
 											<a href="job_det?sid=<?= $jobs_id; ?>" class="fancy fa fa-search"></a>
 										</div>
-										<img src="img/jobs/<?= $job_img; ?>" data-at2x="img/jobs/<?= $job_img; ?>" alt>
+										<img src="img/job_companies/<?= $job_img; ?>" data-at2x="img/job_companies/<?= $job_img; ?>" alt>
 									</div>
 									<h3><a href="job_det?sid=<?= $jobs_id; ?>"><?= $job_title; ?></a></h3>
 									<div>
@@ -135,7 +135,7 @@ $content = $db_handle->fetchAssoc($result);
 										</span>
 										<div class="count-users"><i class="fa fa-location-arrow"></i> <?= $location_name; ?></div>
 										<div class="course-lector">
-											<img src="img/recruiter/<?= $recruiter_img; ?>" data-at2x="img/recruiter/<?= $recruiter_img; ?>" class="avatar" alt>
+											<img src="img/job_companies/<?= $job_img; ?>" data-at2x="img/job_companies/<?= $job_img; ?>" class="avatar" alt>
 											<div class="lector-name">
 												<h4>Posted by</h4>
 												<span><?= $recruiter_name; ?></span>
