@@ -66,7 +66,6 @@ extract($event_detail);
 							<div class="grid-col grid-col-12" style="clear: both;">
 								<?= $event_description; ?>
 							</div>
-
 						</article>
 					</div>
 				</main>

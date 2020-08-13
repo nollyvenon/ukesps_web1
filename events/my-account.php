@@ -83,23 +83,33 @@ if ($_POST['deleteitem']) {
 
 	<div class="page-content woocommerce">
 		<div class="container clear-fix">
-			<div class="row">
-				<div class="col-md-9 col-lg-9">
+			<div class="grid-row">
+				<div class="grid-col grid-col-3 sidebar">
+					<!-- widget search -->
+					<!-- widget categories -->
+					<aside class="widget-categories" style="border:1px solid red; border-radius:5px; padding:10px;">
+						<h2>Navigations</h2>
+						<hr class="divider-big" />
+						<ul>
+							<li class="cat-item cat-item-1 current-cat"><a href="past_payments">View Past payments </span></a></li>
+							<li class="cat-item cat-item-1 current-cat"><a href="view_events">View Posted Events <span> (7) </span></a></li>
+							<li class="cat-item cat-item-1 current-cat"><a href="upcoming_events">My Upcoming Events</a></li>
+							<li class="cat-item cat-item-1 current-cat"><a href="past_events">My Past Events</a></li>
+							<!-- <li class="cat-item cat-item-1 current-cat"><a href="view_profile">My Profile</a></li> -->
+							<li class="cat-item cat-item-1 current-cat"><a href="logout">Logout</a></li>
+						</ul>
+					</aside>
+				</div>
+				<div class="grid-col grid-col-8">
 					<h3>Home Page</h3>
 					<?php require_once '../layouts/feedback_message.php'; ?>
-
-					<a href="#!" class="col-md-6">
-						<div class="info-box">
-							<h4><?php echo $_SESSION['event_prov_first_name'] . ' ' . $_SESSION['event_prov_middle_name'] . ' ' . $_SESSION['event_prov_last_name'] ?></h4>
-							<span class="instructor-profession"><?php echo $email ?></span>
-							<div class="divider"></div>
-							<p><?= $phone ?></p>
-							<p><?= $billing_address_1 . '<br>' . $billing_address_2 ?></p>
-
-
-
-						</div>
-					</a>
+					<div class="info-box">
+						<h4><?php echo $_SESSION['event_prov_first_name'] . ' ' . $_SESSION['event_prov_middle_name'] . ' ' . $_SESSION['event_prov_last_name'] ?></h4>
+						<span class="instructor-profession"><?php echo $email ?></span>
+						<div class="divider"></div>
+						<p><?= $phone ?></p>
+						<p><?= $billing_address_1 . '<br>' . $billing_address_2 ?></p>
+					</div>
 					<div class="col-md-4">
 						<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($country) ?></p>
 						<p><b>Gender: </b> <?= $gender ?></p>
@@ -111,11 +121,10 @@ if ($_POST['deleteitem']) {
 					</div>
 
 				</div>
-				<?php include_once('recru_sidebar.php'); ?>
 			</div>
 		</div>
 	</div>
-	<?php include_once('../footer.php'); ?>
+	<?php include("footer.php") ?>
 	<script src="../js/jquery.min.js"></script>
 	<script type='text/javascript' src='../js/jquery.validate.min.js'></script>
 	<script src="../js/jquery.form.min.js"></script>

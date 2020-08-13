@@ -41,7 +41,7 @@ $zenta_operation = new zentabooksOperation();
 $admin_db_conn = new mysqlDB(DB_NAME, DB_USER, DB_PASS);
 $site_name = "UKESPS";
 
-$event_prov_code = $_SESSION['eventprov_unique_code'];
+$event_prov_code = $_SESSION['event_prov_unique_code'];
 $event_provider_detail = $event_prov_object->get_event_provider_detail($event_prov_code);
 extract($event_provider_detail);
 

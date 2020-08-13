@@ -6,16 +6,17 @@ ini_set('display_errors', 0);
 if (!$session_event_prov->is_logged_in()) {
 	redirect_to("login");
 }
-if (!$event_prov_object->is_provider_plan_valid($event_prov_code)) {
-	redirect_to("post_event");
-}
+// if (!$event_prov_object->is_provider_plan_valid($event_prov_code)) {
+// 	redirect_to("post_event");
+// }
+
 $event_title = "";
 $event_author = "";
 $event_type = "";
 $location = "";
 $summary = "";
 $content = "";
-if (isset($_POST['add_event']) && !empty($_POST['add_event'])) {
+if (isset($_POST['add_event'])) {
 	$event_title = $db_handle->sanitizePost($_POST['event_title']);
 	$event_author = $db_handle->sanitizePost($_POST['event_author']);
 	$event_type = $db_handle->sanitizePost($_POST['event_type']);
@@ -35,6 +36,7 @@ if (isset($_POST['add_event']) && !empty($_POST['add_event'])) {
 	} else {
 		move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
 		$result = $zenta_operation->add_event($event_title, '1', $gallery, $event_author, $startDate, $endDate, $startTime, $endTime, $location, $summary, $content);
+
 		if ($result) {
 			$message_success = "Event was added successfully.";
 		} else {
@@ -60,13 +62,16 @@ if (isset($_POST['add_event']) && !empty($_POST['add_event'])) {
 	<link rel="stylesheet" href="../css/styles.css">
 	<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.css" />
 	<link rel="stylesheet" href="../css/owl.carousel.css">
-
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<!--<link rel="stylesheet" href="../css/bootstrap.min.css">-->
 	<link rel="stylesheet" type="text/css" href="../rs-plugin/css/settings.css" media="screen">
 
 	<!--styles -->
 	<script type="text/javascript" src="../xadmin/ckeditor/ckeditor.js"></script>
 	<!--styles -->
+	<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+	<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 	<link rel="stylesheet" type="text/css" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css" />
 	<script src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
 
@@ -91,9 +96,19 @@ if (isset($_POST['add_event']) && !empty($_POST['add_event'])) {
 							</div>
 						</div>
 						<div class="row m-b-20">
-							<div class="col-md-12">
+							<div class="form-group col-md-12">
 								<label for="event_author" class="control-label">Author</label>
 								<input type="text" class="form-control" id="event_author" name="event_author" value="<?php echo $event_author; ?>">
+							</div>
+						</div>
+						<div class="row m-b-20">
+							<div class="form-group col-md-12">
+								<label for="event_type" class="control-label">Event Type</label>
+								<select name="event_type" required data-required="true" class="form-control selectpicker" data-live-search="true">
+									<option value="">Select A Type</option>
+									<option value="1">Free</option>
+									<option value="2">Paid</option>
+								</select>
 							</div>
 						</div>
 						<br><br>
@@ -161,7 +176,7 @@ if (isset($_POST['add_event']) && !empty($_POST['add_event'])) {
 						<div class="row m-t-30">
 							<div class="col-md-12">
 								<!-- <button name="submit" type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now</button> -->
-								<button type="submit" name="add_event" class="cws-button bt-color-3 border-radius alt icon-right">Add Event <i class="fa fa-angle-right"></i></button>
+								<button type="submit" id="add_event" name="add_event" class="cws-button bt-color-3 border-radius alt icon-right">Add Event <i class="fa fa-angle-right"></i></button>
 							</div>
 						</div>
 					</form>

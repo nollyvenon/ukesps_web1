@@ -36,7 +36,7 @@ $events = $zenta_operation->upcoming_events(date('Y-m-d'));
 					foreach ($events as $row) {
 
 				?>
-						<div class="grid-col grid-col-4">
+						<div class="grid-col grid-col-3">
 							<!-- course item -->
 							<div class="course-item">
 								<div class="course-hover">
@@ -52,7 +52,7 @@ $events = $zenta_operation->upcoming_events(date('Y-m-d'));
 						</div>
 				<?php  }
 				} ?>
-
+				<?php include_once('event_sidebar.php'); ?>
 			</div>
 		</div>
 	</div>
