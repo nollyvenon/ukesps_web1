@@ -12,6 +12,7 @@ if (isset($user_code)) {
 	$user_id = $_SESSION['jobsek_unique_code'];
 	$zenta_operation->add_view_course($detail_id, $user_id);
 }
+
 ?>
 <!DOCTYPE HTML>
 <!DOCTYPE HTML>
