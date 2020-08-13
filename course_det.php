@@ -47,36 +47,42 @@ if (isset($user_code)) {
 					<main>
 						<section>
 							<h2><?= $course_title; ?></h2>
-							<div class="picture">
-								<div class="hover-effect"></div>
-								<div class="link-cont">
-									<a href="img/courses/<?= $course_img; ?>" class="fancy fa fa-search"></a>
+							<div class="grid-col-row">
+								<div class="grid-col grid-col-5">
+									<div class="picture">
+										<div class="hover-effect"></div>
+										<div class="link-cont">
+											<a href="img/courses/<?= $course_img; ?>" class="fancy fa fa-search"></a>
+										</div>
+										<img style="" src="img/courses/<?= $course_img; ?>" data-at2x="img/courses/<?= $course_img; ?>" alt>
+									</div>
 								</div>
-								<img src="img/courses/<?= $course_img; ?>" data-at2x="img/courses/<?= $course_img; ?>" alt>
-							</div><br>
-							<div itemprop="description">
-								<p><strong>Category:</strong><?= $category_name; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Sub category:</strong><?= $sub_category_name; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Duration:</strong><?= $duration; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Location:</strong><?= $location_name; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Study Level:</strong><?= $study_level_name; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Study Method:</strong><?= $study_method_name; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Institution:</strong><?= $institute_name; ?></p>
-							</div>
-							<div itemprop="description">
-								<p><strong>Course type:</strong><?= $type_name; ?></p>
+								<div class="grid-col grid-col-7">
+									<div itemprop="description">
+										<p><strong>Category:</strong><?= $category_name; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Sub category:</strong><?= $sub_category_name; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Duration:</strong><?= $duration; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Location:</strong><?= $location_name; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Study Level:</strong><?= $study_level_name; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Study Method:</strong><?= $study_method_name; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Institution:</strong><?= $institute_name; ?></p>
+									</div>
+									<div itemprop="description">
+										<p><strong>Course type:</strong><?= $type_name; ?></p>
+									</div>
+								</div>
 							</div>
 							<div itemprop="description">
 								<p><strong>Quick Overview:</strong><?= $course_overview; ?></p>
@@ -97,13 +103,13 @@ if (isset($user_code)) {
 									<span class="description-price"><?= $fee_period; ?></span>
 								</span>
 								<div class="count-users"><i class="fa fa-location-arrow"></i> <?= $location_name; ?></div>
-								<!--<div class="course-lector">
-									<img src="img/recruiter/<?= $recruiter_img; ?>" data-at2x="img/recruiter/<?= $recruiter_img; ?>" class="avatar" alt>
+								<div class="course-lector">
+									<img src="img/11_administrator.png" data-at2x="img/11_administrator.png" class="avatar" alt>
 									<div class="lector-name">
 										<h4>Posted by</h4>
-										<span><?= $recruiter_name; ?></span>
+										<span>Admin</span>
 									</div>
-								</div>-->
+								</div>
 								<div class="count-users"><a href="add_to_cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div>
 							</div>
 							<!-- woocommerce tabs -->
