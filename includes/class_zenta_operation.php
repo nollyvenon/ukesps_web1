@@ -386,14 +386,15 @@ class zentabooksOperation
         global $db_handle;
         $con = "";
 
-        $query = "SELECT jbv.*, jbl.location_id, jbl.location_name, jbse.sector_name, jbty.jobtype_name, jbc.company_name, jbca.category_name, jble.joblevel_name, jbsca.category_name AS sub_category_name FROM jobs jbv
+        $query = "SELECT jbv.*, jbl.location_id, jbl.location_name, jbse.sector_name, jbty.jobtype_name, jbc.company_name, jbca.category_name, jble.joblevel_name
+        FROM jobs jbv
         INNER JOIN job_locations jbl ON jbv.job_location=jbl.location_id
 		INNER JOIN job_sectors jbse ON jbv.job_sector=jbse.sector_id
 		INNER JOIN job_types jbty ON jbv.jobstype=jbty.jobtype_id
 		INNER JOIN job_levels jble ON jbv.joblevel=jble.joblevel_id
 		INNER JOIN job_companies jbc ON jbv.job_company=jbc.company_id
 		INNER JOIN job_categories jbca ON jbv.job_category=jbca.category_id
-		INNER JOIN job_sub_categories jbsca ON jbv.job_subcategory=jbsca.subcat_id
+		-- INNER JOIN job_sub_categories jbsca ON jbv.job_subcategory=jbsca.subcat_id
 		WHERE jbv.jobs_id='$job_id' ";
         $result = $db_handle->runQuery($query);
         $jobs = $db_handle->fetchAssoc($result);
@@ -747,7 +748,7 @@ class zentabooksOperation
     public function recruiting_plan_by_id($plan_id)
     {
         global $db_handle;
-        $query = "SELECT * FROM recruiting_plans WHERE plan_id='$plan_id' DESC";
+        $query = "SELECT * FROM recruiting_plans WHERE plan_id='$plan_id'";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
         return $fetched_data[0];
@@ -2978,7 +2979,7 @@ $headers = implode("\r\n", $headers);*/
     {
         global $db_handle;
 
-        $query = "INSERT INTO jobs(job_title, recruiter_code, email, phone, location_id, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript, requirements, job_company, amount_per_period, salary_period, apply_info, job_img) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description', '$requirements', '$job_company', '$amount_per_period', '$salary_period', '$apply_info', '$job_img')";
+        $query = "INSERT INTO jobs(job_title, recruiter_code, email, phone, job_location, country_id, startDate, endDate, job_category, job_subcategory, jobstype, joblevel, job_sector, descript, requirements, job_company, amount_per_period, salary_period, apply_info, job_img) VALUES ('$job_title', '$recruiter_code', '$email','$phone', '$location_id', '$country_id','$startDate', '$endDate', '$category_id', '$sub_category_id', '$jobstype', '$joblevel', '$jobsector', '$description', '$requirements', '$job_company', '$amount_per_period', '$salary_period', '$apply_info', '$job_img')";
         return $db_handle->runQuery($query);
         //  'Job added successfully';
     }

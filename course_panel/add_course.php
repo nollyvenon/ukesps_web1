@@ -2,14 +2,17 @@
 require("z_db.php");
 //check if the user is logged and has an active recruiting plan. If no, redirect to the buy plan page
 
-if (!$session_course_prov->is_logged_in() || !$course_prov_object->is_provider_plan_valid($course_prov_code)) {
-	redirect_to("post_a_course");
-}
+// if (!$session_course_prov->is_logged_in() || !$course_prov_object->is_provider_plan_valid($course_prov_code)) {
+// 	redirect_to("post_a_course");
+// }
 if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
+
 	$course_title = $db_handle->sanitizePost($_POST['course_title']);
 	$study_method = $db_handle->sanitizePost($_POST['study_method']);
+	$study_level = $db_handle->sanitizePost($_POST['study_level']);
 	$course_category = $db_handle->sanitizePost($_POST['category_id']);
 	$course_subcategory = $db_handle->sanitizePost($_POST['sub_category_id']);
+	$duration = $db_handle->sanitizePost($_POST['duration']);
 	$course_fee = $db_handle->sanitizePost($_POST['course_fee']);
 	$fee_period = $db_handle->sanitizePost($_POST['fee_period']);
 	$course_currency = $db_handle->sanitizePost($_POST['course_currency']);
@@ -17,7 +20,9 @@ if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
 	$course_type = $db_handle->sanitizePost($_POST['course_type']);
 	$entry_requirements = $db_handle->sanitizePost($_POST['entry_requirements']);
 	$location = $db_handle->sanitizePost($_POST['location']);
+	$country = $db_handle->sanitizePost($_POST['country_id']);
 	$course_overview = $db_handle->sanitizePost($_POST['course_overview']);
+	$course_outline = $db_handle->sanitizePost($_POST['course_outline']);
 	$description = $db_handle->sanitizePost($_POST['description']);
 	$apply_info = $db_handle->sanitizePost($_POST['apply_info']);
 	$who_is_course_for = $db_handle->sanitizePost($_POST['who_is_course_for']);
@@ -26,11 +31,12 @@ if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
 	$gallery = basename($_FILES['gallery']['name']);
 	$gallery1 = $uploaddir . basename($gallery);
 
+
 	if (empty($course_title) || empty($location) || empty($description)) {
 		$message_error = "Please fill all the fields and try again.";
 	} else {
 		move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-		$result = $zenta_operation->add_course($course_title, $gallery, $study_method, $course_category, $course_subcategory, $course_fee, $fee_period, $course_currency, $course_institute, $course_type, $duration, $entry_requirements, $location, $course_overview, $description, $apply_info, $who_is_course_for, $career_path, $course_prov_code);
+		$result = $zenta_operation->add_course($course_title, $gallery, $study_method, $course_category, $course_subcategory, $course_fee, $fee_period, $course_currency, $course_institute, $course_type, $duration, $entry_requirements, $location, $course_overview, $description, $apply_info, $who_is_course_for, $career_path, $admin_id, $country, $course_outline, $study_level);
 		if ($result) {
 			$message_success = "Course was added successfully.";
 		} else {
@@ -111,7 +117,7 @@ $course_currencies = $zenta_operation->get_all_currencies();
 							</div>
 						</div>
 						<div class="row m-b-20">
-							<div class="col-md-5">
+							<div class="form-group col-md-5">
 								<label for="user_code" class="control-label">Course Image</label>
 								<input name="gallery" class="form-control" type="file" id="gallery" size="30" />
 							</div>
@@ -131,7 +137,7 @@ $course_currencies = $zenta_operation->get_all_currencies();
 							</div>
 							<div class="col-md-5">
 								<label for="event_author" class="control-label">Fee Duration</label>
-								<input type="text" class="form-control" id="duration" name="duration" value="<?php echo $fee_period; ?>">
+								<input type="text" class="form-control" id="fee_period" name="fee_period" value="<?php echo $fee_period; ?>">
 								` </div>
 
 							<div class="col-md-5">
@@ -257,7 +263,7 @@ $course_currencies = $zenta_operation->get_all_currencies();
 									<?php
 									foreach ($course_currencies as $row44) :
 									?>
-										<option value="<?php echo $row44['currency_id']; ?>">
+										<option value="<?php echo $row44['currency_code']; ?>">
 											<?php echo $row44['currency_name']; ?>
 										</option>
 									<?php
@@ -352,7 +358,19 @@ $course_currencies = $zenta_operation->get_all_currencies();
 									});
 								</script>
 							</div>
-
+							<div class="col-md-12">
+								<label for="course_outline" class="control-label">Course Outline</label>
+								<textarea id="course_outline" name="course_outline" rows="15" cols="40"></textarea>
+								<script>
+									// Replace the <textarea id="editor1"> with a CKEditor
+									// instance, using default configuration.
+									CKEDITOR.replace('course_outline', {
+										filebrowserBrowseUrl: '../xadmin/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+										filebrowserUploadUrl: '../xadmin/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+										"filebrowserImageUploadUrl": "../xadmin/ckeditor/plugins/imgupload/imgupload.php"
+									});
+								</script>
+							</div>
 							<div class="col-md-12">
 								<label for="apply_info" class="control-label">Application Info/Link(s)</label>
 								<textarea id="apply_info" name="apply_info" rows="15" cols="40"></textarea>

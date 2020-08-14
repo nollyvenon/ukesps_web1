@@ -168,7 +168,7 @@ class CoursProvUser
     }
 
     // Add a new course_providers profile
-    public function add_new_course_provider($first_name = NULL, $last_name = NULL, $phone = NULL, $email, $username = '', $password = NULL, $billing_company = NULL, $billing_address_1 = NULL, $billing_address_2 = NULL, $billing_city = NULL, $billing_state = NULL, $billing_country = NULL, $company_name = NULL)
+    public function add_new_course_provider($first_name = NULL, $last_name = NULL, $phone = NULL, $email = NULL, $password = NULL, $company_name = NULL)
     {
         global $db_handle;
         global $system_object;
@@ -183,7 +183,7 @@ class CoursProvUser
         $pass_salt = generateHash($password);
 
 
-        $query = "INSERT INTO course_providers (couprov_code, username, email, pass_salt, password, first_name, last_name, status, phone, billing_company, billing_address_1, billing_address_2, billing_city, billing_state, billing_country, company_name) VALUES ('$couprov_code', '$username', '$email', '$pass_salt', '$password', '$first_name', '$last_name', '1', '$phone', '$billing_company', '$billing_address_1', '$billing_address_2', '$billing_city', '$billing_state', '$billing_country', '$company_name')";
+        $query = "INSERT INTO course_providers (couprov_code, email, pass_salt, password, first_name, last_name, status, phone, company_name) VALUES ('$couprov_code',  '$email', '$pass_salt', '$password', '$first_name', '$last_name', '1', '$phone', '$company_name')";
         $db_handle->runQuery($query);
 
         if ($db_handle->affectedRows() > 0) {

@@ -15,17 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
     if ($recaptcha->score >= 0.5) {
         // valid submission
         // go ahead and do necessary stuff
-
-        $account_username = $_POST['account_username'];
         $account_password = $_POST['account_password'];
         $company_name = $_POST['company_name'];
         $last_name = $_POST['last_name'];
-        $middle_name = ($_POST['middle_name']);
         $first_name = ($_POST['first_name']);
-        $gender_select = $_POST['gender_select'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-        $country = $_POST['country'];
         $message_success = "";
 
         if (strlen($last_name) < 2) {
@@ -35,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
         if ($first_name == '') {
             $message_error .= "First Name is compulsory";
         }
+        $user = $db_handle->numRows("SELECT couprov_code FROM course_providers WHERE email = '$email'");
 
-        if ($db_handle->numRows("SELECT username FROM course_providers WHERE email = '$email' OR username = '$account_username'") > 0) {
+        if ($user > 0) {
             $message_error .= "Username/Email already exists in our database.";
             goto exitpoint;
         };
 
-        $course_providers = $course_prov_object->add_new_course_provider($first_name, $last_name, $phone, $email, $account_username, $account_password, $billing_company, $mailing_address, "", "",  "", $country, $company_name);
+        $course_providers = $course_prov_object->add_new_course_provider($first_name, $last_name, $phone, $email,  $account_password, $company_name);
         $found_client = $course_prov_object->authenticate($email, $account_password);
 
         if ($found_client) {
@@ -115,7 +111,7 @@ $countries = $zenta_operation->get_all_countries();
                     <?php include_once('../layouts/feedback_message.php'); ?>
                     <?php if ($message_success == "") { ?>
 
-                        <form action="" method="post" class="form-horizontal tasi-form" name="searchmereg" enctype="multipart/form-data">
+                        <form action="" id="couprov_reg" method="post" class="form-horizontal tasi-form" name="searchmereg" enctype="multipart/form-data">
 
                             <div class="form-group">
                                 <label class="col-md-3">
@@ -175,7 +171,7 @@ $countries = $zenta_operation->get_all_countries();
 
                             <br>
                             <input class="cws-button bt-color-3 border-radius " name="submit" type="submit" id="submit" value="Register ">
-                            <button type="reset" class="cws-button bt-color-3 border-radius alt icon-right">Reset <i class="fa fa-angle-right"></i></button>
+                            <button type="reset" onclick="document.getElementById('couprov_reg').reset" class="cws-button bt-color-3 border-radius alt icon-right">Reset <i class="fa fa-angle-right"></i></button>
 
                 </div>
 

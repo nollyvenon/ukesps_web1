@@ -120,33 +120,38 @@
 	<aside class="widget-course-details">
 		<h2>Popular Courses</h2>
 		<?php $similar_courses = $zenta_operation->get_similar_courses('5');
+		$i = 0;
 		foreach ($similar_courses as $row) {
 		?>
-			<div>
-				<div class="star-rating" title="Rated 5.00 out of 5">
-					<span style="width:80%"><strong class="rating">4.00</strong> out of 5</span>
+			<?php if ($i < 5) : ?>
+				<div>
+					<div class="star-rating" title="Rated 5.00 out of 5">
+						<span style="width:80%"><strong class="rating">4.00</strong> out of 5</span>
+					</div>
+					<div class="count-reviews">( reviews 5 )</div>
 				</div>
-				<div class="count-reviews">( reviews 5 )</div>
-			</div>
-			<div class="category-info">
-				<img src="img/courses/<?= $row['course_img']; ?>" data-at2x="img/courses/<?= $row['course_img']; ?>" class="avatar" alt>
-				<div class="course-lector">
-					<h4><?= $row['course_title']; ?></h4>
-					<span><?= $row['duration']; ?></span>
-				</div>
-				<span class="price">
-					<span class="amount">
-						<?= $row['course_fee']; ?><sup><?= $row['course_currency']; ?></sup>
+				<div class="category-info">
+					<img src="img/courses/<?= $row['course_img']; ?>" data-at2x="img/courses/<?= $row['course_img']; ?>" class="avatar" alt>
+					<div class="course-lector">
+						<h4><?= $row['course_title']; ?></h4>
+						<span><?= $row['duration']; ?></span>
+					</div>
+					<span class="price">
+						<span class="amount">
+							<?= $row['course_fee']; ?><sup><?= $row['course_currency']; ?></sup>
+						</span>
+						<span class="description-price">per <?= $row['fee_period']; ?></span>
 					</span>
-					<span class="description-price">per <?= $row['fee_period']; ?></span>
-				</span>
-			</div>
-			<a href="course_det?sid=<?= $row['course_id']; ?>" class="cws-button border-radius small bt-color-3 alt">Read More</a>
+				</div>
+				<a href="course_det?sid=<?= $row['course_id']; ?>" class="cws-button border-radius small bt-color-3 alt">Read More</a>
+			<?php endif ?>
+			<?php $i++ ?>
+		<?php } ?>
 	</aside>
-<?php } ?>
-<!-- widget popular courses -->
-<!-- widget recent comments -->
-<!-- <aside class="widget-comments">
+
+	<!-- widget popular courses -->
+	<!-- widget recent comments -->
+	<!-- <aside class="widget-comments">
 		<h2>Recent Comments</h2>
 		<hr class="divider-big" />
 		<div class="comments">
@@ -173,25 +178,25 @@
 			</div>
 		</div>
 	</aside> -->
-<!--/ widget recent comments -->
-<!-- widget tag cloud -->
-<aside class="widget-tag">
-	<h2>Tag Cloud</h2>
-	<hr class="divider-big margin-bottom" />
-	<div class="tag-cloud">
-		<a href="#" rel="tag">Daily</a>,
-		<a href="#" rel="tag">Design</a>,
-		<a href="#" rel="tag">Illustration</a>,
-		<a href="#" rel="tag">Label</a>,
-		<a href="#" rel="tag">Photo</a>,
-		<a href="#" rel="tag">Pofessional</a>,
-		<a href="#" rel="tag">Show</a>,
-		<a href="#" rel="tag">Sound</a>,
-		<a href="#" rel="tag">Sounds</a>,
-		<a href="#" rel="tag">Tv</a>,
-		<a href="#" rel="tag">Video</a>
-	</div>
-	<hr class="margin-top" />
-</aside>
-<!-- / widget tag cloud -->
+	<!--/ widget recent comments -->
+	<!-- widget tag cloud -->
+	<aside class="widget-tag">
+		<h2>Tag Cloud</h2>
+		<hr class="divider-big margin-bottom" />
+		<div class="tag-cloud">
+			<a href="#" rel="tag">Daily</a>,
+			<a href="#" rel="tag">Design</a>,
+			<a href="#" rel="tag">Illustration</a>,
+			<a href="#" rel="tag">Label</a>,
+			<a href="#" rel="tag">Photo</a>,
+			<a href="#" rel="tag">Pofessional</a>,
+			<a href="#" rel="tag">Show</a>,
+			<a href="#" rel="tag">Sound</a>,
+			<a href="#" rel="tag">Sounds</a>,
+			<a href="#" rel="tag">Tv</a>,
+			<a href="#" rel="tag">Video</a>
+		</div>
+		<hr class="margin-top" />
+	</aside>
+	<!-- / widget tag cloud -->
 </div>

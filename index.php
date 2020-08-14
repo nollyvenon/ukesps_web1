@@ -310,20 +310,20 @@ $job_sector = $zenta_operation->get_job_sector(3);
 			<section class="fullwidth-background testimonial padding-section">
 				<div class="grid-row grid-row-clear">
 					<h2 class="center-text">Testimonials</h2>
-					<div class="owl-carousel testimonials-carousel">
-						<div class="gallery-item">
+					<div class="owl-carousel full-width-slider">
+						<div class="gallery-item picture">
 							<div class="quote-avatar-author clear-fix"><img style="height:40px;width:40px;" src="img/option-3.jpg" data-at2x="img/option-3.jpg" alt="">
 								<div class="author-info">Adebimpe Shola<br><span>Writer</span></div>
 							</div>
 							<p>UKESPS has a respectable work ethic and professional manner which aligns well with The University of Melbourne's </p>
 						</div>
-						<div class="gallery-item">
+						<div class="gallery-item picture">
 							<div class="quote-avatar-author clear-fix"><img style="height:40px;width:40px;" src="img/option-3.jpg" data-at2x="img/option-3.jpg" alt="">
 								<div class="author-info">John Emeka<br><span>Student, Ireland</span></div>
 							</div>
 							<p>In less than a month, both my wife and I were granted visas; thanks to the meticulous work that the staff of UKESPS did. I would recommend UKESPS to anyone intending on Studying Abroad.</p>
 						</div>
-						<div class="gallery-item">
+						<div class="gallery-item picture">
 							<div class="quote-avatar-author clear-fix"><img style="height:40px;width:40px;" src="img/option-3.jpg" data-at2x="img/option-3.jpg" alt="">
 								<div class="author-info">Kunle Yomi<br><span>Sussex, UK</span></div>
 							</div>
@@ -423,6 +423,12 @@ $job_sector = $zenta_operation->get_job_sector(3);
 	<script src="js/jquery.fancybox-media.js"></script>
 	<script src="js/retina.min.js"></script>
 	<script src="js/jquery.tweet.js"></script>
+
+	<!-- <script>
+		$(document).ready(function() {
+			$(".owl-carousel").owlCarousel();
+		});
+	</script> -->
 	<script>
 		$(document).ready(function() {
 			$('#myModal').on('show.bs.modal', function(e) {
