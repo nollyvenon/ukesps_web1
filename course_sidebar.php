@@ -25,7 +25,7 @@
 					<span class="description-price">per <?= $fee_period; ?></span>
 				</span>
 			</div>
-			<a href="" class="cws-button border-radius small bt-color-3 alt">Read More</a>
+			<a href="course_det?sid=<?= $course_id ?>" class="cws-button border-radius small bt-color-3 alt">Read More</a>
 		</aside>
 
 	<?php } ?>
@@ -123,7 +123,7 @@
 		$i = 0;
 		foreach ($similar_courses as $row) {
 		?>
-			<?php if ($i < 5) : ?>
+			<?php if ($i < 2) : ?>
 				<div>
 					<div class="star-rating" title="Rated 5.00 out of 5">
 						<span style="width:80%"><strong class="rating">4.00</strong> out of 5</span>

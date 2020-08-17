@@ -1,9 +1,9 @@
 <?php
 require_once("z_db.php");
-$ssid = $_GET['xxid'];
-$id_encrypted = $db_handle->sanitizePost($_GET['xxid']);
-$id_encrypted = decrypt(str_replace(" ", "+", $id_encrypted));
-$ssid = preg_replace("/[^A-Za-z0-9 ]/", '', $id_encrypted);
+// $ssid = $_GET['xxid'];
+// $id_encrypted = $db_handle->sanitizePost($_GET['xxid']);
+// $id_encrypted = decrypt(str_replace(" ", "+", $id_encrypted));
+// $ssid = preg_replace("/[^A-Za-z0-9 ]/", '', $id_encrypted);
 if (!$session_recruiter->is_logged_in()) {
 	redirect_to("login");
 }
@@ -48,7 +48,7 @@ if ($prespagehigh > $numrows) {
 $offset = ($currentpage - 1) * $rowsperpage;
 $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
-$content = $db_handle->fetchAssoc($result);
+$content1 = $db_handle->fetchAssoc($result);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -78,29 +78,25 @@ $content = $db_handle->fetchAssoc($result);
 
 	<div class="page-content woocommerce">
 		<div class="container clear-fix">
-			<div class="row">
-				<div class="col-md-9 col-lg-9">
+			<div class="grid-row">
+				<div class="grid-col grid-col-8">
 					<h3>Home Page</h3>
 					<?php require_once '../layouts/feedback_message.php'; ?>
 
-					<a href="#!" class="col-md-6">
+					<div class="col-md-6">
 						<div class="info-box">
 							<h4><?php echo $first_name . ' ' . $middle_name . ' ' . $last_name ?></h4>
 							<span class="instructor-profession"><?php echo $email ?></span>
 							<div class="divider"></div>
 							<p><?= $phone ?></p>
 							<p><?= $billing_address_1 . '<br>' . $billing_address_2 ?></p>
-
-
-
 						</div>
-					</a>
+					</div>
 					<div class="col-md-4">
 						<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($country) ?></p>
-						<p><b>Gender: </b> <?= $gender ?></p>
 						<p><b>Company: </b> <?= $billing_company ?></p>
 
-						<?php if (!$recruit_object->is_recruit_plan_valid($recruiter_code)) { ?>
+						<?php if (!$recruit_object->is_recruit_plan_valid($recruiter_code, "1")) { ?>
 							<a href="post_a_job" class="cws-button bt-color-3">Buy a Plan</a>
 						<?php	} ?>
 					</div>

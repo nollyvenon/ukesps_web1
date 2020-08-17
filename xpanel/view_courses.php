@@ -118,7 +118,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 													</div>
 													<div class="count-reviews">( reviews 10 )</div>
 												</div>
-												<p><?= limit_text(htmlspecialchars($row["description"]), 70) ?></p>
+												<p><?= limit_text($row["description"], 70) ?></p>
 												<div class="category-info">
 													<span class="price">
 														<span class="amount">

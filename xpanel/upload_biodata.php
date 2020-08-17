@@ -114,8 +114,8 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 						<ul>
 							<li class="cat-item cat-item-1 current-cat">
 								<a href="index">My Profile<span> </span></a></li>
-							<li class="cat-item cat-item-1 current-cat">
-								<a href="upload_biodata">Update Profile<span> </span></a></li>
+							<!-- <li class="cat-item cat-item-1 current-cat">
+								<a href="upload_biodata">Update Profile<span> </span></a></li> -->
 							<li class="cat-item cat-item-1 current-cat">
 								<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
 							<!-- <li class="cat-item cat-item-1 current-cat">

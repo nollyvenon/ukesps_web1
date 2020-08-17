@@ -5,6 +5,7 @@ $course_det = $zenta_operation->get_course_by_id($detail_id);
 extract($course_det);
 
 $_SESSION['payment_category'] = '4'; //courses
+
 if (isset($user_code)) {
 	$user_id = $_SESSION['client_unique_code'];
 	$zenta_operation->add_view_course($detail_id, $user_id);
@@ -49,7 +50,7 @@ if (isset($user_code)) {
 						<section>
 							<h2><?= $course_title; ?></h2>
 							<div class="grid-col-row">
-								<div class="grid-col grid-col-5">
+								<div class="grid-col grid-col-4">
 									<div class="picture">
 										<div class="hover-effect"></div>
 										<div class="link-cont">
@@ -58,7 +59,7 @@ if (isset($user_code)) {
 										<img style="" src="img/courses/<?= $course_img; ?>" data-at2x="img/courses/<?= $course_img; ?>" alt>
 									</div>
 								</div>
-								<div class="grid-col grid-col-7">
+								<div class="grid-col grid-col-5">
 									<div itemprop="description">
 										<p><strong>Category:</strong><?= $category_name; ?></p>
 									</div>
@@ -112,7 +113,7 @@ if (isset($user_code)) {
 											<span>Admin</span>
 										</div>
 									</div>
-									<div class="count-users"><a href="add_to_cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div>
+									<div class="count-users"><a href="cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div>
 								</div>
 							</div>
 							<!-- woocommerce tabs -->
