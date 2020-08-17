@@ -425,18 +425,33 @@ www.ukesps.com";
     }
 
 
-    /*public function paystack_payment($event_prov_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
-		global $db_handle;
-		$query = "INSERT INTO payments SET event_prov_code='".$event_prov_code."', OrderID='".$trxref."', payer_email='".$email."', payment_status='1', payment_amount='".$amount."', txn_id='".$unique_id."', payment_currency='".$currency."', payment_category='$payment_category', gateway='2'";
+    public function paystack_payment($event_prov_code, $reference = NULL, $trxref = NULL, $status = NULL, $amount = NULL, $email = NULL, $unique_id = NULL, $payment_category = NULL, $currency = NULL, $plan_id)
+    {
+        // return $amount;
+        global $db_handle;
+        $query = "INSERT INTO payments SET event_prov_code='" . $event_prov_code . "', OrderID='" . $trxref . "', payer_email='" . $email . "', payment_status='1', payment_amount='" . $amount . "', txn_id='" . $event_prov_code . "', payment_currency='" . $currency . "', payment_category='$payment_category', gateway='2'";
         $db_handle->runQuery($query);
-		
-		$query = "UPDATE event_providers SET event_providers='1' where code='$unique_id'";
-        $db_handle->runQuery($query);
+        $event_provider_plan_period = $this->event_provider_plan_detail_by_id($plan_id)['plan_period'];
+        if ($event_provider_plan_period == 'day') {
+            $plan_period = 1;
+        } else if ($event_provider_plan_period == 'week') {
+            $plan_period = 7;
+        } else if ($event_provider_plan_period == 'month') {
+            $plan_period = 30;
+        } else if ($event_provider_plan_period == 'year') {
+            $plan_period = 365;
+        } else {
+            $plan_period = 0;
+        }
+        $plan_valid_until = date('Y-m-d H:i:s', time() + $plan_period * 24 * 60 * 60);
 
-		$query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
-        $db_handle->runQuery($query);
-        return true;
-	}*/
+        $query = "UPDATE event_providers SET plan_valid_until='$plan_valid_until' where event_prov_code='$event_prov_code'";
+        return $db_handle->runQuery($query);
+
+        // $query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
+        // $db_handle->runQuery($query);
+        // return true;
+    }
 
     public function get_all_past_payments($event_prov_code = NULL, $orderID = NULL, $payer_email = NULL, $payment_status = NULL, $gateway = NULL, $payment_currency = NULL)
     {

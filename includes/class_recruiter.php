@@ -58,6 +58,20 @@ class RecruitUser
             return false;
         }
     }
+    public function recruiting_cv_plan_detail_by_id($plan_id)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM recruiting_cv_plans WHERE plan_id = '$plan_id' ";
+        $result = $db_handle->runQuery($query);
+
+        if ($db_handle->numOfRows($result) > 0) {
+            $fetched_data = $db_handle->fetchAssoc($result);
+            return $fetched_data[0];
+        } else {
+            return false;
+        }
+    }
 
     public function get_all_recruiters()
     {
@@ -338,11 +352,16 @@ www.ukesps.com";
         }
     }
 
-    public function is_active_paid($recruiter_code)
+    public function is_active_paid($recruiter_code, $cat)
     {
         global $db_handle;
         $current_time = date('Y-m-d H:i:s');
-        $query = "SELECT * FROM recruiters WHERE (username='$recruiter_code' OR recruiter_code='$recruiter_code') AND valid_until>'$current_time'";
+        if ($cat == "2") {
+            $query = "SELECT * FROM recruiters WHERE recruiter_code='$recruiter_code' AND cvsearch_valid_until>'$current_time'";
+        } else {
+            $query = "SELECT * FROM recruiters WHERE recruiter_code='$recruiter_code' AND recruit_valid_until>'$current_time'";
+        }
+
         $result = $db_handle->runQuery($query);
 
         return $db_handle->numOfRows($result) > 0 ? true : false;
@@ -505,29 +524,75 @@ www.ukesps.com";
         return 'Cart was successfully deleted';
     }
 
-    public function is_recruit_plan_valid($recruiter_code = NULL)
+    public function is_recruit_plan_valid($recruiter_code = NULL, $cat)
     {
         global $db_handle;
 
         $current_time = date('Y-m-d H:i:s');
-        $query = "SELECT * FROM recruiters WHERE (username='$recruiter_code' OR recruiter_code='$recruiter_code') AND recruit_valid_until>='$current_time'";
+        if ($cat == "2") {
+            $query = "SELECT * FROM recruiters WHERE (recruiter_code='$recruiter_code') AND cvsearch_valid_until>='$current_time'";
+        } else {
+            $query = "SELECT * FROM recruiters WHERE (recruiter_code='$recruiter_code') AND recruit_valid_until>='$current_time'";
+        }
         $result = $db_handle->runQuery($query);
 
         return $db_handle->numOfRows($result) > 0 ? true : false;
     }
 
-    /*public function paystack_payment($recruiter_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
-		global $db_handle;
-		$query = "INSERT INTO payments SET recruiter_code='".$recruiter_code."', OrderID='".$trxref."', payer_email='".$email."', payment_status='1', payment_amount='".$amount."', txn_id='".$unique_id."', payment_currency='".$currency."', payment_category='$payment_category', gateway='2'";
+    public function paystack_payment($recruiter_code, $reference = NULL, $trxref = NULL, $status = NULL, $amount = NULL, $email = NULL, $unique_id = NULL, $payment_category = NULL, $currency = NULL, $plan_id)
+    {
+        // return $amount;
+        global $db_handle;
+        $query = "INSERT INTO payments SET recruiter_code='" . $recruiter_code . "', OrderID='" . $trxref . "', payer_email='" . $email . "', payment_status='1', payment_amount='" . $amount . "', txn_id='" . $recruiter_code . "', payment_currency='" . $currency . "', payment_category='$payment_category', gateway='2'";
         $db_handle->runQuery($query);
-		
-		$query = "UPDATE recruiters SET recruiters='1' where code='$unique_id'";
-        $db_handle->runQuery($query);
+        $event_provider_plan_period = $this->recruiter_plan_detail_by_id($plan_id, $payment_category)['plan_period'];
+        if ($event_provider_plan_period == 'day') {
+            $plan_period = 1;
+        } else if ($event_provider_plan_period == 'week') {
+            $plan_period = 7;
+        } else if ($event_provider_plan_period == 'month') {
+            $plan_period = 30;
+        } else if ($event_provider_plan_period == 'year') {
+            $plan_period = 365;
+        } else {
+            $plan_period = 0;
+        }
+        $plan_valid_until = date('Y-m-d H:i:s', time() + $plan_period * 24 * 60 * 60);
 
-		$query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
-        $db_handle->runQuery($query);
-        return true;
-	}*/
+
+        if ($payment_category == "1") {
+            $query = "UPDATE recruiters SET recruit_valid_until='$plan_valid_until' where recruiter_code='$recruiter_code'";
+            return $db_handle->runQuery($query);
+        } else {
+            $query = "UPDATE recruiters SET cvsearch_valid_until='$plan_valid_until' where recruiter_code='$recruiter_code'";
+            return $db_handle->runQuery($query);
+        }
+
+
+        // $query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
+        // $db_handle->runQuery($query);
+        // return true;
+
+    }
+
+    public function recruiter_plan_detail_by_id($plan_id, $payment_category)
+    {
+        global $db_handle;
+
+        if ($payment_category == "1") {
+            $query = "SELECT * FROM recruiting_plans WHERE plan_id = '$plan_id' ";
+        } else {
+            $query = "SELECT * FROM recruiting_cv_plans WHERE plan_id = '$plan_id' ";
+        }
+        $result = $db_handle->runQuery($query);
+
+        if ($db_handle->numOfRows($result) > 0) {
+            $fetched_data = $db_handle->fetchAssoc($result);
+            return $fetched_data[0];
+        } else {
+            return false;
+        }
+    }
 
     public function get_all_past_payments($recruiter_code = NULL, $orderID = NULL, $payer_email = NULL, $payment_status = NULL, $gateway = NULL, $payment_currency = NULL)
     {

@@ -40,6 +40,7 @@ require_once(LIB_PATH . DS . "PHPMailer" . DS . "PHPMailerAutoload.php");
 require_once(LIB_PATH . DS . "class_course_provider.php");
 require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_system.php");
+require_once(LIB_PATH . DS . "class_payment.php");
 
 
 $course_prov_object = new CoursProvUser();

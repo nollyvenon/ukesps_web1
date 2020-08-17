@@ -7,6 +7,7 @@ if (!in_array($_GET['sssid'], $_SESSION['cart'])) { //check if that plan ID alre
 	array_push($_SESSION['cart'], $_GET['sssid']);
 }
 //print_r( $_SESSION['cart']);
+$_SESSION['plan_id'] = $_GET['sssid'];
 $_SESSION['payment_category'] = $_GET['pptc'];
 if ($_POST['proceed']) {
 	$unique = $_SESSION['unique'];

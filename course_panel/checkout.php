@@ -79,6 +79,8 @@ if ($_POST['payment']) {
 if ($session_course_prov->is_logged_in()) {
 	$course_provider_detail = $course_prov_object->get_course_provider_detail_by_code($course_prov_code);
 	extract($course_provider_detail);
+} else {
+	redirect_to('login');
 }
 ?>
 <!DOCTYPE HTML>

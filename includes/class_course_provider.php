@@ -407,27 +407,40 @@ www.ukesps.com";
         global $db_handle;
 
         $current_time = date('Y-m-d H:i:s');
-        $query = "SELECT * FROM course_providers WHERE (username='$couprov_code' OR couprov_code='$couprov_code') AND plan_valid_until>='$current_time'";
+        $query = "SELECT * FROM course_providers WHERE (couprov_code='$couprov_code') AND plan_valid_until>='$current_time'";
         $result = $db_handle->runQuery($query);
 
         return $db_handle->numOfRows($result) > 0 ? true : false;
     }
 
-    /*public function paystack_payment($couprov_code, $reference=NULL, $trxref=NULL, $status=NULL, $amount=NULL, $email=NULL, $unique_id=NULL, $payment_category=NULL, $currency=NULL){
-		global $db_handle;
-		$query = "INSERT INTO payments SET couprov_code='".$couprov_code."', OrderID='".$trxref."', payer_email='".$email."', payment_status='1', payment_amount='".$amount."', txn_id='".$unique_id."', payment_currency='".$currency."', payment_category='$payment_category', gateway='2'";
+    public function paystack_payment($couprov_code, $reference = NULL, $trxref = NULL, $status = NULL, $amount = NULL, $email = NULL, $unique_id = NULL, $payment_category = NULL, $currency = NULL, $plan_id)
+    {
+        // return $payment_category;
+        global $db_handle;
+        $query = "INSERT INTO payments SET couprov_code='" . $couprov_code . "', OrderID='" . $trxref . "', payer_email='" . $email . "', payment_status='1', payment_amount='" . $amount . "', txn_id='" . $couprov_code . "', payment_currency='" . $currency . "', payment_category='$payment_category', gateway='2'";
         $db_handle->runQuery($query);
-		
-		$course_provider_plan_period = $this->course_provider_plan_detail_by_id($plan_id)['plan_period'];
-		$course_valid_until = date('Y-m-d H:i:s', time() + $course_provider_plan_period*24*60*60);
-		
-		$query = "UPDATE course_providers SET orderstatus='1', course_valid_until='$course_valid_until' where couprov_code='$couprov_code'";
-        $db_handle->runQuery($query);
+        $course_provider_plan_period = $this->course_provider_plan_detail_by_id($plan_id)['plan_period'];
+        if ($course_provider_plan_period == 'day') {
+            $plan_period = 1;
+        } else if ($course_provider_plan_period == 'week') {
+            $plan_period = 7;
+        } else if ($course_provider_plan_period == 'month') {
+            $plan_period = 30;
+        } else if ($course_provider_plan_period == 'year') {
+            $plan_period = 365;
+        } else {
+            $plan_period = 0;
+        }
+        $plan_valid_until = date('Y-m-d H:i:s', time() + $plan_period * 24 * 60 * 60);
 
-		$query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
-        $db_handle->runQuery($query);
-        return true;
-	}*/
+        $query = "UPDATE course_providers SET plan_valid_until='$plan_valid_until' where couprov_code='$couprov_code'";
+
+        return $db_handle->runQuery($query);
+
+        // $query = "UPDATE carrrt SET ordered='1' where code='$unique_id'";
+        // $db_handle->runQuery($query);
+        // return true;
+    }
 
     public function get_all_past_payments($couprov_code = NULL, $orderID = NULL, $payer_email = NULL, $payment_status = NULL, $gateway = NULL, $payment_currency = NULL)
     {

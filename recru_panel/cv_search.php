@@ -1,9 +1,11 @@
 <?php
 include_once("z_db.php");
+// var_dump($session_recruiter->is_logged_in());
+// die();
 if (!$session_recruiter->is_logged_in()) {
 	redirect_to("login");
 }
-if (!$recruit_object->is_active_paid($recruiter_code) || !$session_recruiter->is_logged_in()) {
+if (!$recruit_object->is_active_paid($recruiter_code, "2") || !$session_recruiter->is_logged_in()) {
 	redirect_to("cv_search_plans");
 }
 $rec_plan = $recruit_object->get_recruiting_cv_plans();

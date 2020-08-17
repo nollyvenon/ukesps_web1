@@ -79,6 +79,8 @@ if ($_POST['payment']) {
 if ($session_event_prov->is_logged_in()) {
 	$event_provider_detail = $event_prov_object->get_event_provider_detail_by_code($event_prov_code);
 	extract($event_provider_detail);
+} else {
+	redirect_to('login');
 }
 ?>
 <!DOCTYPE HTML>

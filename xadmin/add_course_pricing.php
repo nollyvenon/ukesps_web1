@@ -24,7 +24,8 @@ if (isset($_POST['add_course_pricing']) && !empty($_POST['add_course_pricing']))
   if (empty($plan_name) || empty($plan_cost) || empty($description)) {
     $message_error = "Please fill all the fields and try again.";
   } else {
-    move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
+    $price_image = move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
+
     $result = $zenta_operation->add_course_pricing($plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
       $message_success = "Course Pricing was added successfully.";

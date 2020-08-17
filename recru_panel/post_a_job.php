@@ -1,7 +1,10 @@
 <?php
 include_once("z_db.php");
 //check if the user is logged and has an active recruiting plan. If yes, redirect to the job upload page
-if ($session_recruiter->is_logged_in() && $recruit_object->is_recruit_plan_valid($recruiter_code)) {
+if (!$session_recruiter->is_logged_in()) {
+	redirect_to("login");
+}
+if ($recruit_object->is_recruit_plan_valid($recruiter_code, "1")) {
 	redirect_to("add_job");
 }
 $recruiting_plans = $zenta_operation->recruiting_plans();
@@ -46,7 +49,7 @@ $_SESSION['payment_category'] = '1'; //recruitment
 										</div>
 										<div class="price-pt"><sup><?= $row['plan_currency']; ?></sup><?= intval($row['plan_cost']); ?><sup>99</sup></div>
 										<p></p>
-										<p>for <?= $row['plan_period']; ?></p>
+										<p>per <?= $row['plan_period']; ?></p>
 										<ul>
 											<li><?= $row['highlights']; ?></li>
 										</ul>

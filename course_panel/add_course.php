@@ -2,9 +2,9 @@
 require("z_db.php");
 //check if the user is logged and has an active recruiting plan. If no, redirect to the buy plan page
 
-// if (!$session_course_prov->is_logged_in() || !$course_prov_object->is_provider_plan_valid($course_prov_code)) {
-// 	redirect_to("post_a_course");
-// }
+if (!$session_course_prov->is_logged_in() || !$course_prov_object->is_provider_plan_valid($course_prov_code)) {
+	redirect_to("post_a_course");
+}
 if (isset($_POST['add_course']) && !empty($_POST['add_course'])) {
 
 	$course_title = $db_handle->sanitizePost($_POST['course_title']);

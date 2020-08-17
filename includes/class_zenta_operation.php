@@ -809,7 +809,7 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "SELECT * FROM course_provider_plans WHERE plan_id='$plan_id' DESC";
+        $query = "SELECT * FROM course_provider_plans WHERE plan_id='$plan_id'";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
         return $fetched_data[0];

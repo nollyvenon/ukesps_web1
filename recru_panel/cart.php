@@ -11,6 +11,7 @@ if (isset($_GET['sssid'])) {
 	redirect_to('post_a_job');
 }
 //print_r( $_SESSION['cart']);
+$_SESSION['plan_id'] = $_GET['sssid'];
 $_SESSION['payment_category'] = $_GET['pptc'];
 if ($_POST['proceed']) {
 	$unique = $_SESSION['unique'];
@@ -238,7 +239,7 @@ if ($_POST['deleteitem']) {
 				</form>
 			</div>
 			<!--Shop -->
-			<section class="fullwidth-background testimonial padding-section">
+			<!-- <section class="fullwidth-background testimonial padding-section">
 				<div class="grid-row">
 					<h2 class="center-text">Testimonials</h2>
 					<div class="owl-carousel testimonials-carousel">
@@ -262,7 +263,7 @@ if ($_POST['deleteitem']) {
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 
 		</div>
 	</div>

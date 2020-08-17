@@ -10,7 +10,7 @@ if (isset($_GET['sssid'])) {
 	}
 }
 //print_r( $_SESSION['cart']);
-//$_SESSION['payment_category'] = $_GET['pptc']; 
+$_SESSION['payment_category'] = $_GET['pptc'];
 if ($_POST['proceed']) {
 	$unique = $_SESSION['unique'];
 	$xxid = encrypt($unique);
@@ -47,8 +47,6 @@ if ($_POST['deleteitem']) {
     redirect_to("login");
 }*/
 //print_r($_SESSION['cart']);
-
-
 ?>
 <!DOCTYPE HTML>
 <html>

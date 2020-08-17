@@ -35,17 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])
 			if ($recruit_object->recruiter_is_active($recruiter_code)) {
 				$found_client = $found_client[0];
 				$session_recruiter->login($found_client);
-				//redirect_to("checkout");
-				if (!$recruit_object->get_cart_info($unique)) { //check if there's an active uniqueID of this session in the order table, if yes redirect to payment page 
-					//redirect_to("index");
-					if (!$recruit_object->get_cvsearch_cart_info($unique)) { //check if there's an active uniqueID of this session in the order table
-						redirect_to("index");
-					} else {
-						redirect_to("payment?xxid=$xxid");
-					}
-				} else {
-					redirect_to("payment?xxid=$xxid");
-				}
+				redirect_to("index");
+				// //redirect_to("checkout");
+				// if (!$recruit_object->get_cart_info($unique)) { //check if there's an active uniqueID of this session in the order table, if yes redirect to payment page 
+				// 	//redirect_to("index");
+				// 	if (!$recruit_object->get_cvsearch_cart_info($unique)) { //check if there's an active uniqueID of this session in the order table
+				// 		redirect_to("index");
+				// 	} else {
+				// 		redirect_to("payment?xxid=$xxid");
+				// 	}
+				// } else {
+				// 	redirect_to("payment?xxid=$xxid");
+				// }
 			} else {
 				$message_error = "Your profile is currently inactive, suspended or your subscription has expired, please contact support for assistance.";
 			}

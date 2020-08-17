@@ -4,9 +4,10 @@ require("z_db.php");
 if (!$session_recruiter->is_logged_in()) {
 	redirect_to("login");
 }
-// if (!$recruit_object->is_active_paid($recruiter_code) || !$session_recruiter->is_logged_in()) {
-//     redirect_to("post_a_job");
-// }
+
+if (!$recruit_object->is_active_paid($recruiter_code, "1")) {
+	redirect_to("post_a_job");
+}
 if (isset($_POST['submit'])) {
 	foreach ($_POST as $key => $value) {
 		$_POST[$key] = $db_handle->sanitizePost(trim($value));

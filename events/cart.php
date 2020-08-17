@@ -12,6 +12,7 @@ if (isset($_GET['sssid'])) {
 }
 
 //print_r( $_SESSION['cart']);
+$_SESSION['plan_id'] = $_GET['sssid'];
 $_SESSION['payment_category'] = $_GET['pptc'];
 if ($_POST['proceed']) {
 	$unique = $_SESSION['unique'];
