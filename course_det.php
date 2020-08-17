@@ -113,7 +113,7 @@ if (isset($user_code)) {
 											<span>Admin</span>
 										</div>
 									</div>
-									<div class="count-users"><a href="cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div>
+									<!-- <div class="count-users"><a href="cart?sssid=<?= $course_id; ?>&tpp=courses" class="cws-button small bt-color-3 ">Add To Cart</a></div> -->
 								</div>
 							</div>
 							<!-- woocommerce tabs -->

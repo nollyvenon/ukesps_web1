@@ -180,7 +180,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 																	<span style="width:80%"><strong class="rating">4.00</strong> out of 5</span>
 																</div>
 																<span class="price">
-																	<span class="amount"><?php echo htmlspecialchars($row["course_fee"]) ?><sup>$</sup></span>
+																	<span class="amount"><?php echo $row["course_fee"] ?><sup>$</sup></span>
 																</span>
 
 																<div class="product-description">
