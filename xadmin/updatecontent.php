@@ -1,226 +1,250 @@
 <?php
 require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
-    redirect_to("log-in");
+	redirect_to("log-in");
 }
 $id = $_GET['id'];
-$content = $bio_operation->get_content_by_id($id);
+$content = $zenta_operation->get_content_by_id($id);
 extract($content);
-if (isset($_POST['updatecontent']) && !empty($_POST['updatecontent'])) {
-    $page_name = $db_handle->sanitizePost($_POST['page_name']);
-    $page_location = $db_handle->sanitizePost($_POST['page_location']);
-    $title = $db_handle->sanitizePost($_POST['title']);
-    $postedValue = $db_handle->sanitizePost($_POST['content']);
-    $entrydate = date('Y-m-d');
-    
-    if(empty($title) || empty($postedValue) || empty($page_name)) {
-        $message_error = "Please fill all the fields and try again.";
-    } else {
-        $result = $bio_operation->updatecontent($id,$page_name, $page_location, $title, $postedValue, $entrydate);
-        if($result) {
-             $message_success = "Content was successfully updated.";
-        } else {
-            $message_error = "Content was not successfully updated.";
-        }
-    }
+if (isset($_POST['updatecontent'])) {
+
+	$page_name = $db_handle->sanitizePost($_POST['page_name']);
+	$page_location = $db_handle->sanitizePost($_POST['page_location']);
+	$title = $db_handle->sanitizePost($_POST['title']);
+	$postedValue = $db_handle->sanitizePost($_POST['content']);
+	$entrydate = date('Y-m-d');
+
+	if (empty($title) || empty($postedValue) || empty($page_name)) {
+		$message_error = "Please fill all the fields and try again.";
+	} else {
+		$result = $zenta_operation->updatecontent($id, $page_name, $page_location, $title, $postedValue, $entrydate);
+		if ($result) {
+			$message_success = "Content was successfully updated.";
+		} else {
+			$message_error = "Content was not successfully updated.";
+		}
+	}
 }
-?><!DOCTYPE HTML>
-<html lang="en-US">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Biosource Global Resources</title>
-		<link rel="shortcut icon" type="image/x-icon" href="../img/logoside.png" />
- 
-		<link href="../css/master.css" rel="stylesheet">
- 
- <script type="text/javascript" src="../tinymce/tinymce.min.js"></script>
-<script>
-tinymce.init({
-    selector: "textarea",
-	width: 800,
-    height: 500,
-    theme: "modern",
-    plugins: [
-         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-         "save table contextmenu directionality emoticons template paste textcolor"
-   ],
-   content_css: "css/content.css",
-   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", 
-   style_formats: [
-        {title: 'Bold text', inline: 'b'},
-        {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-        {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-        {title: 'Example 1', inline: 'span', classes: 'example1'},
-        {title: 'Example 2', inline: 'span', classes: 'example2'},
-        {title: 'Table styles'},
-        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-    ]
- }); 
-</script>
-		<script src="../js/jquery-1.11.2.min.js"></script>  
-		<script src="../js/bootstrap.min.js"></script>
- 
-	</head>
-	<body data-scrolling-animations="true">
-		<div class="b-page">
-<?php include('../header.php');?>			<div class="bg-wrapper aout-page">
-				<section id="title-box" class="paralax bg-opacity-color about">
-					<div class="wrapper">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<h1>Admin</h1>
-						</div>
-					</div>
-				</section>
-				<section id="breadcrumbs" class="tooth tooth-green">
-					<div class="section-bg">
-						<div class="wrapper top-bug">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<ul>
-									<li>
-										<a href="index.php">Admin</a>
-                                     
-									</li>
-									<li>
-										<span>Update Content</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="title-center">
-					<div class="wrapper">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="section-title-box title-box-center wow bounceInDown center">
-								<h2>Update Content</h2>
-							</div>
-						</div>
-						<div class="row-3-col">
-							<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 wow fadeInLeft">
+$page_locations = $zenta_operation->get_page_location();
+$page_names = $zenta_operation->get_page_name();
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-		        <?php require_once '../layouts/feedback_message.php'; ?>
-                            <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                        <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
-                        <input type="hidden" name="POST_MAX_SIZE" value="500000" />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="title">
-                                Title</label>
-                            <input name="title" type="text" id="title" value="<?php echo $title; ?>" size="73" />
-                        </div>
-                        <div class="form-group">
-                            <label for="category">
-                                Page</label>
-                            <div class="input-group">
-                            <select name="page_name" class="form-control"  >
-                            <option value="<?php echo $page_name; ?>"><?php echo $page_name; ?></option>
-                                      <?php $query="SELECT * FROM  pageslocation where status='1'"; 
-                             $result = mysqli_query($con,$query);
-                            
-                            while($row = mysqli_fetch_array($result))
-                            {
-                                $page_name="$row[page_name]";
-                                print "<option value='$page_name'>$page_name</option>";
-                            
-                              }
-                              ?>
-                            </select></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="page_location">
-                                Page Location</label>
-                            <div class="input-group">
-                            <select name="page_location" class="form-control"  >
-                            <option value="<?php echo $page_location; ?>"><?php echo $page_location; ?></option>
-                                      <?php $query="SELECT * FROM pageslocation where status='1'"; 
-                             $result = mysqli_query($con,$query);
-                            
-                            while($row = mysqli_fetch_array($result))
-                            {
-                                $page_location="$row[page_location]";
-                                print "<option value='$page_location'>$page_location</option>";
-                            
-                              }
-                              ?>
-                            </select></div>
-                        </div>                        
-                        
-                    </div>
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="content">
-                                Content</label>
-                            <textarea id="content" name="content" style="width:100%"><?php echo htmlspecialchars_decode($info);?></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                            <input type="submit" class="btn btn-primary" name="updatecontent"  value="Update Content" />
-                             <input name="cancel" type="reset" class="btn btn-danger" id="cancel" value="Cancel" />
-                    </div>
-                </div>
+<head>
+	<title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
+	<!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 10]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="#">
+	<meta name="keywords" content="">
+	<meta name="author" content="#">
+	<!-- Favicon icon -->
+	<link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+	<!-- Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+	<!-- Required Fremwork -->
+	<!-- themify-icons line icon -->
+	<link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
+	<!-- Font Awesome -->
+	<!-- ico font -->
+	<link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
+	<!-- flag icon framework css -->
+	<link rel="stylesheet" type="text/css" href="../assets/pages/flag-icon/flag-icon.min.css">
+	<!-- Menu-Search css -->
+	<link rel="stylesheet" type="text/css" href="../assets/pages/menu-search/css/component.css">
 
-                    </form>
-				
-							</div>
-						</div>
-					</div>
-				</section>
-				
-				<section class="color-bg">
-					<div class="wrapper">
-						<div class="row-4">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div class="row-2-blocks row-2-blocks-2">
-									<<div class="r-block-1">
-										<div class="c-content-block wow fadeInDown top__element">
-											<h2>We Work Hard And Give Your Business A Cutting Edge</h2>
-											<div>Friendly customer service staff for your all questions!</div>
-										</div>
-									</div>
-									<div class="r-block-2">
-										<div class="btn big-circle">
-											<div class="big-text">
-												GET in touch today!
+	<!-- Style.css -->
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+	<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+	<script>
+		config.extraPlugins = 'imgupload';
+
+		function ShowPageLoc(str) {
+			if (str == "") {
+				document.getElementById("txtHint1").innerHTML = "";
+				return;
+			}
+
+			if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			} else { // code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					document.getElementById("txtHint1").innerHTML = xmlhttp.responseText;
+				}
+			}
+			xmlhttp.open("GET", "getPageLoc.php?q=" + str, true);
+			xmlhttp.send();
+		}
+	</script>
+</head>
+
+<body>
+
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
+			<?php include('../bin/header.php'); ?>
+
+			<?php include('../bin/inner_sidebar_chat.php'); ?>
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+					<?php include('../bin/sidebar.php'); ?>
+					<div class="pcoded-content">
+						<div class="pcoded-inner-content">
+
+							<!-- Main-body start -->
+							<div class="main-body">
+								<div class="page-wrapper">
+									<!-- Page-header start -->
+									<div class="page-header card">
+										<div class="row align-items-end">
+											<div class="col-lg-8">
+												<div class="page-header-title">
+													<i class="icofont icofont-file-spreadsheet bg-c-green"></i>
+													<div class="d-inline">
+														<h4><?= $page_group; ?></h4>
+														<span><?php echo $page_title; ?></span>
+													</div>
+												</div>
 											</div>
-											<div class="sm-text">
-												We'll fix all your Problems!
+											<div class="col-lg-4">
+												<div class="page-header-breadcrumb">
+													<ul class="breadcrumb-title">
+														<li class="breadcrumb-item">
+															<a href="#">
+																<i class="icofont icofont-home"></i>
+															</a>
+														</li>
+														<li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
+														</li>
+														<li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
+														</li>
+														<li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
+														</li>
+													</ul>
+												</div>
 											</div>
 										</div>
 									</div>
+									<!-- Page-header end -->
+
+									<!-- Page-body start -->
+									<div class="page-body">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="card">
+													<div class="card-header table-card-header">
+														<h5><?php echo $page_title; ?></h5>
+													</div>
+													<div class="card-block">
+														<div class="dt-responsive table-responsive">
+															<?php include_once('views/update_content.php'); ?>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Page-body end -->
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="tooth-color-gr"></div>
-				</section>
-			</div>
-			
-            <?php include('../footer.php');?>          
-		</div>
- 
-		<script src="../plugins/switcher/js/bootstrap-select.js"></script> 
-		<script src="../plugins/switcher/js/evol.colorpicker.min.js" type="text/javascript"></script> 
-		<script src="../plugins/switcher/js/dmss.js"></script>
- 
-		<script src="../js/jquery-ui.min.js"></script>
-		<script src="../js/modernizr.custom.js"></script>
-		<script src="../js/smoothscroll.min.js"></script>
-		<script src="../js/wow.min.js"></script>
- 
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->    
- 
-		<!--Owl Carousel-->
-		<script src="../plugins/owl-carousel/owl.carousel.min.js"></script>
-		<script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-		<script src="../js/waypoints.min.js"></script>
-		<script src="../js/jquery.easypiechart.min.js"></script>
-		<script src="../js/func.js"></script>
-	</body>
-</html>
+						<!-- Main-body end -->
 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+
+	<!-- Warning Section Starts -->
+	<!-- Older IE warning message -->
+	<!--[if lt IE 10]>
+<div class="ie-warning">
+    <h1>Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    <img src="../assets/images/browser/chrome.png" alt="Chrome">
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    <img src="../assets/images/browser/firefox.png" alt="Firefox">
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    <img src="../assets/images/browser/opera.png" alt="Opera">
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    <img src="../assets/images/browser/safari.png" alt="Safari">
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    <img src="../assets/images/browser/ie.png" alt="">
+                    <div>IE (9 & above)</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+	<!-- Warning Section Ends -->
+	<script>
+		$(".select2").select2({
+			placeholder: "",
+			maximumSelectionSize: 6
+		});
+	</script>
+	<!-- Required Jquery -->
+	<script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
+	<!-- jquery slimscroll js -->
+	<script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+	<!-- modernizr js -->
+	<script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
+	<script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
+
+	<!-- Custom js -->
+
+
+	<script src="../assets/js/pcoded.min.js"></script>
+	<script src="../assets/js/demo-12.js"></script>
+	<script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../assets/js/script.js"></script>
+	<?php include('../includes/bottom-cache.php'); ?>
+</body>
+
+</html>

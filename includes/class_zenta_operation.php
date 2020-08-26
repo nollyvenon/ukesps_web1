@@ -869,7 +869,8 @@ class zentabooksOperation
             //$password = rand_string(7);
             $pass_salt = generateHash($password);
 
-            usercode: $user_code = rand_string(11);
+            usercode:
+            $user_code = rand_string(11);
             if ($db_handle->numRows("SELECT user_code FROM users WHERE user_code = '$user_code'") > 0) {
                 goto usercode;
             };
@@ -926,6 +927,14 @@ $headers = implode("\r\n", $headers);*/
         }
 
         return "An email was sent to $email containing your password and registration information. It might take a while to arrive to your mailbox. If the email is not in your Inbox, please check Spam/Junk box. <br> To login, Email: $email <br> Password: $password. <br> To login, <a href='login'>Click here</a>.<br>Regards.";
+    }
+
+    public function update_user($user_code = NULL, $first_name = NULL, $last_name = NULL, $country = NULL, $state = NULL, $phone = NULL, $mailing_address = NULL, $course_preference = NULL, $university_preference = NULL)
+    {
+        global $db_handle;
+
+        $query = "UPDATE users set first_name='$first_name', last_name='$last_name', country='$country', state='$state', phone='$phone', mailing_address='$mailing_address', course_preference='$course_preference', university_preference='$university_preference' WHERE user_code='$user_code'";
+        return $db_handle->runQuery($query);
     }
 
     public function forgot_password($email)
@@ -1107,14 +1116,8 @@ $headers = implode("\r\n", $headers);*/
     public function del_content($content_id)
     {
         global $db_handle;
-
-        $query = "INSERT INTO deleted_content select * from content where event_id = '$event_id';";
-        $result = $db_handle->runQuery($query);
-
-        $query1 = "DELETE FROM content where event_id = '$event_id'";
-        $result1 = $db_handle->runQuery($query1);
-
-        return $db_handle->affectedRows() > 0 ? true : false;
+        $query = "DELETE FROM content WHERE id = '$content_id'";
+        return $db_handle->runQuery($query);
     }
 
     public function email_is_duplicate($email)
@@ -1477,7 +1480,8 @@ $headers = implode("\r\n", $headers);*/
     public function show_popular_viewed_job_types($limit = NULL, $time_frame = NULL)
     {
         global $db_handle;
-        usercode: $con = (!empty($time_frame) && ($time_frame != 'NULL')) ? " WHERE jbv.timestamp > DATE_SUB(CURDATE(), INTERVAL $time_frame DAY) " : "";
+        usercode:
+        $con = (!empty($time_frame) && ($time_frame != 'NULL')) ? " WHERE jbv.timestamp > DATE_SUB(CURDATE(), INTERVAL $time_frame DAY) " : "";
 
         if (!empty($limit)) {
             $con .= "GROUP BY jbv.job_type ORDER BY jbv.view_id DESC LIMIT $limit";
@@ -2154,14 +2158,14 @@ $headers = implode("\r\n", $headers);*/
         return $info ? $info : false;
     }
 
-    public function get_content_by_page_location($page, $loc)
+    public function get_content_by_page_location($page)
     {
         global $db_handle;
 
-        $query = "SELECT * FROM content WHERE page_name = '$page' AND page_location = '$loc' ORDER by id DESC LIMIT 1";
+        $query = "SELECT * FROM content WHERE page_name = '$page' ORDER by id DESC LIMIT 1";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
-        $info = $fetched_data[0]['info'];
+        $info = $fetched_data[0];
 
         return $info ? $info : false;
     }
@@ -2211,6 +2215,7 @@ $headers = implode("\r\n", $headers);*/
     public function get_page_location($page_category = NULL)
     {
         global $db_handle;
+        $con = "";
         $con .= !empty($page_category) ? " AND page_category='$page_category' " : " ";
         $con .= " GROUP by page_location ORDER BY page_id";
 

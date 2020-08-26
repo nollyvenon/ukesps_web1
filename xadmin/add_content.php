@@ -1,9 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
 $page_title = '';
 $page_group = 'Admin';
-$page_tit = $_GET['sid'];
+// $page_tit = $_GET['sid'];
 require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
     redirect_to("log-in");

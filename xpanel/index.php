@@ -9,9 +9,11 @@ $lastn = $zenta_operation->get_user_by_code($user_code)['last_name'];
 $middlename = $zenta_operation->get_user_by_code($user_code)['middle_name'];
 $email = $zenta_operation->get_user_by_code($user_code)['email'];
 $country = $zenta_operation->get_user_by_code($user_code)['country'];
+$state = $zenta_operation->get_user_by_code($user_code)['state'];
 $phone = $zenta_operation->get_user_by_code($user_code)['phone'];
 $address = $zenta_operation->get_user_by_code($user_code)['mailing_address'];
 $course = $zenta_operation->get_user_by_code($user_code)['course_preference'];
+$university_preference = $zenta_operation->get_user_by_code($user_code)['university_preference'];
 $address = $zenta_operation->get_user_by_code($user_code)['mailing_address'];
 $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male' :
 	"Female";
@@ -32,7 +34,7 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 
 	<link rel="stylesheet" type="text/css" href="<?= SITE_URL ?>/css/jquery.fancybox.css" />
 	<link rel="stylesheet" href="<?= SITE_URL ?>/css/owl.carousel.css">
-	<link rel="stylesheet" type="text/css" href="rs-plugin/<?= SITE_URL ?>/css/settings.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="<?= SITE_URL ?>/rs-plugin/css/settings.css" media="screen">
 	<link rel="stylesheet" href="<?= SITE_URL ?>/css/animate.css">
 	<link rel="stylesheet" href="<?= SITE_URL ?>/css/styles.css">
 	<!--styles -->
@@ -55,15 +57,15 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 				<!-- widget search -->
 
 				<!-- widget categories -->
-				<aside class="widget-categories" style="border:1px solid red; padding:10px; border-radius:5px;">
+				<aside class="widget-categories">
 					<div class="container-fluid">
 						<h2>Navigations</h2>
 						<hr class="divider-big" />
 						<ul>
-							<li class="cat-item cat-item-1 current-cat">
-								<a href="index">My Profile<span> </span></a></li>
 							<!-- <li class="cat-item cat-item-1 current-cat">
-								<a href="upload_biodata">Update Profile<span> </span></a></li> -->
+								<a href="index">My Profile<span> </span></a></li> -->
+							<li class="cat-item cat-item-1 current-cat">
+								<a href="update_profile">Update Profile<span> </span></a></li>
 							<li class="cat-item cat-item-1 current-cat">
 								<a href="view_courses">VIEW Courses<span> (26) </span></a></li>
 							<!-- <li class="cat-item cat-item-1 current-cat">
@@ -82,26 +84,28 @@ $gender =  $zenta_operation->get_user_by_code($user_code)['gender'] == 1 ? 'Male
 					<section class="clear-fix">
 						<h2>My Profile</h2>
 						<hr>
-						<div class="grid-col-row">
-							<div class="">
+						<div class="grid-col-row ml-2">
+							<div class="container">
 								<div class="row">
-
-									<a href="#!" class="col-md-6">
+									<div class="col-md-6">
 										<div class="info-box">
-											<h4><?php echo $firstname . ' ' . $middlename . ' ' . $lastn ?></h4>
+											<h5><?php echo $firstname . ' ' . $middlename . ' ' . $lastn ?></h5>
 											<span class="instructor-profession"><?php echo $email ?></span>
 											<div class="divider"></div>
 											<p><?= $phone ?></p>
 											<p><?= $address ?></p>
-
-
-
 										</div>
-									</a>
+										<br>
+										<!-- <p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($country) ?></p>
+										<p><b>State: </b> <?= $zenta_operation->get_state_by_id($state) ?></p>
+										<p><b>Gender: </b> <?= $gender ?></p><br> -->
+									</div>
 									<div class="col-md-4">
 										<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($country) ?></p>
+										<p><b>State: </b> <?= $zenta_operation->get_state_by_id($state) ?></p>
 										<p><b>Gender: </b> <?= $gender ?></p>
 										<p><b>Course preference: </b> <?= $course ?></p>
+										<p><b>University preference: </b> <?= $university_preference ?></p>
 
 									</div>
 								</div>

@@ -76,7 +76,7 @@
 								<li class="mi-news"><a href="<?= SITE_URL ?>/login" title="News"><span>Student Area</span></a></li>
 								<li class="mi-events"><a href="<?= SITE_URL ?>/course_panel/login" title="University Visits"><span>University Area</span></a></li>
 								<li class="mi-events"><a href="<?= SITE_URL ?>/recru_panel/login" title="University Visits"><span>Recruiter Area</span></a></li>
-								<li class="mi-events"><a href="events/login" title="Events Posting"><span>Events Area</span></a></li>
+								<li class="mi-events"><a href="<?= SITE_URL ?>/events/login" title="Events Posting"><span>Events Area</span></a></li>
 								<li class="mi-events"><a href="<?= SITE_URL ?>/job_panel/login" title="University Visits"><span>Applicant Area</span></a></li>
 								<li class="mi-testimonials"><a href="<?= SITE_URL ?>/register" title="Student Testimonials"><span>Student Registration</span></a></li>
 								<!--<li class="mi-university-comments"><a href="apply-online" title="University Comments"><span>Online Application</span></a></li>-->

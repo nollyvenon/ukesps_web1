@@ -93,7 +93,7 @@ $content1 = $db_handle->fetchAssoc($result);
 						</div>
 					</div>
 					<div class="col-md-4">
-						<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($country) ?></p>
+						<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($billing_country) ?></p>
 						<p><b>Company: </b> <?= $billing_company ?></p>
 
 						<?php if (!$recruit_object->is_recruit_plan_valid($recruiter_code, "1")) { ?>
