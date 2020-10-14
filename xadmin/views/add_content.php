@@ -14,31 +14,31 @@
                     <label for="page_name">
                         Page</label>
                     <div class="input-group">
-                        <select name="page_name" class="form-control" onfocus="ShowPageLoc(this.value)" onchange="ShowPageLoc(this.value)">
+                        <select name="page_name" class="form-control" required>
                             <option value="">Page</option>
                             <?php
                             foreach ($page_name as $key => $value) {
                                 $page_name = $value['page_name'];
+                                $page_slug = $value['page_slug'];
 
-                                echo "<option value='$page_name'>$page_name</option>";
+                                echo "<option value='$page_slug'>$page_name</option>";
                             }     ?>
                         </select></div>
                 </div>
-                <div class="form-group">
-                    <label for="page_location">
-                        Page Location</label>
-                    <div class="input-group">
-                        <div id="txtHint1"><select name="page_location" class="form-control">
-                                <option value="">Content location</option>
-                                <?php
-                                foreach ($page_location as $key => $value) {
-                                    $page_location = $value['page_location'];
+                <!--<div class="form-group">
+                            <label for="page_location">
+                                Page Location</label>
+                            <div class="input-group">
+                            <div id="txtHint1"><select name="page_location" class="form-control"  >
+                            <option value="">Content location</option>
+                                      <?php
+                                        foreach ($page_location as $key => $value) {
+                                            $page_location = $value['page_location'];
 
-                                    echo "<option value='$page_location'>$page_location</option>";
-                                }     ?>
-                            </select></div>
-                    </div>
-                </div>
+                                            echo "<option value='$page_location'>$page_location</option>";
+                                        }     ?>
+                            </select></div></div>
+                        </div>-->
                 <div class="form-group">
                     <label for="content">
                         Content</label>

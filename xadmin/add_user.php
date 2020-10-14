@@ -1,43 +1,48 @@
 <?php
 $page_title = 'Add User';
-$page_group = 'Users';
+$page_group = 'Admin';
+$User_Type = 'Super Admin';
 require_once("../includes/initialize_admin.php");
+$user_group = $zenta_operation->get_user_group($admin_id);
 if (!$session_admin->is_logged_in()) {
     redirect_to("log-in");
-}
-if (!in_array(20, $my_pages)) {
-	 $message_error .= "You do not have right to that page or feature. Regards.";
-	redirect_to("dashboard?msg=10");
- }
+} else if ($user_group[0]['accounttype'] != 1) {
+    redirect_to("dashboard?msg=10");
+};
 $user_groups = $zenta_operation->get_all_user_groups();
-	
-if ($_POST['add_user']){
-    foreach($_POST as $key => $value) {
+if (isset($_POST['add_user'])) {
+    foreach ($_POST as $key => $value) {
         $_POST[$key] = $db_handle->sanitizePost(trim($value));
     }
     extract($_POST);
-    
-	if ($first_name != "" and $last_name != "" and $username != ""  and $phone != "" ){
-       if ($password == $confirm_password){
-        $upd_emp = $zenta_operation->add_user($first_name, $last_name, '', $phone, '', $username, $password, $pass_salt, $status, $accounttype,'1');
-			if($upd_emp) {
-				$message_success = "You have successfully added a new user";
-				//header("Location:users");
-			} else {
-				$message_error = "Something went wrong. Please try again.";
-			}
-	   }else{
-				$message_error = "Passwords do not match.Try again.";
-	   }
-	}else{
-		$message_error = "Either of the details are empty";
-	}
+    // var_dump($last_name);
+    // die();
+    if ($first_name != "" and $last_name != "" and $username != ""  and $phone != "") {
+        if ($admin_object->admin_is_duplicate($email)) {
+            $message_error = "This Admin User already exist";
+        } else if ($password == $confirm_password) {
+            $upd_emp = $admin_object->add_new_admin($first_name, $last_name, $phone, $email, $username, $password, $accounttype);
+            if ($upd_emp) {
+                $message_success = "You have successfully added a new user";
+                //header("Location:users");
+            } else {
+                $message_error = "Something went wrong. Please try again.";
+            }
+        } else {
+            $message_error = "Passwords do not match.Try again.";
+        }
+    } else {
+        $message_error = "Either of the details are empty";
+    }
 }
-?><!DOCTYPE html>
+
+$countries = $zenta_operation->get_all_countries();
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo SITE_ACRONYM .' - '. $page_title;?></title>
+    <title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -57,16 +62,16 @@ if ($_POST['add_user']){
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
-   
-    
+
+
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
-	
-	<link href="../bower_components/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../bower_components/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../bower_components/bootstrap-select.min.css" />
-	
+
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-	<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/font-awesome/css/font-awesome.min.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
@@ -123,18 +128,19 @@ if ($_POST['add_user']){
             </div>
         </div>
     </div>
-    <!-- Pre-loader end -->
+     Pre-loader end -->
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-		<?php include('../bin/header.php');?>
-			
-			<?php //include('../bin/inner_sidebar_chat.php');?>
-            
+            <?php include('../bin/header.php'); ?>
+
+            <?php //include('../bin/inner_sidebar_chat.php');
+            ?>
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                     <?php include('../bin/sidebar.php');?>
+                    <?php include('../bin/sidebar.php'); ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
 
@@ -148,8 +154,8 @@ if ($_POST['add_user']){
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
-                                                        <h4><?=$page_group;?></h4>
-                                                        <span><?php echo $page_title;?></span>
+                                                        <h4><?= $page_group; ?></h4>
+                                                        <span><?php echo $page_title; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,14 +164,14 @@ if ($_POST['add_user']){
                                                     <ul class="breadcrumb-title">
                                                         <li class="breadcrumb-item">
                                                             <a href="#">
-                                                        <i class="icofont icofont-home"></i>
-                                                    </a>
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$User_Type;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$page_group;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -181,10 +187,10 @@ if ($_POST['add_user']){
                                                 <!-- HTML5 Export Buttons table start -->
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5><?php echo $page_title;?></h5>
+                                                        <h5><?php echo $page_title; ?></h5>
                                                     </div>
                                                     <div class="card-block">
-                                 						<?php include_once('views/add_user.php');?>
+                                                        <?php include_once('views/add_user.php'); ?>
                                                     </div>
                                                 </div>
                                                 <!-- HTML5 Export Buttons end -->
@@ -196,7 +202,7 @@ if ($_POST['add_user']){
                             </div>
                         </div>
                         <!-- Main-body end -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -250,14 +256,17 @@ if ($_POST['add_user']){
 </div>
 <![endif]-->
     <!-- Warning Section Ends -->
-	 <script>
-$( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
-</script>
+    <script>
+        $(".select2").select2({
+            placeholder: "",
+            maximumSelectionSize: 6
+        });
+    </script>
     <!-- Required Jquery -->
-  <script type="text/javascript" src="../bower_components/jquery/js/jquery.min.js"></script>
-  <script src="../bower_components/bootstrap.min.js"></script>
-  <script src="../bower_components/bootstrap-select.min.js"></script>
-	
+    <script type="text/javascript" src="../bower_components/jquery/js/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap.min.js"></script>
+    <script src="../bower_components/bootstrap-select.min.js"></script>
+
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
     <!-- modernizr js -->
@@ -277,15 +286,16 @@ $( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
     <script src="../assets/js/demo-12.js"></script>
     <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript" src="../assets/js/script.js"></script>
-	<?php include('../includes/bottom-cache.php');?>
-	<script>
-	$("#dropper-min-year1").dateDropper( {
-        dropWidth: 200,      
-		format: "d/m/Y",
-        dropPrimaryColor: "#1abc9c", 
-        dropBorder: "1px solid #1abc9c",
-        minYear: "1920"
-    })</script>
+    <?php include('../includes/bottom-cache.php'); ?>
+    <script>
+        $("#dropper-min-year1").dateDropper({
+            dropWidth: 200,
+            format: "d/m/Y",
+            dropPrimaryColor: "#1abc9c",
+            dropBorder: "1px solid #1abc9c",
+            minYear: "1920"
+        })
+    </script>
 </body>
 
 </html>

@@ -1,89 +1,60 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wow fadeInLeft">
   <?php require_once '../layouts/feedback_message.php'; ?>
   <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
-    <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
-    <input type="hidden" name="POST_MAX_SIZE" value="500000" />
+    <input type="hidden" name="contact_id" value="<?= $id; ?>" />
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label for="title">
-            Title</label>
-          <input name="title" type="text" id="title" value="<?php $title; ?>" size="73" class="form-control" />
+          <label for="country" class="control-label">Country</label><br>
+          <select name="country" data-required="true" class="form-control selectpicker" data-live-search="true">
+            <option value="">Select A Country</option>
+            <?php
+            foreach ($countries as $row2) :
+            ?>
+              <option <?php if ($country == $row2['country_name']) {
+                        echo 'selected';
+                      }  ?> value="<?php echo $row2['country_name']; ?>">
+                <?php echo $row2['country_name']; ?>
+              </option>
+            <?php
+            endforeach;
+            ?>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="email">
+            Email</label>
+          <input name="email" type="text" id="email" value="<?= $email; ?>" size="73" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="page_name">
-            Page</label>
-          <div class="input-group">
-            <select name="page_name" class="form-control" onfocus="ShowPageLoc(this.value)" onchange="ShowPageLoc(this.value)">
-              <option value="">Page</option>
-              <?php
-              foreach ($page_name as $key => $value) {
-                $page_name = $value['page_name'];
-
-                echo "<option value='$page_name'>$page_name</option>";
-              }     ?>
-            </select></div>
+          <label for="phone">
+            Phone Number</label>
+          <input name="phone" type="text" id="phone" value="<?= $phone; ?>" size="73" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="page_location">
-            Page Location</label>
-          <div class="input-group">
-            <div id="txtHint1"><select name="page_location" class="form-control">
-                <option value="">Content location</option>
-                <?php
-                foreach ($page_location as $key => $value) {
-                  $page_location = $value['page_location'];
-
-                  echo "<option value='$page_location'>$page_location</option>";
-                }     ?>
-              </select></div>
-          </div>
+          <label for="address">
+            Address</label>
+          <textarea name="address" id="address" style="width: 100%;" class="form-control" rows="5"><?= $address; ?></textarea>
+        </div>
+        <!-- <div class="form-group">
+          <label for="second_email">
+            Official Second Email</label>
+          <input name="second_email" type="text" id="second_email" value="<?= $second_email; ?>" size="73" class="form-control" />
         </div>
         <div class="form-group">
-          <label for="content">
-            Content</label>
-          <div class="">
-            <textarea id="editor1" name="content" style="width:1000px"></textarea>
-            <script>
-              CKEDITOR.replace('editor1', {
-
-                height: 300,
-
-                // The following options are not necessary and are used here for presentation purposes only.
-                // They configure the Styles drop-down list and widgets to use classes.
-
-                stylesSet: [{
-                    name: 'Narrow image',
-                    type: 'widget',
-                    widget: 'image',
-                    attributes: {
-                      'class': 'image-narrow'
-                    }
-                  },
-                  {
-                    name: 'Wide image',
-                    type: 'widget',
-                    widget: 'image',
-                    attributes: {
-                      'class': 'image-wide'
-                    }
-                  }
-                ],
-
-                // Load the default contents.css file plus customizations for this sample.
-                contentsCss: [CKEDITOR.basePath + 'contents.css', 'https://sdk.ckeditor.com/samples/assets/css/widgetstyles.css'],
-
-                // Configure the Enhanced Image plugin to use classes instead of styles and to disable the
-                // resizer (because image size is controlled by widget styles or the image takes maximum
-                // 100% of the editor width).
-                image2_alignClasses: ['image-align-left', 'image-align-center', 'image-align-right'],
-                image2_disableResizer: true
-              });
-            </script>
-          </div>
+          <label for="second_phone">
+            Phone Number</label>
+          <input name="second_phone" type="text" id="second_phone" value="<?= $second_phone; ?>" size="73" class="form-control" />
         </div>
+        <div class="form-group">
+          <label for="second_address">
+            Address</label>
+          <textarea name="second_address" id="second_address" style="width: 100%;" class="form-control" rows="5"><?= $contact['second_address']; ?></textarea>
+        </div> -->
         <div class="col-md-12">
-          <input type="submit" class="btn btn-primary" name="addcontent" value="Add Content" />
+          <input type="submit" class="btn btn-primary" name="update_contact_info" value="Update Contact Info" />
           <input name="cancel" type="reset" class="btn btn-danger" id="cancel" value="Cancel" />
         </div>
 

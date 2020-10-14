@@ -1,5 +1,5 @@
 <?php
-require_once("header.php");
+require_once("../main_header.php");
 if (!$session_jobseek->is_logged_in()) {
 	redirect_to("login.php");
 }
@@ -119,7 +119,11 @@ if ($_POST['submit']) {
 	}
 
 	if ($biodata) {
-		redirect_to('upload_edu_experience');
+		if ($details[0]['education_period_month_from_1'] == "") {
+			redirect_to('upload_edu_experience');
+		} else {
+			$message_success = "Profile Updated Succesfully!";
+		}
 	} else {
 		$message_error = "Upload wasn't successful.";
 	}
@@ -138,33 +142,22 @@ extract($jobseek_info);
 
 <!--styles -->
 
-<div class="">
+<div class="container">
 	<div class="row">
-		<div class="col-12">
+		<div class="col-lg-8 col-md-8">
 			<h4>Upload Your biodata</h4>
 			<?php include_once("../layouts/feedback_message.php"); ?>
 			<form action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
 				<div class="row mb-3">
 					<input name="applicant_code" class="form-control" type="hidden" id="applicant_code" size="30" value="<?php echo $jobseek_code; ?>" />
-					<div class="col-md-3">First Name <input name="first_name" class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>" /></div>
-					<div class="col-md-3">Middle Name <input name="middle_name" class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>" /></div>
-					<div class="col-md-3"> Last Name <input name="last_name" class="form-control" type="text" id="last_name" value="<?php echo $last_name; ?>" /></div>
-				</div>
-				<!-- <div class="row mb-3">
-					<div class="col-md-4">Resume <input type="file" name="resume" id="resume" class="form-control" accept="application/pdf">
-						<a href="docsxxx/<?= $details[0]['resume']; ?>">Your current CV</a></div>
-					<div class="col-md-4">Cover Letter <input type="file" name="cover_letter" id="cover_letter" class="form-control" accept="application/pdf">
-						<a href="docsxxx/<?= $details[0]['cover_letter']; ?>">Cover Letter</a></div>
-				</div> -->
-				<div class="row mb-3">
-					<div class="col-md-4">Place of Birth <input name="place_of_birth" class="form-control" type="text" id="place_of_birth" size="30" value="<?php echo $details[0]['place_of_birth']; ?>" /></div>
+					<div class="col-md-5 mb-3">First Name <input name="first_name" class="form-control" type="text" id="first_name" value="<?php echo $first_name; ?>" /></div>
+					<div class="col-md-5 mb-3">Middle Name <input name="middle_name" class="form-control" type="text" id="middle_name" value="<?php echo $middle_name; ?>" /></div>
+					<div class="col-md-5 mb-3"> Last Name <input name="last_name" class="form-control" type="text" id="last_name" value="<?php echo $last_name; ?>" /></div>
+					<div class="col-md-5 mb-3">Place of Birth <input name="place_of_birth" class="form-control" type="text" id="place_of_birth" size="30" value="<?php echo $details[0]['place_of_birth']; ?>" /></div>
+					<div class="col-md-5 mb-3">Languages <input name="languages" class="form-control" type="text" id="languages" size="30" value="<?php echo $details[0]['languages']; ?>" /></div>
+					<div class="col-md-5 mb-3">Location <input name="location" class="form-control" type="text" id="location" size="30" value="<?php echo $details[0]['location']; ?>" /></div>
 
-					<div class="col-md-4">Languages <input name="languages" class="form-control" type="text" id="languages" size="30" value="<?php echo $details[0]['languages']; ?>" /></div>
-				</div>
-				<div class="row mb-3">
-					<div class="col-md-4">Location <input name="location" class="form-control" type="text" id="location" size="30" value="<?php echo $details[0]['location']; ?>" /></div>
-
-					<div class="col-md-4">Country of Nationality <select name="country_of_nationality" data-required="true" class="selectpicker" data-live-search="true">
+					<div class="col-md-5 mb-3">Country of Nationality <select name="country_of_nationality" data-required="true" class="selectpicker" data-live-search="true">
 							<option value="">Select A Country</option>
 							<?php
 							foreach ($countries as $row2) :
@@ -177,7 +170,7 @@ extract($jobseek_info);
 							?>
 						</select></div>
 
-					<div class="col-md-10">Country of Residence <select name="country_of_residence" data-required="true" class="selectpicker" data-live-search="true">
+					<div class="col-md-5 mb-3">Country of Residence <select name="country_of_residence" data-required="true" class="selectpicker" data-live-search="true">
 							<option value="">Select A Country</option>
 							<?php
 							foreach ($countries as $row3) :
@@ -189,19 +182,21 @@ extract($jobseek_info);
 							endforeach;
 							?>
 						</select></div>
-				</div>
-				<div class="row mb-3">
-					<div class="col-md-4">Linkedin Profile <input name="linkedin_profile" class="form-control" type="text" id="linkedin_profile" size="30" value="<?php echo $details[0]['linkedin_profile']; ?>" /></div>
 
-					<div class="col-md-4">Twitter ID <input name="twitter_profile" class="form-control" type="text" id="twitter_profile" size="30" value="<?php echo $details[0]['twitter_profile']; ?>" /> </div>
-				</div>
-				<div class="row mb-4">
-					<div class="col-md-4">Hobbies <input name="hobbies" class="form-control" type="text" id="hobbies" value="<?php echo $details[0]['hobbies']; ?>" /></div>
 
-					<div class="col-md-4">Skills <input name="skills" class="form-control" type="text" id="skills" value="<?php echo $details[0]['skills']; ?>" /> </div>
-				</div>
-				<input class="cws-button border-radius alt" name="submit" type="submit" id="submit" value="Upload">
+					<div class="col-md-11 mb-3">Linkedin Profile <input name="linkedin_profile" class="form-control" type="text" id="linkedin_profile" size="30" value="<?php echo $details[0]['linkedin_profile']; ?>" /></div>
+					<div class="col-md-11 mb-3">Twitter ID <input name="twitter_profile" class="form-control" type="text" id="twitter_profile" size="30" value="<?php echo $details[0]['twitter_profile']; ?>" /> </div>
 
+					<div class="form-group col-md-11 mb-3">
+						<label for="hobbies">Hobbies</label>
+						<textarea class="form-control" id="hobbies" name="hobbies" rows="5"><?php echo $details[0]['hobbies']; ?></textarea>
+					</div>
+					<div class="form-group col-md-11 mb-3">
+						<label for="skills">Skills</label>
+						<textarea class="form-control" id="skills" name="skills" rows="5"><?php echo $details[0]['skills']; ?></textarea>
+					</div>
+					<div> <input class="cws-button border-radius alt" name="submit" type="submit" id="submit" value="Update"></div>
+				</div>
 			</form>
 			<?php if ($details[0]['education_period_month_from_1'] == "") {
 				echo "<a href=\"upload_edu_experience\">Upload Educational Experience</a>";
@@ -209,16 +204,9 @@ extract($jobseek_info);
 				echo "<a href=\"upload_edu_experience\">Update Educational Experience</a>";
 			}
 			?>
-
-
 		</div>
-
+		<?php include('./jobpanel_sidebar.php') ?>
 	</div>
 </div>
-</div>
-</div>
-</div>
 
-
-
-<?php include_once('footer.php'); ?>
+<?php include_once('../main_footer.php'); ?>

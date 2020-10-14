@@ -33,7 +33,7 @@ require_once(LIB_PATH . DS . "malek_func_library_1.0.0.php");
 require_once(LIB_PATH . DS . "functions.php");
 
 // Load core objects
-//require_once(LIB_PATH.DS."session_client.php");
+require_once(LIB_PATH . DS . "session_client.php");
 require_once(LIB_PATH . DS . "class_database.php");
 
 // Load other assets
@@ -65,4 +65,4 @@ if (isset($_SESSION['unique'])) {
   $_SESSION['unique'] = "$un";
   redirect_to($actual_link);
 }
-$cart_volume = sizeof($_SESSION['cart']);
+$cart_volume = sizeof($_SESSION['student_cart']);

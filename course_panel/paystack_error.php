@@ -4,12 +4,15 @@ $id_encrypted = $db_handle->sanitizePost($_GET['xxid']);
 $id_encrypted = decrypt(str_replace(" ", "+", $id_encrypted));
 $ssid = preg_replace("/[^A-Za-z0-9 ]/", '', $id_encrypted);
 if (!$session_course_prov->is_logged_in()) {
-    redirect_to("login");
+	redirect_to("login");
 }
+
 $cart_total = $course_prov_object->get_cart_total($ssid);
 
-?><!DOCTYPE HTML>
+?>
+<!DOCTYPE HTML>
 <html>
+
 <head>
 	<title>UKESPS - United Kingdom Education & Skills Placement Services Limited</title>
 	<meta charset="utf-8">
@@ -20,41 +23,42 @@ $cart_total = $course_prov_object->get_cart_total($ssid);
 	<link rel="stylesheet" href="../css/select2.css">
 	<link rel="stylesheet" href="../css/main.css">
 	<link rel="stylesheet" href="../css/styles.css">
-	
+
 	<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.css" />
 	<link rel="stylesheet" href="../css/owl.carousel.css">
 	<link rel="stylesheet" type="text/css" href="../rs-plugin/css/settings.css" media="screen">
-	
+
 	<!--styles -->
 </head>
+
 <body class="shop">
 
-	<?php include_once('header.php');?>
-	
+	<?php include_once('header.php'); ?>
+
 	<div class="page-content woocommerce">
 		<div class="container clear-fix">
 			<div class="grid-col-row">
 				<div class="grid-col grid-col-9">
-                    <?php include_once("../layouts/feedback_message.php");?>
+					<?php include_once("../layouts/feedback_message.php"); ?>
 
-                    <div class="jumbotron text-center">
-                        <h2 class="title">Ops! An Error Occurred!</h2>
-                    </div>
-                    <p> An Error Occurred Making Payment Unsuccessful. Please Try Again.</p>
-                    <p>
-                        <?php
-                            if (isset($_GET['error'])) {
-                                echo $_GET['error'];
-                            }
-                        ?>
-                    </p>
-					 
+					<div class="jumbotron text-center">
+						<h2 class="title">Ops! An Error Occurred!</h2>
+					</div>
+					<p> An Error Occurred Making Payment Unsuccessful. Please Try Again.</p>
+					<p>
+						<?php
+						if (isset($_GET['error'])) {
+							echo $_GET['error'];
+						}
+						?>
+					</p>
+
 				</div>
-				<?php include_once('../course_sidebar.php');?>
+				<?php include_once('../course_sidebar.php'); ?>
 			</div>
 		</div>
 	</div>
-	<?php include_once('footer.php');?>
+	<?php include_once('footer.php'); ?>
 	<script src="../js/jquery.min.js"></script>
 	<script type='text/javascript' src='../js/jquery.validate.min.js'></script>
 	<script src="../js/jquery.form.min.js"></script>
@@ -64,15 +68,16 @@ $cart_total = $course_prov_object->get_cart_total($ssid);
 	<script type="text/javascript" src="../rs-plugin/js/jquery.themepunch.tools.min.js"></script>
 	<script type="text/javascript" src="../rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 	<script src="../js/jquery.isotope.min.js"></script>
-	
+
 	<script src="../js/owl.carousel.min.js"></script>
 	<script src="../js/jquery-ui.min.js"></script>
 	<script src="../js/jflickrfeed.min.js"></script>
 	<script src="../js/select2.js"></script>
 	<script src="../js/jquery.tweet.js"></script>
-	
+
 	<script src="../js/jquery.fancybox.pack.js"></script>
 	<script src="../js/jquery.fancybox-media.js"></script>
 	<script src="../js/retina.min.js"></script>
 </body>
+
 </html>

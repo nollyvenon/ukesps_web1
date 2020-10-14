@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 // Initialize session
 if (!isset($_SESSION)) {
     session_start();
@@ -42,6 +42,7 @@ require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_system.php");
 require_once(LIB_PATH . DS . "class_client.php");
 require_once(LIB_PATH . DS . "class_jobseeker.php");
+require_once(LIB_PATH . DS . "class_recruiter.php");
 require_once(SITE_ROOT . '/xpanel/db_class.php');
 require_once(LIB_PATH . DS . '/pdf_to_text/PdfToText.phpclass');
 

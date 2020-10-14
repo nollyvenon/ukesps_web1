@@ -41,6 +41,7 @@ class SessionAdmin
             $_SESSION['admin_email'] = $user['email'];
             $_SESSION['admin_id'] =  $user['admin_id'];
             $_SESSION['user_time'] = time();
+            $_SESSION['group_id'] = $user['accounttype'];
             $this->logged_in = true;
         }
     }
@@ -54,6 +55,7 @@ class SessionAdmin
         unset($_SESSION['admin_last_login']);
         unset($_SESSION['admin_email']);
         unset($_SESSION['user_time']);
+        unset($_SESSION['group_id']);
         unset($this->admin_unique_code);
         session_unset();
         session_destroy();

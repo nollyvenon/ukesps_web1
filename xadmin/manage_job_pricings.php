@@ -92,6 +92,12 @@ $content = $db_handle->fetchAssoc($result);
   <!-- Style.css -->
   <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -197,8 +203,12 @@ $content = $db_handle->fetchAssoc($result);
                               <thead>
                                 <tr>
                                   <th width="10%">ID</th>
-                                  <th>Title</th>
-                                  <th>Excerpts</th>
+                                  <th>Name</th>
+                                  <th>Cost</th>
+                                  <th>Discount</th>
+                                  <th>Currency</th>
+                                  <th>Period</th>
+                                  <th>Highlights</th>
                                   <th width="10%">Action</th>
                                 </tr>
                               </thead>
@@ -206,11 +216,15 @@ $content = $db_handle->fetchAssoc($result);
                                 <?php if (isset($content) && !empty($content)) {
                                   foreach ($content as $row) { ?>
                                     <tr>
-                                      <td><?php echo $row['id']; ?></td>
-                                      <td><?php echo $row['event_title']; ?></td>
-                                      <td><?php echo limit_text($row['summary'], $limit); ?></td>
-                                      <td><a class="btn btn-border green" href="update_recruiter_pricing.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Update</span></a>
-                                        <a class="btn btn-border dark" href="del_recruiter_pricing.php?action=view&sid=<?php echo $row['event_id']; ?>"><span> Delete</span></a></td>
+                                      <td><?php echo $row['plan_id']; ?></td>
+                                      <td><?php echo $row['plan_name']; ?></td>
+                                      <td><?= $row['plan_cost'] ?></td>
+                                      <td><?= $row['plan_discount_cost'] ?></td>
+                                      <td><?= $row['plan_currency'] ?></td>
+                                      <td><?= $row['plan_period'] ?></td>
+                                      <td><?php echo limit_text($row['highlights'], $limit); ?></td>
+                                      <td><a class="btn btn-border green" href="update_recruiter_pricing.php?action=view&sid=<?php echo $row['plan_id']; ?>"><span> Update</span></a>
+                                        <a class="btn btn-border dark" href="del_recruiter_pricing.php?action=view&sid=<?php echo $row['plan_id']; ?>"><span> Delete</span></a></td>
                                     </tr>
                                 <?php }
                                 } else {

@@ -90,7 +90,8 @@ class jobseekerOperation
 			//$password = rand_string(7);
 			$pass_salt = generateHash($password);
 
-			seekercode: $seeker_code = rand_string(11);
+			seekercode:
+			$seeker_code = rand_string(11);
 			if ($db_handle->numRows("SELECT seeker_code FROM jobseekers WHERE seeker_code = '$seeker_code'") > 0) {
 				goto seekercode;
 			};
@@ -121,25 +122,11 @@ UKESPS Admin Team
 www.ukesps.com";
 
 			$system_object->send_email($subject, $body, $email, $full_name);
-			/*	$headers = array("From: info@ukesps.com",
-    "Reply-To: support@ukesps.com",
-    "X-Mailer: PHP/" . PHP_VERSION
-);
-$headers = implode("\r\n", $headers);*/
-			$headers  = "MIME-Version: 1.0" . "\r\n";
-			$headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
-			$headers .= "From: " . $from . "\r\n";
-			$headers .= "Reply-To: " . $from . "\r\n";
-			$headers .= "X-Mailer: PHP/" . phpversion();
+			$headers = "MIME-Version: 1.0" . "\r\n";
+			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			$headers .= 'From: UKESPS Admin <no-reply@ukesps.com>' . "\r\n";
 			$headers .= "X-Priority: 1" . "\r\n";
-
-			$my_mail = "info@ukesps.com";
-			$my_replyto = "info@ukesps.com";
-
-
-			mail_attachment($my_file, $my_path, $email, $my_mail, $my_name, $my_replyto, $subject, $body);
-			//	mail($email, $subject, $body, $headers);
-
+			mail($email, $subject, $body, $headers);
 		}
 
 		return "An email was sent to $email containing your password and registration information. It might take a while to arrive to your mailbox. If the email is not in your Inbox, please check Spam/Junk box. <br> To login, Email: $email <br> Password: $password. <br> To login, <a href='login'>Click here</a>.<br>Regards.";
@@ -148,22 +135,43 @@ $headers = implode("\r\n", $headers);*/
 	public function forgot_password($email)
 	{
 
+		$system_object = new SystemObject();
 		global $db_handle;
-		$gen_pass = rand_string(7);
-		$pass_salt = generateHash($gen_pass);
+		$gen_pass = rand_string(64);
 
-		$query = "UPDATE jobseekers set password = '$pass_salt' where email = '$email'";
+		$query = "UPDATE jobseekers set reset_token = '$gen_pass' where email = '$email'";
 		$db_handle->runQuery($query);
-
 		$to = $email;
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 		$headers .= 'From: UKESPS Admin <no-reply@ukesps.com>' . "\r\n";
 		$subject = "Password Request";
-		$message .= "This is your new password : <b> $gen_pass </b><br><br>";
+		$message = "Folow this link to reset your password : <b><a href='" . SITE_URL . "/job_panel/reset_password?token=$gen_pass'>" . SITE_URL . "/job_panel/reset_password?token=$gen_pass</a> OR <a href='" . SITE_URL . "/job_panel/reset_password?token=$gen_pass'>Click Here</a> </b><br><br>";
 		mail($to, $subject, $message, $headers);
+		$system_object->send_email($subject, $message, $email, 'User');
 
-		return "Your password is $gen_pass. Your password has been sent to your registered email. Please check your junk or spam folder if you do not find in your inbox.";
+		return "Your password has been sent to your registered email if it exist in our database. Please check your junk or spam folder if you do not find in your inbox.";
+	}
+
+
+	public function get_user_reset_token($reset_token)
+	{
+		global $db_handle;
+
+		$query = "SELECT * FROM jobseekers where reset_token = '$reset_token'";
+		$result = $db_handle->runQuery($query);
+		$fetched_data = $db_handle->fetchAssoc($result);
+		return $fetched_data[0];
+	}
+
+	public function change_user_password($seeker_code, $new_password)
+	{
+
+		global $db_handle;
+		$pass_salt = generateHash($new_password);
+		$query = "UPDATE jobseekers SET password = '$pass_salt', reset_token='' WHERE seeker_code = '$seeker_code' LIMIT 1";
+		$db_handle->runQuery($query);
+		return $db_handle->affectedRows() > 0 ? true : false;
 	}
 
 
@@ -270,6 +278,29 @@ $headers = implode("\r\n", $headers);*/
 		INNER JOIN job_sub_categories jobsc ON jobsc.subcat_id=jbs.job_subcategory $con";
 
 		return $query;
+	}
+
+	public function get_applied_job($applicant_code, $job_id)
+	{
+		global $db_handle;
+
+		$query = "SELECT * FROM applications WHERE applicant_code='$applicant_code' AND job_id='$job_id'";
+		$result = $db_handle->runQuery($query);
+		$fetched_data = $db_handle->fetchAssoc($result);
+
+		if ($fetched_data) {
+			return $fetched_data;
+		} else {
+			return false;
+		}
+	}
+
+	public function apply_now($job_id, $application_title, $recruiter_code, $applicant_code, $desired_salary, $job_sector, $location)
+	{
+		global $db_handle;
+
+		$query = "INSERT INTO applications(job_id, application_title, recruiter_code, applicant_code, desired_salary, job_sector, location) VALUES ('$job_id','$application_title', '$recruiter_code', '$applicant_code', '$desired_salary', '$job_sector', '$location')";
+		return $db_handle->runQuery($query);
 	}
 
 	public function applicant_detail($applicant_code = NULL, $email = NULL, $first_name = NULL, $last_name = NULL)
@@ -457,6 +488,23 @@ $headers = implode("\r\n", $headers);*/
 			$query = "UPDATE applicant_details SET cover_letter='$cover_letter' WHERE applicant_code = '$applicant_code'";
 			return $db_handle->runQuery($query);
 		}
+		// return true;
+	}
+
+	public function upload_new_cv($job_seeker_id, $resume = NULL)
+	{
+		global $db_handle;
+		$query = "SELECT * FROM cvs WHERE job_seeker_id='$job_seeker_id'";
+		$result = $db_handle->runQuery($query);
+		$fetched_data = $db_handle->fetchAssoc($result)[0];
+
+		if ($fetched_data ==  NULL) {
+			$query = "INSERT INTO cvs SET job_seeker_id='$job_seeker_id', file='$resume'";
+			return $db_handle->runQuery($query);
+		}
+		$query = "UPDATE cvs SET file='$resume' WHERE job_seeker_id = '$job_seeker_id'";
+		return $db_handle->runQuery($query);
+
 		// return true;
 	}
 	public function generate_bio($user_code, $previous_work_experience_company_1 = NULL,  $edu_institution_1 = NULL, $languages = NULL, $linkedin_profile = NULL, $twitter_profile = NULL, $hobbies = NULL, $skills = NULL)

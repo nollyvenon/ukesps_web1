@@ -26,6 +26,8 @@ if (isset($_POST['addcontent']) && !empty($_POST['addcontent'])) {
 }
 $page_location = $zenta_operation->get_page_location();
 $page_name = $zenta_operation->get_page_name();
+// var_dump($page_name);
+// die();
 
 ?>
 <!DOCTYPE html>

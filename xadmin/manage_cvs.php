@@ -11,8 +11,10 @@ $limit = 10;
 if (isset($_POST['search_text']) && strlen($_POST['search_text']) > 3) {
   $search_text = $_POST['search_text'];
   $query = "SELECT * FROM cvs WHERE cv_id LIKE '%$search_text%' OR cv_title LIKE '%$search_text%'  ORDER BY cv_id DESC ";
+  $query2 = "SELECT * FROM jobseekers  ORDER BY id DESC ";
 } else {
   $query = "SELECT * FROM cvs order by cv_id DESC ";
+  $query2 = "SELECT * FROM jobseekers order by id DESC ";
 }
 $numrows = $db_handle->numRows($query);
 
@@ -48,6 +50,9 @@ $offset = ($currentpage - 1) * $rowsperpage;
 $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content = $db_handle->fetchAssoc($result);
+
+$result2 = $db_handle->runQuery($query2);
+$content2 = $db_handle->fetchAssoc($result2);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -205,16 +210,21 @@ $content = $db_handle->fetchAssoc($result);
                                   <th width="10%">Action</th>
                                 </tr>
                               </thead>
+
                               <tbody>
                                 <?php if (isset($content) && !empty($content)) {
                                   foreach ($content as $row) { ?>
-                                    <tr>
-                                      <td><?php echo $row['id']; ?></td>
-                                      <td><?php echo $row['Job_seeker_name']; ?></td>
-                                      <td><?php echo limit_text($row['file'], $limit); ?></td>
-                                      <td><a class="btn btn-border green" href="update_cv.php?action=view&sid=<?php echo $row['cv_id']; ?>"><span> Update</span></a>
-                                        <a class="btn btn-border dark" href="del_cv.php?action=view&sid=<?php echo $row['cv_id']; ?>"><span> Delete</span></a></td>
-                                    </tr>
+                                    <?php foreach ($content2 as $app_det) : ?>
+                                      <?php if ($row['job_seeker_id'] == $app_det['seeker_code']) : ?>
+                                        <tr>
+                                          <td><?php echo $row['cv_id']; ?></td>
+                                          <td><?= $app_det['first_name'] . " " . $app_det['middle_name'] . " " . $app_det['last_name'] ?></td>
+                                          <td><a href="<?= SITE_URL . '/job_panel/docsxxx/' . $row['file'] ?>">View CV</a></td>
+                                          <td>
+                                            <a class="btn btn-border dark" href="del_cv.php?action=view&sid=<?php echo $row['cv_id']; ?>"><span> Delete</span></a></td>
+                                        </tr>
+                                      <?php endif ?>
+                                    <?php endforeach ?>
                                 <?php }
                                 } else {
                                   echo "<tr><td colspan='5' class='text-danger'><em>No results to display</em></td></tr>";

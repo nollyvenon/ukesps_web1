@@ -1,5 +1,5 @@
 <?php
-require_once("z_db.php");
+require_once("../main_header.php");
 // $ssid = $_GET['xxid'];
 // $id_encrypted = $db_handle->sanitizePost($_GET['xxid']);
 // $id_encrypted = decrypt(str_replace(" ", "+", $id_encrypted));
@@ -50,82 +50,35 @@ $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content1 = $db_handle->fetchAssoc($result);
 ?>
-<!DOCTYPE HTML>
-<html>
 
-<head>
-	<title>UKESPS - United Kingdom Education & Skills Placement Services Limited</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-	<!-- style -->
-	<link rel="stylesheet" href="../css/bootstrap.min.css">
-	<link rel="shortcut icon" href="../img/favicon.png">
-	<link rel="stylesheet" href="../css/font-awesome.css">
-	<link rel="stylesheet" href="../css/select2.css">
-	<link rel="stylesheet" href="../css/main.css">
-	<link rel="stylesheet" href="../css/styles.css">
-	<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.css" />
-	<link rel="stylesheet" href="../css/owl.carousel.css">
+<div class="page-content woocommerce">
+	<div class="container clear-fix">
+		<div class="grid-row">
+			<div class="grid-col grid-col-8">
+				<h3>Home Page</h3>
+				<?php require_once '../layouts/feedback_message.php'; ?>
 
-	<link rel="stylesheet" type="text/css" href="../rs-plugin/css/settings.css" media="screen">
-
-	<!--styles -->
-</head>
-
-<body class="shop">
-
-	<?php include_once('header.php'); ?>
-
-	<div class="page-content woocommerce">
-		<div class="container clear-fix">
-			<div class="grid-row">
-				<div class="grid-col grid-col-8">
-					<h3>Home Page</h3>
-					<?php require_once '../layouts/feedback_message.php'; ?>
-
-					<div class="col-md-6">
-						<div class="info-box">
-							<h4><?php echo $first_name . ' ' . $middle_name . ' ' . $last_name ?></h4>
-							<span class="instructor-profession"><?php echo $email ?></span>
-							<div class="divider"></div>
-							<p><?= $phone ?></p>
-							<p><?= $billing_address_1 . '<br>' . $billing_address_2 ?></p>
-						</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<h4><?php echo $first_name . ' ' . $middle_name . ' ' . $last_name ?></h4>
+						<span class="instructor-profession"><?php echo $email ?></span>
+						<div class="divider"></div>
+						<p><?= $phone ?></p>
+						<p><?= $billing_address_1 . '<br>' . $billing_address_2 ?></p>
 					</div>
-					<div class="col-md-4">
-						<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($billing_country) ?></p>
-						<p><b>Company: </b> <?= $billing_company ?></p>
-
-						<?php if (!$recruit_object->is_recruit_plan_valid($recruiter_code, "1")) { ?>
-							<a href="post_a_job" class="cws-button bt-color-3">Buy a Plan</a>
-						<?php	} ?>
-					</div>
-
 				</div>
-				<?php include_once('recru_sidebar.php'); ?>
+				<div class="col-md-4">
+					<p><b>Country: </b> <?= $zenta_operation->get_country_name_by_id($billing_country) ?></p>
+					<p><b>Company: </b> <?= $billing_company ?></p>
+
+					<?php if (!$recruit_object->is_recruit_plan_valid($recruiter_code, "1")) { ?>
+						<a href="post_a_job" class="cws-button bt-color-3">Buy a Plan</a>
+					<?php	} ?>
+				</div>
+
 			</div>
+			<?php include_once('recru_sidebar.php'); ?>
 		</div>
 	</div>
-	<?php include_once('footer.php'); ?>
-	<script src="../js/jquery.min.js"></script>
-	<script type='text/javascript' src='../js/jquery.validate.min.js'></script>
-	<script src="../js/jquery.form.min.js"></script>
-	<script src="../js/TweenMax.min.js"></script>
-	<script src="../js/main.js"></script>
-	<!-- jQuery REVOLUTION Slider  -->
-	<script type="text/javascript" src="../rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-	<script type="text/javascript" src="../rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-	<script src="../js/jquery.isotope.min.js"></script>
-
-	<script src="../js/owl.carousel.min.js"></script>
-	<script src="../js/jquery-ui.min.js"></script>
-	<script src="../js/jflickrfeed.min.js"></script>
-	<script src="../js/select2.js"></script>
-	<script src="../js/jquery.tweet.js"></script>
-
-	<script src="../js/jquery.fancybox.pack.js"></script>
-	<script src="../js/jquery.fancybox-media.js"></script>
-	<script src="../js/retina.min.js"></script>
-</body>
-
-</html>
+</div>
+<?php include_once('../main_footer.php'); ?>

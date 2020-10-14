@@ -7,17 +7,18 @@ if (!$session_admin->is_logged_in()) {
     redirect_to("log-in");
 }
 if (isset($_POST['edit_state']) && !empty($_POST['edit_state'])) {
-    foreach($_POST as $key => $value) {
-        	$_POST[$key] = $db_handle->sanitizePost(trim($value));
-    	}
-    	extract($_POST);
-    
-    if(empty($state_name)) {
+    foreach ($_POST as $key => $value) {
+        $_POST[$key] = $db_handle->sanitizePost(trim($value));
+    }
+    extract($_POST);
+
+    if (empty($state_name)) {
         $message_error = "Please fill all the fields and try again.";
     } else {
         $result = $zenta_operation->update_state($token, $state_name, $country_id, $admin_id);
-        if($result) {
-             $message_success = "State was edited successfully.";
+        if ($result) {
+            $message_success = "State was edited successfully.";
+            header("Location:manage_states");
         } else {
             $message_error = "State was not edited successfully.";
         }
@@ -29,11 +30,12 @@ $id_encrypted = decrypt(str_replace(" ", "+", $id_encrypted));
 $hiss = preg_replace("/[^A-Za-z0-9 ]/", '', $id_encrypted);
 $state_info = $zenta_operation->get_state_info_by_id($hiss);
 extract($state_info);
- ?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo SITE_ACRONYM .' - '. $page_title;?></title>
+    <title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -56,7 +58,7 @@ extract($state_info);
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-	<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/font-awesome/css/font-awesome.min.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
@@ -112,13 +114,14 @@ extract($state_info);
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-		<?php include('../bin/header.php');?>
-			
-			<?php //include('../bin/inner_sidebar_chat.php');?>
-            
+            <?php include('../bin/header.php'); ?>
+
+            <?php //include('../bin/inner_sidebar_chat.php');
+            ?>
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                     <?php include('../bin/sidebar.php');?>
+                    <?php include('../bin/sidebar.php'); ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
 
@@ -132,8 +135,8 @@ extract($state_info);
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
-                                                        <h4><?=$page_group;?></h4>
-                                                        <span><?php echo $page_title;?></span>
+                                                        <h4><?= $page_group; ?></h4>
+                                                        <span><?php echo $page_title; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,14 +145,14 @@ extract($state_info);
                                                     <ul class="breadcrumb-title">
                                                         <li class="breadcrumb-item">
                                                             <a href="#">
-                                                        <i class="icofont icofont-home"></i>
-                                                    </a>
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$User_Type;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$page_group;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -165,11 +168,11 @@ extract($state_info);
                                                 <!-- HTML5 Export Buttons table start -->
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5><?php echo $page_title;?></h5>
+                                                        <h5><?php echo $page_title; ?></h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="dt-responsive table-responsive">
-                                 							<?php include_once('views/edit_state.php');?>
+                                                            <?php include_once('views/edit_state.php'); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -182,7 +185,7 @@ extract($state_info);
                             </div>
                         </div>
                         <!-- Main-body end -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -236,32 +239,34 @@ extract($state_info);
 </div>
 <![endif]-->
     <!-- Warning Section Ends -->
-	 <script>
-$( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
-</script>
+    <script>
+        $(".select2").select2({
+            placeholder: "",
+            maximumSelectionSize: 6
+        });
+    </script>
     <!-- Required Jquery -->
-<script type="text/javascript" src="../bower_components/jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
-<script type="text/javascript" src="../bower_components/bootstrap/js/bootstrap.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
-<script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
+    <script type="text/javascript" src="../bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
+    <script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
 
-<!-- i18next.min.js -->
-<script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
-<script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-<script type="text/javascript"
-        src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-<script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
 
-<script src="../assets/js/pcoded.min.js"></script>
-<script src="../assets/js/demo-12.js"></script>
-<script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="../assets/js/script.js"></script>
-	<?php include('../includes/bottom-cache.php');?>
+    <script src="../assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/demo-12.js"></script>
+    <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="../assets/js/script.js"></script>
+    <?php include('../includes/bottom-cache.php'); ?>
 </body>
 
 </html>

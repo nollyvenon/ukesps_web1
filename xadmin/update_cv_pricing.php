@@ -8,34 +8,36 @@ if (!$session_admin->is_logged_in()) {
   redirect_to("log-in");
 }
 $sidi = $_GET['sid'];
-$content = $zenta_operation->get_event_detail($sidi);
+$content = $zenta_operation->get_cv_pricing_details($sidi);
 extract($content);
 
-if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
-  $event_id = $db_handle->sanitizePost($_POST['event_id']);
-  $event_title = $db_handle->sanitizePost($_POST['event_title']);
-  $startDate = $db_handle->sanitizePost($_POST['startDate']);
-  $endDate = $db_handle->sanitizePost($_POST['endDate']);
-  $location = $db_handle->sanitizePost($_POST['location']);
-  $summary = $db_handle->sanitizePost($_POST['summary']);
-  $content = $db_handle->sanitizePost($_POST['content']);
-  $uploaddir = "../img/events/";
-  $gallery = basename($_FILES['gallery']['name']);
+if (isset($_POST['update_cv_pricing'])) {
+  $plan_name = $db_handle->sanitizePost($_POST['plan_name']);
+  $plan_cost = $db_handle->sanitizePost($_POST['plan_cost']);
+  $plan_discount = $db_handle->sanitizePost($_POST['plan_discount']);
+  $course_plan_currency = $db_handle->sanitizePost($_POST['course_plan_currency']);
+  $plan_period = $db_handle->sanitizePost($_POST['plan_period']);
+  $plan_highlights = $db_handle->sanitizePost($_POST['plan_highlights']);
+  $description = $db_handle->sanitizePost($_POST['description']);
+  $uploaddir = "../img/pricings/";
+  $gallery = basename($_FILES['plan_image']['name']);
   $gallery1 = $uploaddir . basename($gallery);
 
-  if (empty($event_title) || empty($location) || empty($content)) {
+  if (empty($plan_name) || empty($plan_cost) || empty($description)) {
     $message_error = "Please fill all the fields and try again.";
   } else {
     move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-    $result = $zenta_operation->update_event($event_id, $event_title, $event_author, $gallery, $startDate, $endDate, $location, $summary, $content);
+    $result = $zenta_operation->update_cv_pricing($sidi, $plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
+
     if ($result) {
       $message_success = "CV Pricing was updated successfully.";
+      header("Location:manage_cv_pricing.php");
     } else {
       $message_error = "CV Pricing was not updated successfully.";
     }
   }
 }
-
+$course_currencies = $zenta_operation->get_all_currencies();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +82,12 @@ if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
   <!-- Style.css -->
   <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 </head>
 
 <body>

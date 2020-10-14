@@ -75,6 +75,7 @@ $tranx = json_decode($response, true);
 
 if (!$tranx['status']) {
     // there was an error from the API
+    print_r('$tranx');
     print_r('API returned error: ' . $tranx['message']);
 }
 header('Location: ' . $tranx['data']['authorization_url']);

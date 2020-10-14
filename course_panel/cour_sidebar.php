@@ -20,9 +20,10 @@
 				<ul>
 					<li class="cat-item cat-item-1 current-cat"><a href="index">Home </span></a></li>
 					<li class="cat-item cat-item-1 current-cat"><a href="past_payments">View Past Payments </span></a></li>
-					<li class="cat-item cat-item-1 current-cat"><a href="posted_courses">View Posted Courses <span> (7) </span></a></li>
+					<li class="cat-item cat-item-1 current-cat"><a href="posted_courses">View Posted Courses</a></li>
 					<li class="cat-item cat-item-1 current-cat"><a href="add_course">Add Courses</a></li>
 					<li class="cat-item cat-item-1 current-cat"><a href="view_profile">Company Profile</a></li>
+					<li class="cat-item cat-item-1 current-cat"><a href="update_profile">Update Profile</a></li>
 					<li class="cat-item cat-item-1 current-cat"><a href="logout">Logout</a></li>
 				</ul>
 			</aside>

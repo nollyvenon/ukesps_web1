@@ -1,5 +1,5 @@
 <?php
-require_once("header.php"); ?>
+require_once("../main_header.php"); ?>
 <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -191,4 +191,4 @@ if ($_POST['submit']) {
 
 
 
-<?php include_once('footer.php'); ?>
+<?php include_once('../main_footer.php'); ?>

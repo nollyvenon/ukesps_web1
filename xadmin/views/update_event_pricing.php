@@ -34,24 +34,18 @@
         <?php
         foreach ($course_currencies as $row44) :
         ?>
-          <?php if ($course_plan_currency != NULL && $course_plan_currency == $row44['currency_code']) : ?>
-            <option selected="selected" value="<?php echo $row44['currency_code']; ?>">
-              <?php echo $row44['currency_name']; ?>
-            </option>
-          <?php else : ?>
-            <option value="<?php echo $row44['currency_code']; ?>">
-              <?php echo $row44['currency_name']; ?>
-            </option>
-          <?php endif ?>
+          <option <?= $row44['currency_code'] == $content['plan_curency'] ? "selected" : "" ?> value="<?php echo $row44['currency_code']; ?>">
+            <?php echo $row44['currency_name']; ?>
+          </option>
         <?php
         endforeach;
         ?>
       </select>
     </div>
     <div class='col-md-6'>
-      <label for="course_plan_currency" class="control-label">Currency</label><br>
+      <label for="course_plan_currency" class="control-label">Plan Period</label><br>
       <select id="plan_period" required name="plan_period" data-required="true" class="form-control" data-live-search="true">
-        <option value="">Select Plan Period</option>
+        <option value="<?= $content['plan_period'] ?>"><?= $content['plan_period'] ?></option>
         <option value="day">Daily</option>
         <option value="week">Weekly</option>
         <option value="month">Monthly</option>
@@ -73,7 +67,7 @@
 
     <div class="col-md-12">
       <label for="description" class="control-label">Description</label>
-      <textarea id="description" name="description" rows="15" cols="40"></textarea>
+      <textarea id="description" name="description" rows="15" cols="40"><?= $content['description'] ?></textarea>
       <script>
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.

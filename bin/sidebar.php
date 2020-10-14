@@ -14,9 +14,7 @@
 			<div class="main-menu-content">
 				<ul>
 					<li class="more-details">
-						<a href="<?= SITE_URL; ?>/parent/user-profile"><i class="ti-user"></i>View Profile</a>
-						<a href="#!"><i class="ti-settings"></i>Settings</a>
-						<a href="<?= SITE_URL; ?>/logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
+						<a href="<?= SITE_URL; ?>/xadmin/logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
 					</li>
 				</ul>
 			</div>
@@ -222,9 +220,9 @@
 						</a>
 					</li>
 					<li class=" ">
-						<a href="<?= SITE_URL; ?>/xadmin/manage_cv_pricings">
+						<a href="<?= SITE_URL; ?>/xadmin/manage_cv_pricing">
 							<span class="pcoded-micon"><i class="icon-chart"></i></span>
-							<span class="pcoded-mtext" data-i18n="<?= SITE_URL; ?>/xadmin/manage_cv_pricings">Manage CV Pricings</span>
+							<span class="pcoded-mtext" data-i18n="<?= SITE_URL; ?>/xadmin/manage_cv_pricing">Manage CV Pricings</span>
 						</a>
 					</li>
 				</ul>
@@ -259,8 +257,43 @@
                 </a>
             </li>-->
 		</ul>
-
-
+		<div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Contacts and Applications</div>
+		<ul class="pcoded-item pcoded-left-item">
+			<li class="pcoded-hasmenu">
+				<a href="javascript:void(0)">
+					<span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+					<span class="pcoded-mtext" data-i18n="nav.form-components.main">Contacts</span>
+					<span class="pcoded-mcaret"></span>
+				</a>
+				<ul class="pcoded-submenu">
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/manage_contacts.php">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Manage Contacts</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="pcoded-item pcoded-left-item">
+			<li class="pcoded-hasmenu">
+				<a href="javascript:void(0)">
+					<span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+					<span class="pcoded-mtext" data-i18n="nav.form-components.main">Subscribers</span>
+					<span class="pcoded-mcaret"></span>
+				</a>
+				<ul class="pcoded-submenu">
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/manage_subscribers.php">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Manage Subscribers</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
 		<div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Content</div>
 		<ul class="pcoded-item pcoded-left-item">
 			<li class="pcoded-hasmenu">
@@ -284,7 +317,81 @@
 							<span class="pcoded-mcaret"></span>
 						</a>
 					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/add_contact_info">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Add Contact Info</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/view_contact_info">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">View Contact Info</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/add_faq">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Add Faq</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/manage_faqs">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Manage Faqs</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/email_config">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Email Configuration</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
 
+		<ul class="pcoded-item pcoded-left-item">
+			<li class="pcoded-hasmenu">
+				<a href="javascript:void(0)">
+					<span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+					<span class="pcoded-mtext" data-i18n="nav.form-components.main">Banners/Ads</span>
+					<span class="pcoded-mcaret"></span>
+				</a>
+				<ul class="pcoded-submenu">
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/add_slider">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-components">Add Slider Content</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/manage_sliders">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Manage Slider Content</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/add_banners">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-components">Add Banners/Ads</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?= SITE_URL; ?>/xadmin/manage_banners">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.form-components.form-elements-add-on">Manage Banners/Ads</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
 				</ul>
 			</li>
 		</ul>
@@ -298,42 +405,59 @@
 					<span class="pcoded-mcaret"></span>
 				</a>
 				<ul class="pcoded-submenu">
-					<?php if (in_array(20, $my_pages)) {  ?>
-						<li class=" ">
-							<a href="<?php echo SITE_URL; ?>/xadmin/add_user">
-								<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-								<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add User</span>
-								<span class="pcoded-mcaret"></span>
-							</a>
-						</li>
-					<?php } ?>
-					<?php if (in_array(19, $my_pages)) {  ?>
-						<li class=" ">
-							<a href="<?php echo SITE_URL; ?>/xadmin/users">
-								<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-								<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Users</span>
-								<span class="pcoded-mcaret"></span>
-							</a>
-						</li>
-					<?php } ?>
-					<?php if (in_array(24, $my_pages)) {  ?>
-						<li class=" ">
-							<a href="<?php echo SITE_URL; ?>/xadmin/add_user_group">
-								<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-								<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add User Group</span>
-								<span class="pcoded-mcaret"></span>
-							</a>
-						</li>
-					<?php } ?>
-					<?php if (in_array(25, $my_pages)) {  ?>
-						<li class=" ">
-							<a href="<?php echo SITE_URL; ?>/xadmin/user_groups">
-								<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-								<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">User Groups</span>
-								<span class="pcoded-mcaret"></span>
-							</a>
-						</li>
-					<?php } ?>
+
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/add_user">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Add User</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/manage_admin_users">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Manage Admin Users</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/users">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/course_providers">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Course providers</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/recruiters">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Recruiters</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/job_seekers">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Job Seekers</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
+					<li class=" ">
+						<a href="<?php echo SITE_URL; ?>/xadmin/event_providers">
+							<span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+							<span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Event Providers</span>
+							<span class="pcoded-mcaret"></span>
+						</a>
+					</li>
 				</ul>
 			</li>
 		</ul>

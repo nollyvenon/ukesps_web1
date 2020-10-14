@@ -27,7 +27,8 @@ if (isset($_POST['add_job_pricing']) && !empty($_POST['add_job_pricing'])) {
     move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
     $result = $zenta_operation->add_job_pricing($plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
-      $message_success = "Job Pricing was added successfully.";
+      $message_success = "Recruiter Pricing was added successfully.";
+      header("Location:manage_job_pricings.php");
       $plan_name = "";
       $plan_cost = "";
       $page_group = "";
@@ -36,7 +37,7 @@ if (isset($_POST['add_job_pricing']) && !empty($_POST['add_job_pricing'])) {
       $plan_period = "";
       $description = "";
     } else {
-      $message_error = "Job Pricing was not added successfully.";
+      $message_error = "Recruiter Pricing was not added successfully.";
     }
   }
 }

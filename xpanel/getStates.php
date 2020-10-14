@@ -1,6 +1,6 @@
 <?php
 
-include('../z_db.php');
+include('z_db.php');
 $country_id = addslashes($_GET["q"]);
 $state_by_country = $zenta_operation->get_states_by_country($country_id);
 
@@ -12,7 +12,7 @@ $state_by_country = $zenta_operation->get_states_by_country($country_id);
 	<?php
 	foreach ($state_by_country as $row2) :
 	?>
-		<option value="<?php echo $row2['state_name']; ?>">
+		<option value="<?php echo $row2['state_id']; ?>">
 			<?php echo $row2['state_name']; ?>
 		</option>
 	<?php

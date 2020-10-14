@@ -1,32 +1,49 @@
 <?php
 $page_title = 'All Users';
 $page_group = 'Users';
+$User_Type = 'Admin';
 require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
     redirect_to("log-in");
 }
-if (!contains( '19',$allowed_pages)) {
-	 $message_error .= "You do not have right to that page or feature. Regards.";
-	redirect_to("dashboard?msg=10");
- }
-$hiss = $_GET['id'];
-$users_list = $zenta_operation->users_list();
-if ($_POST and $_POST['hissdel'] != ""){
-	$hissdel = $_POST['hissdel'];
-	$del_users = $zenta_operation->del_users($hissdel);
-	if ($del_users){
-		 $message_success = "You have successfully deleted the user's data";
-	} else {
-		$message_error = "Something went wrong. Please try again.";
-	}
-	header("Location:users.php");
+// if (!contains( '19',$allowed_pages)) {
+// 	 $message_error .= "You do not have right to that page or feature. Regards.";
+// 	redirect_to("dashboard?msg=10");
+//  }
+// $hiss = $_GET['id'];
+$user_list = $zenta_operation->users_list();
 
+if (isset($_GET['did'])) {
+    $del_users = $zenta_operation->del_user($_GET['did']);
+    if ($del_users) {
+        $message_success = "You have successfully deleted the user's data";
+    } else {
+        $message_error = "Something went wrong. Please try again.";
+    }
+    header("Location:users.php");
+} else if (isset($_GET['act'])) {
+    $del_users = $zenta_operation->activate_user($_GET['act']);
+    if ($del_users) {
+        $message_success = "You have successfully deleted the user's data";
+    } else {
+        $message_error = "Something went wrong. Please try again.";
+    }
+    header("Location:users.php");
+} else if (isset($_GET['deact'])) {
+    $del_users = $zenta_operation->deactivate_user($_GET['deact']);
+    if ($del_users) {
+        $message_success = "You have successfully deleted the user's data";
+    } else {
+        $message_error = "Something went wrong. Please try again.";
+    }
+    header("Location:users.php");
 }
- ?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title><?php echo SITE_ACRONYM .' - '. $page_title;?></title>
+    <title><?php echo SITE_ACRONYM . ' - ' . $page_title; ?></title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -49,7 +66,7 @@ if ($_POST and $_POST['hissdel'] != ""){
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/themify-icons/themify-icons.css">
-	<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/font-awesome/css/font-awesome.min.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
@@ -57,12 +74,17 @@ if ($_POST and $_POST['hissdel'] != ""){
     <link rel="stylesheet" type="text/css" href="../assets/pages/flag-icon/flag-icon.min.css">
     <!-- Menu-Search css -->
     <link rel="stylesheet" type="text/css" href="../assets/pages/menu-search/css/component.css">
-  <link rel="stylesheet" href="../bower_components/excess/bootstrap.min.css">
-  <script src="../bower_components/excess/jquery.min.js"></script>
-  <script src="../bower_components/excess/popper.min.js"></script>
-  <script src="../bower_components/excess/bootstrap.min.js"></script>
-	
-	<!-- sweet alert framework -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="plugins/popper/popper.min.js"></script>
+    <!-- <link rel="stylesheet" href="../bower_components/excess/bootstrap.min.css">
+    <script src="../bower_components/excess/jquery.min.js"></script>
+    <script src="../bower_components/excess/popper.min.js"></script>
+    <script src="../bower_components/excess/bootstrap.min.js"></script> -->
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- sweet alert framework -->
     <link rel="stylesheet" type="text/css" href="../bower_components/sweetalert/css/sweetalert.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
@@ -107,18 +129,19 @@ if ($_POST and $_POST['hissdel'] != ""){
             </div>
         </div>
     </div>
-    <!-- Pre-loader end -->
+     Pre-loader end -->
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
-		<?php include('../bin/header.php');?>
-			
-			<?php //include('../bin/inner_sidebar_chat.php');?>
-            
+            <?php include('../bin/header.php'); ?>
+
+            <?php //include('../bin/inner_sidebar_chat.php');
+            ?>
+
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                     <?php include('../bin/sidebar.php');?>
+                    <?php include('../bin/sidebar.php'); ?>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
 
@@ -132,8 +155,8 @@ if ($_POST and $_POST['hissdel'] != ""){
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
-                                                        <h4><?=$page_group;?></h4>
-                                                        <span><?php echo $page_title;?></span>
+                                                        <h4><?= $page_group; ?></h4>
+                                                        <span><?php echo $page_title; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,14 +165,14 @@ if ($_POST and $_POST['hissdel'] != ""){
                                                     <ul class="breadcrumb-title">
                                                         <li class="breadcrumb-item">
                                                             <a href="#">
-                                                        <i class="icofont icofont-home"></i>
-                                                    </a>
+                                                                <i class="icofont icofont-home"></i>
+                                                            </a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$User_Type;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?=$page_group;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
                                                         </li>
-                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title;?></a>
+                                                        <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -164,11 +187,11 @@ if ($_POST and $_POST['hissdel'] != ""){
                                             <div class="col-sm-12">
                                                 <div class="card">
                                                     <div class="card-header table-card-header">
-                                                        <h5><?php echo $page_title;?></h5>
+                                                        <h5><?php echo $page_title; ?></h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <div class="dt-responsive table-responsive">
-                                                            <?php include_once('views/users.php');?>
+                                                            <?php include_once('views/users.php'); ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -180,7 +203,7 @@ if ($_POST and $_POST['hissdel'] != ""){
                             </div>
                         </div>
                         <!-- Main-body end -->
-                        
+
                     </div>
                 </div>
             </div>
@@ -234,17 +257,20 @@ if ($_POST and $_POST['hissdel'] != ""){
 </div>
 <![endif]-->
     <!-- Warning Section Ends -->
-	 <script>
-$( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
-</script>
+    <script>
+        $(".select2").select2({
+            placeholder: "",
+            maximumSelectionSize: 6
+        });
+    </script>
     <!-- Required Jquery -->
-<script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
-<!-- modernizr js -->
-<script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
-<script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-ui/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../bower_components/popper.js/js/popper.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="../bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="../bower_components/modernizr/js/modernizr.js"></script>
+    <script type="text/javascript" src="../bower_components/modernizr/js/css-scrollbars.js"></script>
     <!-- sweet alert js -->
     <script type="text/javascript" src="../bower_components/sweetalert/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="../assets/js/modal.js"></script>
@@ -252,20 +278,41 @@ $( ".select2" ).select2( { placeholder: "", maximumSelectionSize: 6 } );
     <!-- modalEffects js nifty modal window effects -->
     <script type="text/javascript" src="../assets/js/modalEffects.js"></script>
     <script type="text/javascript" src="../assets/js/classie.js"></script>
-<!-- i18next.min.js -->
-<script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
-<script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
-<script type="text/javascript"
-        src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
-<script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
-<!-- Custom js -->
-<script src="../assets/pages/data-table/js/data-table-custom.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript" src="../bower_components/i18next/js/i18next.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-xhr-backend/js/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript" src="../bower_components/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-i18next/js/jquery-i18next.min.js"></script>
+    <!-- Data Tables -->
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <!-- Custom js -->
+    <script src="../assets/pages/data-table/js/data-table-custom.js"></script>
 
-<script src="../assets/js/pcoded.min.js"></script>
-<script src="../assets/js/demo-12.js"></script>
-<script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="../assets/js/script.js"></script>
-	<?php include('../includes/bottom-cache.php');?>
+    <script src="../assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/demo-12.js"></script>
+    <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="../assets/js/script.js"></script>
 </body>
+<script>
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+
+    });
+</script>
 
 </html>

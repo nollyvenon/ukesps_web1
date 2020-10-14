@@ -83,7 +83,7 @@ $page_name = $zenta_operation->get_page_name();
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-    <link rel="stylesheet" type="text/css" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css" />
     <script src="../node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
 </head>
 
@@ -125,7 +125,7 @@ $page_name = $zenta_operation->get_page_name();
             </div>
         </div>
     </div>
-    <!-- Pre-loader end -->
+    Pre-loader end -->
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>

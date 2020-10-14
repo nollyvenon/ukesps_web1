@@ -18,13 +18,14 @@
               <option value="<?= $page_name ?>"><?= $page_name ?></option>
               <?php
               foreach ($page_names as $key => $value) {
-                $page_names = $value['page_name'];
+                $page_name = $value['page_name'];
+                $page_slug = $value['page_slug'];
 
-                echo "<option value='$page_names'>$page_names</option>";
+                echo "<option value='$page_slug'>$page_name</option>";
               }     ?>
             </select></div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="page_location">
             Page Location</label>
           <div class="input-group">
@@ -38,7 +39,7 @@
                 }     ?>
               </select></div>
           </div>
-        </div>
+        </div> -->
         <div class="form-group">
           <label for="content">
             Content</label>

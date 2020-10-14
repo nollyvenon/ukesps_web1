@@ -1,5 +1,5 @@
 <?php
-require_once("header.php");
+require_once("../main_header.php");
 if (isset($_GET['xxid'])) {
     $ssid = $_GET['xxid'];
     $id_encrypted = $db_handle->sanitizePost($_GET['xxid']);
@@ -68,60 +68,56 @@ $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content = $db_handle->fetchAssoc($result);
 ?>
+<div class="page-content woocommerce">
+    <div class="container clear-fix">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div id="content" role="main">
+                    <?php include_once("../layouts/feedback_message.php"); ?>
 
-<?php include_once("../layouts/feedback_message.php"); ?>
-<h3>Applications</h3>
-<?php if (isset($content) && !empty($content)) {  ?>
-    <table class="table table-responsive table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Applicant Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Position</th>
-                <th>Desired Salary</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Appl. Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($content as $row) { ?>
-                <tr>
-                    <td><input class="form-check-input" type="checkbox" id="select_appl" name="select_appl"></td>
-                    <td><?php echo $row['first_name'] . ' ' . $row['last_name']; ?></td>
-                    <td><?php echo $row['appl_email']; ?></td>
-                    <td><?php echo $row['job_title']; ?></td>
-                    <td><?php echo $row['desired_salary']; ?></td>
-                    <td><?php echo $zenta_operation->get_country_name_by_id($row['appl_location']); ?></td>
-                    <td><?php echo applicant_status($row['appl_status']); ?></td>
-                    <td><?php echo date('d M, Y', strtotime($row['timestamp'])); ?></td>
-                    <td><a class="btn btn-border green" href="application_det?hiss=<?php echo encrypt($row['appl_id']); ?>"><span> Application Info</span></a>
-                        <a class="btn btn-border green" href="applicant_det?hiss=<?php echo encrypt($row['applicant_code']); ?>"><span> Applicant Info</span></a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-    <!-- pagination -->
-    <!-- <div class="page-pagination clear-fix">
-        <?php $pg = intval($_GET['pg']);
-        if ($pg > 1) { ?>
-            <a href="?pg=<?= $pg - 1; ?>"><i class="fa fa-angle-double-left"></i></a>
-            <a href="?pg=<?= $pg; ?>" class="active"><?= $pg; ?></a>
-        <?php } ?>
-       <a href="?pg=<?= $pg + 1; ?>"><?= $pg + 1; ?></a>
-        <a href="?pg=<?= $pg + 2; ?>"><?= $pg + 2; ?></a>
-       <a href="?pg=<?= $pg + 3; ?>"><i class="fa fa-angle-double-right"></i></a>
-    </div> -->
-    <!-- / pagination -->
-<?php } else {
-    echo "<tr><td colspan='5' class='text-danger'><em>No results to display</em></td></tr>";
-} ?>
+                    <?php if (isset($content) && !empty($content)) {  ?>
+                        <h3>Applications</h3>
+                        <table class="table table-responsive table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Applicant Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Position</th>
+                                    <th>Desired Salary</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Appl. Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($content as $row) { ?>
+                                    <tr>
+                                        <td><input class="form-check-input" type="checkbox" id="select_appl" name="select_appl"></td>
+                                        <td><?php echo $row['first_name'] . ' ' . $row['last_name']; ?></td>
+                                        <td><?php echo $row['appl_email']; ?></td>
+                                        <td><?php echo $row['job_title']; ?></td>
+                                        <td><?php echo $row['desired_salary']; ?></td>
+                                        <td><?php echo $zenta_operation->get_country_name_by_id($row['appl_location']); ?></td>
+                                        <td><?php echo applicant_status($row['appl_status']); ?></td>
+                                        <td><?php echo date('d M, Y', strtotime($row['timestamp'])); ?></td>
+                                        <td><a class="btn btn-border green" href="application_det?hiss=<?php echo encrypt($row['appl_id']); ?>"><span> Application Info</span></a>
+                                            <a class="btn btn-border green" href="applicant_det?hiss=<?php echo encrypt($row['applicant_code']); ?>"><span> Applicant Info</span></a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
 
+                    <?php } else {
+
+                        echo "<center><h3>APPLICATIONS</h3><em>No results to display</em></center>";
+                    } ?>
+                </div>
+            </div>
+            <?php include('./jobpanel_sidebar.php') ?>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div><?php include_once('footer.php'); ?>
+<?php include_once('footer.php'); ?>

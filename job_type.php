@@ -1,5 +1,5 @@
 <?php
-include_once("z_db.php");
+include_once("main_header.php");
 require_once(LIB_PATH . DS . "class_recruiter.php");
 $recruit_object = new RecruitUser();
 $job_type = $_GET['sid'];
@@ -50,152 +50,108 @@ $query .= 'LIMIT ' . $offset . ',' . $rowsperpage;
 $result = $db_handle->runQuery($query);
 $content = $db_handle->fetchAssoc($result);
 ?>
-<!DOCTYPE HTML>
-<html>
 
-<head>
-	<title>UKESPS - United Kingdom Education & Skills Placement Services Limited</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-	<!-- style -->
-	<link rel="shortcut icon" href="img/favicon.png">
-	<link rel="stylesheet" href="css/font-awesome.css">
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/styles.css">
 
-	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css" />
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" type="text/css" href="rs-plugin/css/settings.css" media="screen">
-	<!--styles -->
-	<link href="css/select2.css" rel="stylesheet" />
-</head>
 
-<body class="courses-list">
-
-	<!-- page header -->
-	<?php include_once('header.php'); ?>
-	<!-- content -->
-	<div class="page-content">
-		<div class="container clear-fix">
-			<div class="grid-col-row">
-				<div class="grid-col grid-col-9">
-					<!-- main content -->
-					<main>
-						<!-- search -->
-						<div class="category-search">
-							<i class="fa fa-search"></i>
-							<!-- 
+<!-- content -->
+<div class="page-content">
+	<div class="container clear-fix">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<!-- main content -->
+				<main>
+					<!-- search -->
+					<div class="category-search">
+						<i class="fa fa-search"></i>
+						<!-- 
 						 -->
-							<form name='search_text' action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
-								<input type="text" class="input-text" value placeholder="Job Type, e.g IT Specialist">
-								<button class="cws-button smaller border-radius alt">Search Job Type</button>
-							</form>
-						</div>
-						<h3>Search for <?php echo $_POST['search_text']; ?> Type</h3>
-						<!-- / search -->
-						<?php if (isset($content) && !empty($content)) {
-							foreach ($content as $row) {
-								$jobs_id = $row['jobs_id'];
-								$job_img = $row['job_img'];
-								$job_title = $row['job_title'];
-								$descript = $row['descript'];
-								$location_name = $row['location_name'];
-								$amount_per_period = $row['amount_per_period'];
-								$recruiter_code = $row['recruiter_code'];
-								$recruiter_detail = $recruit_object->get_recruiter_detail($recruiter_code);
-								$recruiter_name = $recruiter_detail['first_name'] . ' ' . $recruiter_detail['last_name'];
-								$recruiter_img = $recruiter_detail['image'];
-						?>
-								<!-- item -->
-								<div class="category-item list clear-fix">
-									<div class="picture">
-										<div class="hover-effect"></div>
-										<div class="link-cont">
-											<a href="job_det?sid=<?= $jobs_id; ?>" class="fancy fa fa-search"></a>
-										</div>
-										<img src="img/job_companies/<?= $job_img; ?>" data-at2x="img/jobs/<?= $job_img; ?>" alt>
+						<form name='search_text' action="" method="post" class="form-horizontal tasi-form" enctype="multipart/form-data">
+							<input type="text" class="input-text" value placeholder="Job Type, e.g IT Specialist">
+							<button class="cws-button smaller border-radius alt">Search Job Type</button>
+						</form>
+					</div>
+					<h3>Search for <?php echo $_POST['search_text']; ?> Type</h3>
+					<!-- / search -->
+					<?php if (isset($content) && !empty($content)) {
+						foreach ($content as $row) {
+							$jobs_id = $row['jobs_id'];
+							$job_img = $row['job_img'];
+							$job_title = $row['job_title'];
+							$descript = $row['descript'];
+							$location_name = $row['location_name'];
+							$amount_per_period = $row['amount_per_period'];
+							$recruiter_code = $row['recruiter_code'];
+							$recruiter_detail = $recruit_object->get_recruiter_detail($recruiter_code);
+							$recruiter_name = $recruiter_detail['first_name'] . ' ' . $recruiter_detail['last_name'];
+							$recruiter_img = $recruiter_detail['image'];
+					?>
+							<!-- item -->
+							<div class="category-item list clear-fix">
+								<div class="picture">
+									<div class="hover-effect"></div>
+									<div class="link-cont">
+										<a href="job_det?sid=<?= $jobs_id; ?>" class="fancy fa fa-search"></a>
 									</div>
-									<h3><a href="job_det?sid=<?= $jobs_id; ?>"><?= $job_title; ?></a></h3>
-									<div>
-										<div class="star-rating" title="Rated 4.00 out of 5">
-											<span style="width:100%"></span>
-										</div>
-										<div class="count-reviews">( reviews 10 )</div>
+									<img src="img/job_companies/<?= $job_img; ?>" data-at2x="img/jobs/<?= $job_img; ?>" alt>
+								</div>
+								<h3><a href="job_det?sid=<?= $jobs_id; ?>"><?= $job_title; ?></a></h3>
+								<div>
+									<div class="star-rating" title="Rated 4.00 out of 5">
+										<span style="width:100%"></span>
 									</div>
-									<p><?= limit_text($descript, 25); ?></p>
-									<div class="category-info">
-										<span class="price">
-											<span class="amount">
-												<?= $SiteCurrency; ?><?= formatMoney($amount_per_period, true); ?>
-											</span>
-											<!--<span class="description-price"><?= $amount_per_period; ?></span>-->
+									<div class="count-reviews">( reviews 10 )</div>
+								</div>
+								<p><?= limit_text($descript, 25); ?></p>
+								<div class="category-info">
+									<span class="price">
+										<span class="amount">
+											<?= $SiteCurrency; ?><?= formatMoney($amount_per_period, true); ?>
 										</span>
-										<div class="count-users"><i class="fa fa-location-arrow"></i> <?= $location_name; ?></div>
-										<div class="course-lector">
-											<img src="img/job_companies/<?= $job_img; ?>" data-at2x="img/job_companies/<?= $job_img; ?>" class="avatar" alt>
-											<div class="lector-name">
-												<h4>Posted by</h4>
-												<span><?= $recruiter_name; ?></span>
-											</div>
+										<!--<span class="description-price"><?= $amount_per_period; ?></span>-->
+									</span>
+									<div class="count-users"><i class="fa fa-location-arrow"></i> <?= $location_name; ?></div>
+									<div class="course-lector">
+										<img src="img/job_companies/<?= $job_img; ?>" data-at2x="img/job_companies/<?= $job_img; ?>" class="avatar" alt>
+										<div class="lector-name">
+											<h4>Posted by</h4>
+											<span><?= $recruiter_name; ?></span>
 										</div>
 									</div>
 								</div>
-								<!-- / item -->
-						<?php  }
-						} else {
-							echo "<h5>No result found</h5>";
-						} ?>
-					</main>
-					<!-- / main content -->
-					<!-- pagination -->
-					<div class="page-pagination clear-fix">
-						<?php
-						if ($currentpage  > 1) { ?>
-							<a href="?sid=<?= $_GET['sid']; ?>&pg=<?= $currentpage - 1; ?>"><i class="fa fa-angle-double-left"></i></a>
-							<?php }
-						for ($currentpage = $totalpages; $currentpage < $totalpages; $i++) : if ($currentpage <= $totalpages) : ?>
-								<a href="?sid=<?= $_GET['sid']; ?>&=<?= $currentpage; ?>" class="active"><?= $pg; ?>
-								<?php endif;
-						endfor;
-						if ($currentpage > $totalpages) { ?>
-								--><a href="?sid=<?= $_GET['sid']; ?>&pg=<?= $currentpage + 1; ?>"><?= $currentpage + 1; ?></a>
-								<!-- 
+							</div>
+							<!-- / item -->
+					<?php  }
+					} else {
+						echo "<h5>No result found</h5>";
+					} ?>
+				</main>
+				<!-- / main content -->
+				<!-- pagination -->
+				<div class="page-pagination clear-fix">
+					<?php
+					if ($currentpage  > 1) { ?>
+						<a href="?sid=<?= $_GET['sid']; ?>&pg=<?= $currentpage - 1; ?>"><i class="fa fa-angle-double-left"></i></a>
+						<?php }
+					for ($currentpage = $totalpages; $currentpage < $totalpages; $i++) : if ($currentpage <= $totalpages) : ?>
+							<a href="?sid=<?= $_GET['sid']; ?>&=<?= $currentpage; ?>" class="active"><?= $pg; ?>
+							<?php endif;
+					endfor;
+					if ($currentpage > $totalpages) { ?>
+							--><a href="?sid=<?= $_GET['sid']; ?>&pg=<?= $currentpage + 1; ?>"><?= $currentpage + 1; ?></a>
+							<!-- 
 						--><a href="?sid=<?= $_GET['sid']; ?>&pg=<?= $currentpage + 2; ?>"><?= $currentpage + 2; ?></a>
-								<!-- 
+							<!-- 
 						--><a href="?sid=<?= $_GET['sid']; ?>&pg=<?= $currentpage + 3; ?>"><i class="fa fa-angle-double-right"></i></a>
-							<?php }  ?>
-					</div>
-					<!-- / pagination -->
+						<?php }  ?>
 				</div>
-				<!-- side bar -->
-				<?php include_once('course_sidebar.php'); ?>
-				<!-- / side bar -->
+				<!-- / pagination -->
 			</div>
+			<!-- side bar -->
+			<?php include_once('course_sidebar.php'); ?>
+			<!-- / side bar -->
 		</div>
 	</div>
-	<!-- / content -->
-	<!-- footer -->
-	<?php include_once('footer.php'); ?>
-	<!-- / footer -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/select2.js"></script>
-	<script type='text/javascript' src='js/jquery.validate.min.js'></script>
-	<script src="js/jquery.form.min.js"></script>
-	<script src="js/TweenMax.min.js"></script>
-	<script src="js/main.js"></script>
-	<!-- jQuery REVOLUTION Slider  -->
-	<script type="text/javascript" src="rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-	<script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-	<script src="js/jquery.isotope.min.js"></script>
-
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/jflickrfeed.min.js"></script>
-	<script src="js/jquery.tweet.js"></script>
-
-	<script src="js/jquery.fancybox.pack.js"></script>
-	<script src="js/jquery.fancybox-media.js"></script>
-	<script src="js/retina.min.js"></script>
-</body>
-
-</html>
+</div>
+<!-- / content -->
+<!-- footer -->
+<?php include_once('main_footer.php'); ?>

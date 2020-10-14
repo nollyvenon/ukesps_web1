@@ -117,27 +117,7 @@
                     </a>
                     <ul class="show-notification profile-notification">
                         <li>
-                            <a href="<?= SITE_URL; ?>/parent/settings">
-                                <i class="ti-settings"></i> Settings
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= SITE_URL; ?>/parent/user-profile">
-                                <i class="ti-user"></i> Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= SITE_URL; ?>/parent/messages">
-                                <i class="ti-email"></i> My Messages
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= SITE_URL; ?>/parent/lock_screen">
-                                <i class="ti-lock"></i> Lock Screen
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= SITE_URL; ?>/logout">
+                            <a href="<?= SITE_URL; ?>/xadmin/logout">
                                 <i class="ti-layout-sidebar-left"></i> Logout
                             </a>
                         </li>

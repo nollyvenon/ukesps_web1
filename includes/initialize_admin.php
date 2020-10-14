@@ -39,10 +39,10 @@ require_once(LIB_PATH . DS . "class_zenta_operation.php");
 require_once(LIB_PATH . DS . "class_system.php");
 
 $zenta_operation = new zentabooksOperation();
-$admin_id = $_SESSION['admin_id'];
+$admin_id = $_SESSION['admin_unique_code'];
 $last_login_time = date('d/m/Y H:i', strtotime($_SESSION['admin_last_login']));
 $admin_fullname = $admin_object->get_admin_name_by_code($_SESSION['admin_unique_code']);
-//$admin_type =$admin_object->get_admin_type($_SESSION['group_id']);
+// $admin_type = $admin_object->get_admin_type($_SESSION['group_id']);
 $my_pages = $admin_object->get_privileges($_SESSION['admin_code']);
 $allowed_pages = $my_pages['allowed_pages'];
 //print_r($my_pages);

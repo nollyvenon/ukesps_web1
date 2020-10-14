@@ -26,8 +26,8 @@
 			</div>
 		</div>
 		<div class="col-md-5">
-			<label for="event_author" class="control-label">Fee Duration</label>
-			<input type="text" class="form-control" id="fee_period" name="fee_period" value="<?php echo $fee_period; ?>">
+			<label for="event_author" class="control-label">Fee Duration (In Months)</label>
+			<input type="number" class="form-control" id="fee_period" name="fee_period" value="<?php echo $fee_period; ?>">
 			` </div>
 
 		<div class="col-md-5">
@@ -153,7 +153,7 @@
 				<?php
 				foreach ($course_currencies as $row44) :
 				?>
-					<option value="<?php echo $row44['currency_id']; ?>">
+					<option value="<?php echo $row44['currency_code']; ?>">
 						<?php echo $row44['currency_name']; ?>
 					</option>
 				<?php

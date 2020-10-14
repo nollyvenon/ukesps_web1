@@ -95,13 +95,37 @@ class zentabooksOperation
     {
         global $db_handle;
 
-        $query = "SELECT * FROM course_provider_plans WHERE plan_id = '$plan_id' LIMIT 1";
+        $query = "SELECT * FROM recruiting_plans WHERE plan_id = '$plan_id' LIMIT 1";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
 
         return $fetched_data[0];
     }
 
+    public function update_recruiter_pricing($plan_id = NULL, $plan_name = NULL, $plan_cost = NULL, $plan_discount_cost = NULL, $plan_currency = NULL, $plan_image = NULL, $plan_period = NULL, $highlights = NULL, $description = NULL)
+    {
+
+        global $db_handle;
+        $query = "UPDATE recruiting_plans SET plan_name = '$plan_name', plan_cost = '$plan_cost', plan_discount_cost = '$plan_discount_cost', plan_discount_cost = '$plan_discount_cost', plan_currency = '$plan_currency', plan_image = '$plan_image', plan_image = '$plan_image', plan_period = '$plan_period',highlights = '$highlights', description = '$description'   WHERE plan_id = '$plan_id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function update_cv_pricing($plan_id = NULL, $plan_name = NULL, $plan_cost = NULL, $plan_discount_cost = NULL, $plan_currency = NULL, $plan_image = NULL, $plan_period = NULL, $highlights = NULL, $description = NULL)
+    {
+
+        global $db_handle;
+        $query = "UPDATE recruiting_cv_plans SET plan_name = '$plan_name', plan_cost = '$plan_cost', plan_discount_cost = '$plan_discount_cost', plan_discount_cost = '$plan_discount_cost', plan_currency = '$plan_currency', plan_image = '$plan_image', plan_image = '$plan_image', plan_period = '$plan_period',highlights = '$highlights', description = '$description'   WHERE plan_id = '$plan_id'";
+        return $db_handle->runQuery($query);
+    }
+    public function get_course_locations()
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM course_locations";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+        return $fetched_data;
+    }
     public function get_course_location_by_id($location_id)
     {
         global $db_handle;
@@ -109,7 +133,6 @@ class zentabooksOperation
         $query = "SELECT * FROM course_locations WHERE location_id = '$location_id' LIMIT 1";
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
-
         return $fetched_data;
     }
 
@@ -202,6 +225,24 @@ class zentabooksOperation
         } else {
             return false;
         }
+    }
+
+    public function get_course_providers()
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM course_providers ORDER BY couprov_code ASC";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+
+    public function get_course_providers_by_country_id($country_id)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM course_providers WHERE country='$country_id' ";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
     }
 
     public function get_country_name_by_id($country_id)
@@ -353,6 +394,7 @@ class zentabooksOperation
             return false;
         }
     }
+
     public function get_job_companies()
     {
         global $db_handle;
@@ -380,6 +422,55 @@ class zentabooksOperation
         } else {
             return false;
         }
+    }
+
+    public function get_subscriptions($email = NULL)
+    {
+
+        global $db_handle;
+        if ($email) {
+            $query = "SELECT * FROM subscribers WHERE email = '$email'";
+        } else {
+            $query = "SELECT * FROM subscribers";
+        }
+        $result =  $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+
+    public function users_list()
+    {
+        global $db_handle;
+        $query = "SELECT * FROM users";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function course_providers()
+    {
+        global $db_handle;
+        $query = "SELECT * FROM course_providers";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function event_providers()
+    {
+        global $db_handle;
+        $query = "SELECT * FROM event_providers";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function recruiters()
+    {
+        global $db_handle;
+        $query = "SELECT * FROM recruiters";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function job_seekers()
+    {
+        global $db_handle;
+        $query = "SELECT * FROM jobseekers";
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
     }
     public function get_job_by_id($job_id = NULL)
     {
@@ -416,6 +507,23 @@ class zentabooksOperation
             return false;
         }
     }
+
+    public function get_user_group($admin_code)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM admin WHERE admin_code='$admin_code'";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+
+        if ($fetched_data) {
+            return $fetched_data;
+        } else {
+            return false;
+        }
+    }
+
+
 
     public function get_all_staff($staff_id = NULL, $first_name = NULL, $last_name = NULL, $designation = NULL, $limit = NULL)
     {
@@ -875,9 +983,10 @@ class zentabooksOperation
                 goto usercode;
             };
 
-            $query = "INSERT INTO users (user_code, email, phone, first_name, middle_name, last_name, password, gender, mailing_address, country, source, course_preference, university_preference, mailing_address2, city, state) VALUES ('$user_code', '$email', '$phone', '$first_name', '$middle_name', '$last_name', '$pass_salt', '$gender', '$mailing_address', '$country', '$source', '$course_preference', '$university_preference', '$mailing_address2', '$billing_city', '$billing_state')";
+            $query = "INSERT INTO users (user_code, email, phone, first_name, middle_name, last_name, password, gender, mailing_address, country, source, course_preference, university_preference, mailing_address2, city, state) VALUES ('$user_code', '$email', '$phone', '$first_name', '$middle_name', '$last_name', '$pass_salt', '$gender', '$mailing_address', '$country', '$source', '$course_preference', '$university_preference', '$billing_address_2', '$billing_city', '$billing_state')";
             $db_handle->runQuery($query);
             // Send activation link to email
+            $full_name = $first_name . ' ' . $last_name;
             $subject = "Welcome to UKESPS";
             $body = "
 Dear " . $first_name . "
@@ -885,48 +994,25 @@ Dear " . $first_name . "
 Congratulation ! 
 You are now a member of UKESPS Network
 
-Hi $username,
+Hi $first_name,
 Thank You for your interest in this program.
 Below is you account information :
 Email: $email
-Password: $password (please change after login)
+Password: $password
 Login: https://ukesps.com/login
-
-What is my next step?
-
-i - Login to your account using the username and password.
-ii - If you haven't provided help already, do so by clicking the Provide Help Menu
-iii - Ensure to always check from time to time. You could be merged to provide help anytime
-iv.  Always observe notifications on the dashboard.
-
 
 Best Regards,
 UKESPS Admin Team
 www.ukesps.com";
 
             $system_object->send_email($subject, $body, $email, $full_name);
-            /*	$headers = array("From: life@finaclefund.com",
-    "Reply-To: support@finaclefund.com",
-    "X-Mailer: PHP/" . PHP_VERSION
-);
-$headers = implode("\r\n", $headers);*/
-            $headers  = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
-            $headers .= "From: " . $from . "\r\n";
-            $headers .= "Reply-To: " . $from . "\r\n";
-            $headers .= "X-Mailer: PHP/" . phpversion();
-            $headers .= "X-Priority: 1" . "\r\n";
-
-            $my_mail = "info@assuredodds.com";
-            $my_replyto = "info@assuredodds.com";
-
-
-            mail_attachment($my_file, $my_path, $email, $my_mail, $my_name, $my_replyto, $subject, $body);
-            //	mail($email, $subject, $body, $headers);
-
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= 'From: UKESPS Admin <no-reply@ukesps.com>' . "\r\n";
+            mail($email, $subject, $body, $headers);
         }
 
-        return "An email was sent to $email containing your password and registration information. It might take a while to arrive to your mailbox. If the email is not in your Inbox, please check Spam/Junk box. <br> To login, Email: $email <br> Password: $password. <br> To login, <a href='login'>Click here</a>.<br>Regards.";
+        return "A mail was sent to $email containing your password and registration information. It might take a while to arrive to your mailbox. If the email is not in your Inbox, please check Spam/Junk box. <br> To login, Email: $email <br> Password: $password. <br> To login, <a href='login'>Click here</a>.<br>Regards.";
     }
 
     public function update_user($user_code = NULL, $first_name = NULL, $last_name = NULL, $country = NULL, $state = NULL, $phone = NULL, $mailing_address = NULL, $course_preference = NULL, $university_preference = NULL)
@@ -940,23 +1026,44 @@ $headers = implode("\r\n", $headers);*/
     public function forgot_password($email)
     {
 
+        $system_object = new SystemObject();
         global $db_handle;
-        $gen_pass = rand_string(7);
-        $pass_salt = generateHash($gen_pass);
-
-        $query = "UPDATE users set password = '$pass_salt' where email = '$email'";
+        $gen_pass = rand_string(64);
+        $query = "UPDATE users set reset_token = '$gen_pass' where email = '$email'";
         $db_handle->runQuery($query);
-
         $to = $email;
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= 'From: UKESPS Admin <no-reply@ukesps.com>' . "\r\n";
         $subject = "Password Request";
-        $message .= "This is your new password : <b> $gen_pass </b><br><br>";
+        $message = "Folow this link to reset your password : <b><a href='" . SITE_URL . "/reset_password?token=$gen_pass'>" . SITE_URL . "/reset_password?token=$gen_pass</a> OR <a href='" . SITE_URL . "/reset_password?token=$gen_pass'>Click Here</a> </b><br><br>";
         mail($to, $subject, $message, $headers);
+        $system_object->send_email($subject, $message, $email, 'User');
 
-        return "Your password is $gen_pass. Your password has been sent to your registered email. Please check your junk or spam folder if you do not find in your inbox.";
+        return "Your password has been sent to your registered email if it exist in our database. Please check your junk or spam folder if you do not find in your inbox.";
     }
+
+
+    public function get_user_reset_token($reset_token)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM users where reset_token = '$reset_token'";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+        return $fetched_data[0];
+    }
+
+    public function change_user_password($user_code, $new_password)
+    {
+
+        global $db_handle;
+        $pass_salt = generateHash($new_password);
+        $query = "UPDATE users SET password = '$pass_salt', reset_token='' WHERE user_code = '$user_code' LIMIT 1";
+        $db_handle->runQuery($query);
+        return $db_handle->affectedRows() > 0 ? true : false;
+    }
+
 
     public function get_user_detail($id)
     {
@@ -973,16 +1080,34 @@ $headers = implode("\r\n", $headers);*/
     public function del_user($user_id)
     {
         global $db_handle;
-
-        $query = "INSERT INTO deleted_user select * from user where id = '$user_id';";
-        $result = $db_handle->runQuery($query);
-
-        $query1 = "DELETE FROM user where id = '$user_id'";
-        $result1 = $db_handle->runQuery($query1);
-
-        return $db_handle->affectedRows() > 0 ? true : false;
+        $query = "DELETE FROM users where id = '$user_id'";
+        return $db_handle->runQuery($query);
+    }
+    public function del_jobseeker($user_id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM jobseekers where id = '$user_id'";
+        return $db_handle->runQuery($query);
+    }
+    public function del_recruiter($user_id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM recruiters where id = '$user_id'";
+        return $db_handle->runQuery($query);
+    }
+    public function del_eventprovider($user_id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM event_providers where id = '$user_id'";
+        return $db_handle->runQuery($query);
     }
 
+    public function del_course_provider($user_id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM course_providers where id = '$user_id'";
+        return $db_handle->runQuery($query);
+    }
     public function edit_user($user_id, $username, $name, $email, $phone, $country, $ip, $status = NULL, $admin = NULL)
     {
 
@@ -997,21 +1122,78 @@ $headers = implode("\r\n", $headers);*/
     {
 
         global $db_handle;
-        $query = "UPDATE user SET status = '0'  WHERE id = '$user_id' LIMIT 1";
-        $db_handle->runQuery($query);
+        $query = "UPDATE users SET status = '0'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
 
-        return $db_handle->affectedRows() > 0 ? true : false;
+    public function deactivate_course_provider($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE course_providers SET status = '0'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+
+    public function deactivate_recruiter($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE recruiters SET status = '0'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+
+    public function deactivate_event_provider($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE event_providers SET status = '0'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+
+    public function deactivate_job_seeker($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE jobseekers SET status = '0'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
     }
 
     public function activate_user($user_id)
     {
 
         global $db_handle;
-        $query = "UPDATE user SET status = '1'  WHERE id = '$user_id' LIMIT 1";
-        $db_handle->runQuery($query);
-
-        return $db_handle->affectedRows() > 0 ? true : false;
+        $query = "UPDATE users SET status = '1'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
     }
+    public function activate_course_provider($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE course_providers SET status = '1'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+    public function activate_recruiter($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE recruiters SET status = '1'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+    public function activate_job_seeker($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE jobseekers SET status = '1'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+    public function activate_event_provider($user_id)
+    {
+
+        global $db_handle;
+        $query = "UPDATE event_providers SET status = '1'  WHERE id = '$user_id' LIMIT 1";
+        return $db_handle->runQuery($query);
+    }
+
 
     /*public function add_user($username, $password, $name, $email, $phone, $country, $ip, $admin=NULL){
         global $db_handle;
@@ -1084,6 +1266,20 @@ $headers = implode("\r\n", $headers);*/
         return $db_handle->affectedRows() > 0 ? true : false;
     }
 
+    public function delete_subscriber($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM subscribers where id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function delete_contact($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM contact where id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
     public function del_event($event_id)
     {
         global $db_handle;
@@ -1107,10 +1303,18 @@ $headers = implode("\r\n", $headers);*/
     public function del_recruiter_pricing($plan_id)
     {
         global $db_handle;
-        $query1 = "DELETE FROM recruting_plans where plan_id = '$plan_id'";
-        $result1 = $db_handle->runQuery($query1);
+        $query = "DELETE FROM recruiting_plans where plan_id = '$plan_id'";
+        return $db_handle->runQuery($query);
 
-        return $db_handle->affectedRows() > 0 ? true : false;
+        // return $db_handle->affectedRows() > 0 ? true : false;
+    }
+    public function del_cv_pricing($plan_id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM recruiting_cv_plans where plan_id = '$plan_id'";
+        return $db_handle->runQuery($query);
+
+        // return $db_handle->affectedRows() > 0 ? true : false;
     }
 
     public function del_content($content_id)
@@ -1583,7 +1787,7 @@ $headers = implode("\r\n", $headers);*/
                 $company_img =  $row['company_img'];
                 $company_id =  $row['company_id'];
                 $company_name =  $row['company_name'];
-                $cat_info .= "<div class=\"pb-sm-4 grid-col grid-col-4 job-sector\">
+                $cat_info .= "<div class=\"pb-3 grid-col grid-col-3 job-sector\">
 									<div class=\"course-item\">
 										<div class=\"jobcompany_div\">
 											<a href=\"job_company?sid=$company_id\">
@@ -1597,7 +1801,6 @@ $headers = implode("\r\n", $headers);*/
 								</div>";
             }
         }
-
         $cat_info .= "</div>";
 
         return $cat_info;
@@ -2079,6 +2282,190 @@ $headers = implode("\r\n", $headers);*/
         return $info ? $info : false;
     }
 
+    public function get_contact_details($id = NULL)
+    {
+        global $db_handle;
+        if ($id != NULL) {
+            $query = "SELECT * FROM contact_details WHERE id='$id'";
+        } else {
+            $query = "SELECT * FROM contact_details";
+        }
+
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function add_contact_info($country = NULL, $address = NULL, $email = NULL, $phone = NULL, $updated_at = NULL)
+    {
+
+        global $db_handle;
+        $query = "INSERT INTO contact_details SET country = '$country', address = '$address', email = '$email', phone = '$phone', updated_at = '$updated_at'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function update_contact_info($id, $country = NULL, $address = NULL, $email = NULL, $phone = NULL, $updated_at = NULL)
+    {
+
+        global $db_handle;
+        $query = "UPDATE contact_details SET country = '$country', address = '$address', email = '$email', phone = '$phone', updated_at = '$updated_at'  WHERE id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function del_contact_info($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM contact_details WHERE id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function getBanner($id = NULL)
+    {
+        global $db_handle;
+        if ($id) {
+            $query = "SELECT * FROM banners_and_ads WHERE id='$id'";
+            return $db_handle->runQuery($query)->fetch_assoc();
+        } else {
+            $query = "SELECT * FROM banners_and_ads";
+            $result = $db_handle->runQuery($query);
+            return $db_handle->fetchAssoc($result);
+        }
+    }
+
+    public function getSlider($id = NULL)
+    {
+        global $db_handle;
+        if ($id) {
+            $query = "SELECT * FROM sliders WHERE id='$id'";
+            return $db_handle->runQuery($query)->fetch_assoc();
+        } else {
+            $query = "SELECT * FROM sliders";
+            $result = $db_handle->runQuery($query);
+            return $db_handle->fetchAssoc($result);
+        }
+    }
+
+    public function getConfig($id = NULL)
+    {
+        global $db_handle;
+        if ($id) {
+            $query = "SELECT * FROM settings WHERE id='$id'";
+            return $db_handle->runQuery($query)->fetch_assoc();
+        } else {
+            $query = "SELECT * FROM settings";
+            $result = $db_handle->runQuery($query);
+            return $db_handle->fetchAssoc($result);
+        }
+    }
+    public function add_subscriber($email)
+    {
+
+        global $db_handle;
+        $query = "INSERT INTO subscribers SET email = '$email'";
+        return $db_handle->runQuery($query);
+    }
+    public function get_subscriber($email = NULL)
+    {
+
+        global $db_handle;
+        $query = "SELECT * FROM subscribers WHERE email = '$email'";
+        $result =  $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function get_subscribers($email = NULL)
+    {
+
+        global $db_handle;
+        $query = "SELECT * FROM subscribers";
+        $result =  $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+
+    public function add_contact($email, $name = NULL, $phone = NULL, $message = NULL)
+    {
+
+        global $db_handle;
+        $query = "INSERT INTO contact SET email = '$email', phone = '$phone', name='$name', message='$message'";
+        return $db_handle->runQuery($query);
+    }
+    public function get_contact($email = NULL)
+    {
+
+        global $db_handle;
+        $query = "SELECT * FROM contact WHERE email = '$email'";
+        $result =  $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function get_contacts($email = NULL)
+    {
+
+        global $db_handle;
+        $query = "SELECT * FROM contact";
+        $result =  $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function update_contact($email, $name = NULL, $phone = NULL, $message = NULL, $updated_at = NULL)
+    {
+
+        global $db_handle;
+        $query = "UPDATE contact SET name = '$name', phone = '$phone', message = '$message', updated_at = '$updated_at'  WHERE email = '$email'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function add_banner($title = NULL, $position = NULL, $image = NULL, $banner_url = NULL)
+    {
+
+        global $db_handle;
+        $query = "INSERT INTO banners_and_ads SET title = '$title', position = '$position', image = '$image',  banner_url = '$banner_url'";
+        return $db_handle->runQuery($query);
+    }
+    public function update_banner($id, $title = NULL, $position = NULL, $image = NULL, $banner_url = NULL, $updated_at = NULL)
+    {
+
+        global $db_handle;
+        $query = "UPDATE banners_and_ads SET title = '$title', position = '$position', image = '$image', banner_url = '$banner_url', updated_at = '$updated_at'  WHERE id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function add_slider($title = NULL, $sub_title = NULL, $image = NULL)
+    {
+
+        global $db_handle;
+        $query = "INSERT INTO sliders SET title = '$title', sub_title = '$sub_title', image = '$image'";
+        return $db_handle->runQuery($query);
+    }
+    public function update_slider($id, $title = NULL, $sub_title = NULL, $image = NULL, $updated_at = NULL)
+    {
+
+        global $db_handle;
+        $query = "UPDATE sliders SET title = '$title', sub_title = '$sub_title', image = '$image', updated_at = '$updated_at'  WHERE id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function update_configs($id, $MailFromName = NULL, $MailFromEmail = NULL, $MailReplyToName = NULL, $MailReplyToEmail = NULL, $MailHost = NULL, $MailUser = NULL, $MailPassword = NULL, $MailPort = NULL)
+    {
+        global $db_handle;
+        $query = "UPDATE settings SET MailFromName = '$MailFromName', MailFromEmail = '$MailFromEmail', MailReplyToName = '$MailReplyToName', MailReplyToEmail='$MailReplyToEmail', MailHost='$MailHost', MailUser='$MailUser', MailPassword='$MailPassword', MailPort='$MailPort' WHERE settings.sett_id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function del_banner($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM banners_and_ads WHERE id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+
+    public function del_slider($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM sliders WHERE id = '$id'";
+        return $db_handle->runQuery($query);
+    }
+    public function del_cv($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM cvs WHERE cv_id = '$id'";
+        return $db_handle->runQuery($query);
+    }
     public function get_course_review_by_id($id)
     {
         global $db_handle;
@@ -2296,31 +2683,28 @@ $headers = implode("\r\n", $headers);*/
         return 'Content was successfully uploaded';
     }
 
-    public function add_course_location($location, $gallery = NULL, $state_id = NULL, $country_id = NULL, $admin_id = NULL)
+    public function add_course_location($location, $gallery = NULL, $state_id = NULL, $country_id = NULL, $location_info = NULL, $admin_id = NULL)
     {
         global $db_handle;
-
-        $query = "INSERT INTO course_locations (location_name, location_img,  state_id, country_id, admin_id) VALUES ('$location', '$gallery', '$state_id', '$country_id', '$admin_id')";
+        $query = "INSERT INTO course_locations (location_name, location_img,  state_id, country_id, location_info, admin_id) VALUES ('$location', '$gallery', '$state_id', '$country_id', '$location_info', '$admin_id')";
         $db_handle->runQuery($query);
 
         return $db_handle->affectedRows() > 0 ? true : false;
     }
 
-    public function add_job_location($location, $gallery = NULL, $state_id = NULL, $country_id = NULL, $admin_id = NULL)
+    public function add_job_location($location, $state_id = NULL, $country_id = NULL, $admin_id = NULL)
     {
         global $db_handle;
 
-        $query = "INSERT INTO job_locations (location_name, location_img, state_id, country_id, admin_id) VALUES ('$location', '$gallery', '$state_id', '$country_id', '$admin_id')";
-        $db_handle->runQuery($query);
-
-        return $db_handle->affectedRows() > 0 ? true : false;
+        $query = "INSERT INTO job_locations (location_name, state_id, country_id, admin_id) VALUES ('$location', '$state_id', '$country_id', '$admin_id')";
+        return $db_handle->runQuery($query);
     }
 
-    public function update_course_location($location_id, $gallery, $location_name, $state_id, $country_id, $admin_id = NULL)
+    public function update_course_location($location_id, $gallery, $location_name, $state_id, $country_id, $location_info, $admin_id = NULL)
     {
 
         global $db_handle;
-        $query = "UPDATE course_locations SET location_name = '$location_name',  location_img = '$gallery', state_id = '$state_id', country_id = '$country_id', admin_id = '$admin_id'  WHERE location_id = '$location_id'";
+        $query = "UPDATE course_locations SET location_name = '$location_name',  location_img = '$gallery', state_id = '$state_id', country_id = '$country_id', location_info='$location_info', admin_id = '$admin_id'  WHERE location_id = '$location_id'";
         $db_handle->runQuery($query);
 
         return $db_handle->affectedRows() > 0 ? true : false;
@@ -2334,11 +2718,11 @@ $headers = implode("\r\n", $headers);*/
 
         return $db_handle->affectedRows() > 0 ? true : false;
     }
-    public function update_job_location($location_id, $gallery, $location_name, $state_id, $country_id, $admin_id = NULL)
+    public function update_job_location($location_id,  $location_name, $state_id, $country_id, $admin_id = NULL)
     {
 
         global $db_handle;
-        $query = "UPDATE job_locations SET location_name = '$location_name', location_img = '$gallery', state_id = '$state_id', country_id = '$country_id', admin_id = '$admin_id'  WHERE location_id = '$location_id'";
+        $query = "UPDATE job_locations SET location_name = '$location_name', state_id = '$state_id', country_id = '$country_id', admin_id = '$admin_id'  WHERE location_id = '$location_id'";
         $db_handle->runQuery($query);
 
         return $db_handle->affectedRows() > 0 ? true : false;
@@ -2375,9 +2759,7 @@ $headers = implode("\r\n", $headers);*/
         global $db_handle;
 
         $query = "INSERT INTO states (state_name, country_id, admin_id) VALUES ('$state', '$country_id', '$admin_id')";
-        $db_handle->runQuery($query);
-
-        return $db_handle->affectedRows() > 0 ? true : false;
+        return $db_handle->runQuery($query);
     }
 
     public function update_state($state_id, $state_name, $country_id, $admin_id = NULL)
@@ -2489,6 +2871,37 @@ $headers = implode("\r\n", $headers);*/
         return $db_handle->affectedRows() > 0 ? true : false;
     }
 
+    public function add_faq($question = NULL, $answer = NULL)
+    {
+        global $db_handle;
+
+        $query = "INSERT INTO faqs (question, answer) VALUES
+            ('$question', '$answer')";
+        return $db_handle->runQuery($query);
+    }
+
+    public function update_faq($id, $question = NULL, $answer = NULL, $updated_at = NULL)
+    {
+        global $db_handle;
+
+        $query = "UPDATE faqs SET question='$question', answer='$answer', updated_at='$updated_at' WHERE id='$id'";
+        return $db_handle->runQuery($query);
+    }
+
+
+    public function get_faqs($id = NULL)
+    {
+        global $db_handle;
+        $query = $id == NULL ? "SELECT * FROM faqs" : "SELECT * FROM faqs WHERE id='$id'";;
+        $result = $db_handle->runQuery($query);
+        return $db_handle->fetchAssoc($result);
+    }
+    public function del_faq($id)
+    {
+        global $db_handle;
+        $query = "DELETE FROM faqs WHERE id='$id'";
+        return $db_handle->runQuery($query);
+    }
     public function get_event_detail($event_id)
     {
         global $db_handle;
@@ -2507,14 +2920,24 @@ $headers = implode("\r\n", $headers);*/
         $result = $db_handle->runQuery($query);
         $fetched_data = $db_handle->fetchAssoc($result);
         $desi_det = $fetched_data[0];
-
         return $desi_det;
     }
-    public function update_event($event_id, $event_title, $event_img, $event_author, $startDate, $endDate, $location, $summary, $content = NULL, $admin = NULL)
+
+    public function get_cv_pricing_details($plan_id)
+    {
+        global $db_handle;
+        $query = "SELECT * FROM recruiting_cv_plans WHERE plan_id='$plan_id' ";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+        $desi_det = $fetched_data[0];
+        return $desi_det;
+    }
+
+    public function update_event($event_id, $event_title = NULL, $event_img = NULL, $event_author = NULL, $event_type = NULL, $startDate = NULL, $endDate = NULL, $location = NULL, $summary = NULL, $content = NULL)
     {
 
         global $db_handle;
-        $query = "UPDATE user SET event_title = '$event_title', event_img = '$event_img', event_author = '$event_author', startDate = '$startDate', endDate = '$endDate', event_location = '$location', event_summary = '$summary', event_description = '$content'  WHERE event_id = '$event_id'";
+        $query = "UPDATE events SET event_title = '$event_title', event_img = '$event_img', event_author = '$event_author', event_type = '$event_type', startDate = '$startDate', endDate = '$endDate', event_location = '$location', event_summary = '$summary', event_description = '$content'  WHERE event_id = '$event_id'";
         $db_handle->runQuery($query);
 
         return $db_handle->affectedRows() > 0 ? true : false;
@@ -2850,8 +3273,7 @@ $headers = implode("\r\n", $headers);*/
         global $db_handle;
 
         $query = "DELETE FROM states where state_id='$state_id'";
-        $db_handle->runQuery($query);
-        return 'State was successfully deleted';
+        return $db_handle->runQuery($query);
     }
 
     public function del_course_location($location_id)
@@ -2868,8 +3290,8 @@ $headers = implode("\r\n", $headers);*/
         global $db_handle;
 
         $query = "DELETE FROM job_locations where location_id='$location_id'";
-        $db_handle->runQuery($query);
-        return 'Location was successfully deleted';
+        return $db_handle->runQuery($query);
+        // return 'Location was successfully deleted';
     }
 
     public function deleteslide($id)

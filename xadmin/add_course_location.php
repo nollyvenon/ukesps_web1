@@ -14,14 +14,14 @@ if (isset($_POST['add_location']) && !empty($_POST['add_location'])) {
     }
     extract($_POST);
 
-    if (empty($location)) {
+    if (empty($location) || empty($state_id) || empty($location)) {
         $message_error = "Please fill all the fields and try again.";
     } else {
         $uploaddir = "../img/course_locations/";
-        $gallery = basename($_FILES['gallery']['name']);
+        $gallery = basename($_FILES['location_img']['name']);
         $gallery1 = $uploaddir . basename($gallery);
-        move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-        $result = $zenta_operation->add_course_location($location, $gallery, $state_id, $country_id, $admin_id);
+        move_uploaded_file($_FILES['location_img']['tmp_name'], $gallery1);
+        $result = $zenta_operation->add_course_location($location, $gallery, $state_id, $country_id, $location_info, $admin_id);
         if ($result) {
             $message_success = "Course Location was added successfully.";
         } else {
@@ -70,6 +70,12 @@ $states = $zenta_operation->get_all_states();
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <script>
         function ShowStatebyCountry(str) {
             if (str == "") {

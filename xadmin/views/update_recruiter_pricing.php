@@ -49,9 +49,9 @@
       </select>
     </div>
     <div class='col-md-6'>
-      <label for="course_plan_currency" class="control-label">Currency</label><br>
+      <label for="course_plan_currency" class="control-label">Plan period</label><br>
       <select id="plan_period" required name="plan_period" data-required="true" class="form-control" data-live-search="true">
-        <option value="">Select Plan Period</option>
+        <option value="<?= $content['plan_period'] ?>"><?= $content['plan_period'] ?></option>
         <option value="day">Daily</option>
         <option value="week">Weekly</option>
         <option value="month">Monthly</option>
@@ -73,7 +73,7 @@
 
     <div class="col-md-12">
       <label for="description" class="control-label">Description</label>
-      <textarea id="description" name="description" rows="15" cols="40"></textarea>
+      <textarea id="description" name="description" rows="15" cols="40"><?= $description ?></textarea>
       <script>
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
@@ -88,7 +88,7 @@
   </div>
   <div class="row m-t-30">
     <div class="col-md-12">
-      <input name="update_recruiter_pricing" type="submit" class="btn btn-primary btn-md waves-effect text-center m-b-20" value="Update Course Pricing">
+      <input name="update_recruiter_pricing" type="submit" class="btn btn-primary btn-md waves-effect text-center m-b-20" value="Update Recruiter Pricing">
     </div>
   </div>
 </form>

@@ -46,7 +46,7 @@ $event_provider_detail = $event_prov_object->get_event_provider_detail($event_pr
 extract($event_provider_detail);
 
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
+$cart_volume = sizeof($_SESSION['cart']);
 //-------------------------------------------->>
 if (isset($_SESSION['unique'])) {
     $unique = $_SESSION['unique'];

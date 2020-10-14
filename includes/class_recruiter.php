@@ -242,14 +242,57 @@ UKESPS Support
 www.ukesps.com";
 
             $system_object->send_email($subject, $body, $email, $first_name);
-
-
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= 'From: UKESPS Admin <no-reply@ukesps.com>' . "\r\n";
+            mail($email, $subject, $body, $headers);
             return "An email was sent to $email containing your password and registration information. <br>It might take a while to arrive to your mailbox. If the email is not in your Inbox, please check Spam/Junk box. <br> To login, Email: $email <br> Password: $password. <br> To login, <a href='login'>Click here</a>.<br>Regards.";
         } else {
             return false;
         }
     }
 
+    public function forgot_password($email)
+    {
+
+        $system_object = new SystemObject();
+        global $db_handle;
+        $gen_pass = rand_string(64);
+
+        $query = "UPDATE recruiters set reset_token = '$gen_pass' where email = '$email'";
+        $db_handle->runQuery($query);
+        $to = $email;
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: UKESPS Admin <no-reply@ukesps.com>' . "\r\n";
+        $subject = "Password Request";
+        $message = "Folow this link to reset your password : <b><a href='" . SITE_URL . "/recru_panel/reset_password?token=$gen_pass'>" . SITE_URL . "/recru_panel/reset_password?token=$gen_pass</a> OR <a href='" . SITE_URL . "/recru_panel/reset_password?token=$gen_pass'>Click Here</a> </b><br><br>";
+        $mail = mail($to, $subject, $message, $headers);
+        $system_object->send_email($subject, $message, $email, 'User');
+
+        return "Your password has been sent to your registered email if it exist in our database. Please check your junk or spam folder if you do not find in your inbox.";
+    }
+
+
+    public function get_user_reset_token($reset_token)
+    {
+        global $db_handle;
+
+        $query = "SELECT * FROM recruiters where reset_token = '$reset_token'";
+        $result = $db_handle->runQuery($query);
+        $fetched_data = $db_handle->fetchAssoc($result);
+        return $fetched_data[0];
+    }
+
+    public function change_user_password($recruiter_code, $new_password)
+    {
+
+        global $db_handle;
+        $pass_salt = generateHash($new_password);
+        $query = "UPDATE recruiters SET password = '$new_password', pass_salt='$pass_salt', reset_token='' WHERE recruiter_code = '$recruiter_code' LIMIT 1";
+        $db_handle->runQuery($query);
+        return $db_handle->affectedRows() > 0 ? true : false;
+    }
     public function add_new_company($recruiter_code, $company_name, $company_info = NULL, $company_logo = NULL)
     {
         global $db_handle;
@@ -430,7 +473,7 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $query = "SELECT * FROM recruiting_plan_orders WHERE session_id = '$sid' OR uid='$sid'";
+        $query = "SELECT * FROM recruiting_plan_orders WHERE session_id = '$sid' OR uid='$sid' ORDER BY id ASC";
         $result = $db_handle->runQuery($query);
 
         if ($db_handle->numOfRows($result) > 0) {
@@ -445,7 +488,7 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $query = "SELECT total_price FROM recruiting_plan_orders WHERE session_id = '$sid' OR uid='$sid'";
+        $query = "SELECT total_price FROM recruiting_plan_orders WHERE session_id = '$sid' OR uid='$sid' ORDER BY id ASC";
         $result = $db_handle->runQuery($query);
 
         if ($db_handle->numOfRows($result) > 0) {
@@ -460,7 +503,7 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $query = "SELECT * FROM recruiting_plan_orderitems WHERE session_id = '$sid'";
+        $query = "SELECT * FROM recruiting_plan_orderitems WHERE session_id = '$sid' ORDER BY id ASC";
         $result = $db_handle->runQuery($query);
 
         if ($db_handle->numOfRows($result) > 0) {
@@ -475,7 +518,7 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $query = "SELECT * FROM recruiting_cv_plan_orders WHERE session_id = '$sid' OR uid='$sid'";
+        $query = "SELECT * FROM recruiting_cv_plan_orders WHERE session_id = '$sid' OR uid='$sid' ORDER BY id ASC";
         $result = $db_handle->runQuery($query);
 
         if ($db_handle->numOfRows($result) > 0) {
@@ -490,7 +533,7 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $query = "SELECT total_price FROM recruiting_cv_plan_orders WHERE session_id = '$sid' OR uid='$sid'";
+        $query = "SELECT total_price FROM recruiting_cv_plan_orders WHERE session_id = '$sid' OR uid='$sid' ORDER BY id ASC";
         $result = $db_handle->runQuery($query);
 
         if ($db_handle->numOfRows($result) > 0) {
@@ -505,7 +548,7 @@ www.ukesps.com";
     {
         global $db_handle;
 
-        $query = "SELECT * FROM recruiting_cv_plan_orderitems WHERE session_id = '$sid'";
+        $query = "SELECT * FROM recruiting_cv_plan_orderitems WHERE session_id = '$sid' ORDER BY id ASC";
         $result = $db_handle->runQuery($query);
 
         if ($db_handle->numOfRows($result) > 0) {

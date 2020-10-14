@@ -22,7 +22,7 @@
 					<span class="amount">
 						<?= $course_fee; ?><sup><?= $course_currency; ?></sup>
 					</span>
-					<span class="description-price">per <?= $fee_period; ?></span>
+					<span class="description-price">per <?= $fee_period; ?> Months</span>
 				</span>
 			</div>
 			<a href="course_det?sid=<?= $course_id ?>" class="cws-button border-radius small bt-color-3 alt">Read More</a>

@@ -1,4 +1,4 @@
-<?php include("header.php");
+<?php include("../main_header.php");
 // $query = $client_operation->past_applied_jobs_query($session_jobseek);
 // $numrows = $db_handle->numRows($query);
 
@@ -6,9 +6,9 @@
 // For search, make rows per page equal total rows found, meaning, no pagination
 // for search results
 if (isset($_POST['search_text'])) {
-    $rowsperpage = $numrows;
+	$rowsperpage = $numrows;
 } else {
-    $rowsperpage = 20;
+	$rowsperpage = 20;
 }
 
 // $totalpages = ceil($numrows / $rowsperpage);
@@ -31,68 +31,67 @@ if (isset($_POST['search_text'])) {
 // $applied_jobs = $db_handle->fetchAssoc($result);
 $jobs = $db_class->fetch_viewed_jobs($jobseek_code);
 
- ?>
+?>
 
-				<main>
-                <section class="clear-fix">
-					<h2>Last Viewed Jobs</h2>
-					<hr>
-					<div class="grid-col-row">
-					<div class="grid-col grid-col-12">
-			         	<main>
-                        <?php 
-                    
-                        if(isset($jobs) && !empty($jobs)) { foreach ($jobs as $row) { 
-							
-				?>
-						<!-- item -->
-                        <div style="cursor:pointer" class="category-item list clear-fix"
-                         onclick='location="job_det?sidi=<?= $row["jobs_id"] ?>"'>
-							<div class="picture">
-								<div class="hover-effect"></div>
-								<div class="link-cont">
-									<a href="../job_det?sidi=<?= $row['jobs_id'] ?>" class="fancy fa fa-search"></a>
+<div class="page-content woocommerce">
+	<div class="container clear-fix">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<div id="content" role="main">
+					<?php include_once("../layouts/feedback_message.php"); ?>
+					<?php
+
+					if (isset($jobs) && !empty($jobs)) {
+						foreach ($jobs as $row) {
+
+					?>
+							<h3>Last Viewed Jobs</h3>
+							<!-- item -->
+							<div style="cursor:pointer" class="category-item list clear-fix" onclick='location="job_det?sidi=<?= $row["jobs_id"] ?>"'>
+								<div class="picture">
+									<div class="hover-effect"></div>
+									<div class="link-cont">
+										<a href="../job_det?sidi=<?= $row['jobs_id'] ?>" class="fancy fa fa-search"></a>
+									</div>
+									<img src='../img/jobs/<?= $row["job_img"] ?>' data-at2x="../img/jobs/<?= $row["job_img"] ?>" alt>
 								</div>
-								<img src='../img/jobs/<?= $row["job_img"]?>' data-at2x="../img/jobs/<?= $row["job_img"]?>" alt>
-							</div>
-							<h3><?= limit_text( $row["job_title"],10)?></h3>
-							<div>
-								<div class="star-rating" title="Rated 4.00 out of 5">
-									<span style="width:100%"></span>
+								<h3><?= limit_text($row["job_title"], 10) ?></h3>
+								<div>
+									<div class="star-rating" title="Rated 4.00 out of 5">
+										<span style="width:100%"></span>
+									</div>
+									<div class="count-reviews">( reviews 10 )</div>
 								</div>
-								<div class="count-reviews">( reviews 10 )</div>
-							</div>
-							<p><?= limit_text(htmlspecialchars($row["descript"]),70)?></p>
-							<div class="category-info">
-								<span class="price">
-									<span class="amount">
-                                    <b>$<?= $row['amount_per_period'] ?> per <?=$row['salary_period'];?></b>
+								<p><?= limit_text(htmlspecialchars($row["descript"]), 70) ?></p>
+								<div class="category-info">
+									<span class="price">
+										<span class="amount">
+											<b>$<?= $row['amount_per_period'] ?> per <?= $row['salary_period']; ?></b>
+										</span>
+
 									</span>
-									
-                                </span>
-                                <span class="price">
-									
-									
-								</span>
-								<div class="count-users"><i class="fa fa-user"></i> <?=$row['views'];?> students</div>
-								<div class="course-lector">
-									
+									<span class="price">
+
+
+									</span>
+									<div class="count-users"><i class="fa fa-user"></i> <?= $row['views']; ?> students</div>
+									<div class="course-lector">
+
+									</div>
 								</div>
 							</div>
-                        </div>
-                        
-						<!-- / item -->
-						<?php  }} ?>
-					</main>
-			</div>
-                    </div>
-             </section>
 
-				
-					
-					
-				</main>
+							<!-- / item -->
+					<?php  }
+					} else {
+
+						echo "<center><h3>Last Viewed Jobs</h3><em>No results to display</em></center>";
+					} ?>
+				</div>
 			</div>
+			<?php include('./jobpanel_sidebar.php') ?>
 		</div>
 	</div>
-	<?php include("footer.php") ?>
+</div>
+
+<?php include("../main_footer.php") ?>

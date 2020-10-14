@@ -27,15 +27,16 @@ if (isset($_POST['update_recruiter_pricing']) && !empty($_POST['update_recruiter
     $message_error = "Please fill all the fields and try again.";
   } else {
     move_uploaded_file($_FILES['gallery']['tmp_name'], $gallery1);
-    $result = $zenta_operation->update_event($sidi, $plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
+    $result = $zenta_operation->update_recruiter_pricing($sidi, $plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
-      $message_success = "Job Pricing was updated successfully.";
+      $message_success = "Recruiter Pricing was updated successfully.";
+      header("Location:manage_job_pricings.php");
     } else {
-      $message_error = "Job Pricing was not updated successfully.";
+      $message_error = "Recruiter Pricing was not updated successfully.";
     }
   }
 }
-
+$course_currencies = $zenta_operation->get_all_currencies();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +81,12 @@ if (isset($_POST['update_recruiter_pricing']) && !empty($_POST['update_recruiter
   <!-- Style.css -->
   <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 </head>
 
 <body>

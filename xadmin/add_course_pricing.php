@@ -29,6 +29,7 @@ if (isset($_POST['add_course_pricing']) && !empty($_POST['add_course_pricing']))
     $result = $zenta_operation->add_course_pricing($plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
       $message_success = "Course Pricing was added successfully.";
+      header("Location:manage_course_pricings.php");
       $plan_name = "";
       $plan_cost = "";
       $page_group = "";

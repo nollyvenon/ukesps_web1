@@ -3,30 +3,33 @@ require_once("../includes/initialize_admin.php");
 if (!$session_admin->is_logged_in()) {
   redirect_to("log-in");
 }
-$id = $_GET['id'];
-$content = $zenta_operation->get_content_by_id($id);
-extract($content);
-if (isset($_POST['updatecontent'])) {
 
-  $page_name = $db_handle->sanitizePost($_POST['page_name']);
-  $page_location = $db_handle->sanitizePost($_POST['page_location']);
-  $title = $db_handle->sanitizePost($_POST['title']);
-  $postedValue = $db_handle->sanitizePost($_POST['content']);
-  $entrydate = date('Y-m-d');
+$id = $_GET['cid'];
 
-  if (empty($title) || empty($postedValue) || empty($page_name)) {
-    $message_error = "Please fill all the fields and try again.";
+if (isset($_POST['update_contact_info'])) {
+
+  $country = $db_handle->sanitizePost($_POST['country']);
+  $email = $db_handle->sanitizePost($_POST['email']);
+  $phone = $db_handle->sanitizePost($_POST['phone']);
+  $address = $db_handle->sanitizePost($_POST['address']);
+  $contact_id = $_POST['contact_id'];
+  $updated_at = date('Y-m-d');
+
+  if (empty($country) || empty($email) || empty($address) || empty($phone)) {
+    $message_error = "Please fill in all fields and try again.";
   } else {
-    $result = $zenta_operation->updatecontent($id, $page_name, $page_location, $title, $postedValue, $entrydate);
+    $result = $zenta_operation->update_contact_info($contact_id, $country, $address, $email, $phone, $updated_at);
     if ($result) {
-      $message_success = "Content was successfully updated.";
+      $message_success = "Contact Info was successfully updated.";
+      header("Location:view_contact_info.php");
     } else {
-      $message_error = "Content was not successfully updated.";
+      $message_error = "Contact Info was not successfully updated.";
     }
   }
 }
-$page_locations = $zenta_operation->get_page_location();
-$page_names = $zenta_operation->get_page_name();
+$countries = $zenta_operation->get_all_countries();
+$contact = $zenta_operation->get_contact_details($id);
+extract($contact[0]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,29 +73,7 @@ $page_names = $zenta_operation->get_page_name();
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
   <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-  <script>
-    config.extraPlugins = 'imgupload';
 
-    function ShowPageLoc(str) {
-      if (str == "") {
-        document.getElementById("txtHint1").innerHTML = "";
-        return;
-      }
-
-      if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-      } else { // code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          document.getElementById("txtHint1").innerHTML = xmlhttp.responseText;
-        }
-      }
-      xmlhttp.open("GET", "getPageLoc.php?q=" + str, true);
-      xmlhttp.send();
-    }
-  </script>
 </head>
 
 <body>
@@ -120,8 +101,8 @@ $page_names = $zenta_operation->get_page_name();
                         <div class="page-header-title">
                           <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                           <div class="d-inline">
-                            <h4><?= $page_group; ?></h4>
-                            <span><?php echo $page_title; ?></span>
+                            <h4>Contact Info</h4>
+                            <span>Edit Contact Info</span>
                           </div>
                         </div>
                       </div>
@@ -133,11 +114,11 @@ $page_names = $zenta_operation->get_page_name();
                                 <i class="icofont icofont-home"></i>
                               </a>
                             </li>
-                            <li class="breadcrumb-item"><a href="#!"><?= $User_Type; ?></a>
+                            <li class="breadcrumb-item"><a href="#!">Admin</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="#!"><?= $page_group; ?></a>
+                            <li class="breadcrumb-item"><a href="#!">Contact Info</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="#!"><?php echo $page_title; ?></a>
+                            <li class="breadcrumb-item"><a href="#!">Edit Contact Info</a>
                             </li>
                           </ul>
                         </div>
@@ -152,11 +133,11 @@ $page_names = $zenta_operation->get_page_name();
                       <div class="col-sm-12">
                         <div class="card">
                           <div class="card-header table-card-header">
-                            <h5><?php echo $page_title; ?></h5>
+                            <h5>Edit Contact Info</h5>
                           </div>
                           <div class="card-block">
                             <div class="dt-responsive table-responsive">
-                              <?php include_once('views/update_content.php'); ?>
+                              <?php include_once('views/edit_contact_info.php'); ?>
                             </div>
                           </div>
                         </div>
