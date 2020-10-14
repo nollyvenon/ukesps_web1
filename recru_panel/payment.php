@@ -22,9 +22,9 @@ $cart_total = $recruit_object->get_cart_total($ssid);
 					<p>Select a payment method</p>
 				</div><br><br>
 				<div class="grid-col-row">
-					<!-- <div class="grid-col grid-col-4 ">
+					<div class="grid-col grid-col-4 ">
 						<a href="paypal_payment?xxid=<?php echo encrypt($ssid); ?>"><img width="80%" src="../img/paypal-logo-png-512.png" alt="" /> </a>
-					</div> -->
+					</div>
 					<div class="grid-col grid-col-10 ">
 						<a href="paystack_create_payment?xxid=<?php echo encrypt($ssid); ?>"><img width="80%" src="../img/paystack-ii.png" alt="" /></a>
 					</div>
