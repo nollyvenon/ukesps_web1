@@ -86,7 +86,7 @@ $content1 = $db_handle->fetchAssoc($result);
 								</tr>
 						<?php }
 						} else {
-							echo "<tr><td colspan='5' class='text-danger'><em>No results to display</em></td></tr>";
+							echo "<tr><td colspan='7' class='text-danger'><em>No results to display</em></td></tr>";
 						} ?>
 					</tbody>
 				</table>

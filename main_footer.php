@@ -70,8 +70,23 @@
 				cookie_id = JSON.parse(localStorage.getItem("cookie_id"));
 			}
 
-			$('#myModal').on('show.bs.modal', function(e) {
-				var rowid = $(e.relatedTarget).data('id');
+			$('.course_sub_cat').on('click', function(e) {
+
+				var rowid = $(this).data('id');
+				$.ajax({
+					type: 'post',
+					url: 'modal_course_subcat_list.php', //Here you will fetch records 
+					data: 'rowid=' + rowid, //Pass $id
+					success: function(data) {
+						$('.fetched-data').html(data); //Show fetched data from database
+						//$("input[name='hidjobcat']").val(data);
+					}
+				});
+			});
+
+			$('.job_sub_cat').on('click', function(e) {
+
+				var rowid = $(this).data('id');
 				$.ajax({
 					type: 'post',
 					url: 'modal_job_subcat_list.php', //Here you will fetch records 

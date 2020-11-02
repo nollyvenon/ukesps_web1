@@ -195,14 +195,14 @@ if (isset($_POST['course_search'])) {
 							<div class="course-hover">
 								<img src="img/course_category/<?php echo $row['course_cat_img']; ?>" data-at2x="img/course_category/<?php echo $row['course_cat_img']; ?>" alt>
 								<div class="hover-bg bg-color-1"></div>
-								<a href="#myModal" data-toggle="modal" class="course-link" data-id="<?= $row['category_id']; ?>">
+								<a href="#myModal" data-toggle="modal" class="course-link course_sub_cat" data-id="<?= $row['category_id']; ?>">
 									<div class="course-subject-icon"><i class="fa fa-heart-o"></i></div>
 									<?php echo $row['category_name']; ?>
 								</a>
 							</div>
 							<div class="course-name clear-fix">
 								<!--<span class="price">$75</span>-->
-								<h3><a href="#myModal" data-toggle="modal" data-id="<?= $row['category_id']; ?>"><?php echo $row['category_name']; ?></a></h3>
+								<h3><a href="#myModal" class="course_sub_cat" data-toggle="modal" data-id="<?= $row['category_id']; ?>"><?php echo $row['category_name']; ?></a></h3>
 							</div>
 						</div>
 						<!-- / course item -->

@@ -115,40 +115,19 @@ class clientOperation
 		return $query;
 	}
 
-	public function applicant_detail($applicant_code = NULL, $email = NULL, $first_name = NULL, $last_name = NULL)
+	public function applicant_detail($applicant_code)
 	{
 		global $db_handle;
-
-		$con = (!empty($applicant_code) && ($applicant_code != 'NULL')) ? " WHERE appld.applicant_code = '$applicant_code' " : "";
-		if (!empty($con)) {
-			$con .= !empty($email) ? " AND us.email = '$email' " : "";
-		} else {
-			$con .= !empty($email) && ($email != 'NULL') ? " WHERE us.email = '$email' " : "";
-		}
-		if (!empty($con)) {
-			$con .= !empty($first_name) ? " AND us.first_name = '$first_name' " : "";
-		} else {
-			$con .= !empty($first_name) && ($first_name != 'NULL') ? " WHERE us.first_name = '$first_name' " : "";
-		}
-		if (!empty($con)) {
-			$con .= !empty($last_name) ? " AND us.last_name = '$last_name' " : "";
-		} else {
-			$con .= !empty($last_name) && ($last_name != 'NULL') ? " WHERE us.last_name = '$last_name' " : "";
-		}
-
-		if (!empty($limit)) {
-			$con .= "ORDER BY appl.appl_id DESC LIMIT $limit";
-		} else {
-			$con .= "ORDER BY appl.appl_id DESC";
-		}
-		$query = "SELECT appl.*, appld.* FROM applications appl 
-		INNER JOIN applicant_details appld ON appld.applicant_code=appl.applicant_code 
-		INNER JOIN jobseekers us ON appl.applicant_code=us.seeker_code $con";
+		$con = (!empty($applicant_code) && ($applicant_code != 'NULL')) ? " WHERE us.user_code = '$applicant_code' " : " ";
+		$query = "SELECT us.*, appld.* FROM users us
+		INNER JOIN student_applicant_details appld ON appld.applicant_code=us.user_code 
+		-- INNER JOIN applications appl ON appl.applicant_code=us.user_code 
+		$con";
 
 		$result = $db_handle->runQuery($query);
 		$content = $db_handle->fetchAssoc($result);
 
-		return $content[0];
+		return $content;
 	}
 
 	public function job_detail($job_id, $category_id, $sub_category_id, $jobstype, $joblevel)
@@ -217,12 +196,19 @@ class clientOperation
 		}
 		return true;
 	}
-
-	public function add_biodata($applicant_code, $resume = NULL, $cover_letter = NULL, $place_of_birth = NULL,  $location = NULL, $country_of_residence = NULL, $country_of_nationality = NULL, $languages = NULL, $linked_profile = NULL, $twitter_profile = NULL, $hobbies = NULL, $skills = NULL)
+	public function add_biodata($user_code, $place_of_birth = NULL,  $location = NULL, $country_of_residence = NULL, $country_of_nationality = NULL, $languages = NULL, $linkedin_profile = NULL, $twitter_profile = NULL, $hobbies = NULL, $skills = NULL)
 	{
 		global $db_handle;
 
-		$query = "INSERT INTO applicant_details(applicant_code,resume, cover_letter, place_of_birth, location, country_of_residence, country_of_nationality, languages, linked_profile, twitter_profile, hobbies, skills) VALUES ('$applicant_code', '$resume', '$cover_letter','$place_of_birth', '$location', '$country_of_residence', '$country_of_nationality','$languages', '$linked_profile','$twitter_profile', '$hobbies', '$skills')";
+		$query = "INSERT INTO student_applicant_details(applicant_code, place_of_birth, location, country_of_residence, country_of_nationality, languages, linkedin_profile, twitter_profile, hobbies, skills) VALUES ('$user_code','$place_of_birth', '$location', '$country_of_residence', '$country_of_nationality','$languages', '$linkedin_profile','$twitter_profile', '$hobbies', '$skills')";
+		$db_handle->runQuery($query);
+		return true;
+	}
+	public function update_biodata($user_code, $place_of_birth = NULL,  $location = NULL, $country_of_residence = NULL, $country_of_nationality = NULL, $languages = NULL, $linkedin_profile = NULL, $twitter_profile = NULL, $hobbies = NULL, $skills = NULL)
+	{
+		global $db_handle;
+
+		$query = "UPDATE student_applicant_details SET  place_of_birth='$place_of_birth', location='$location', country_of_residence='$country_of_residence', country_of_nationality='$country_of_nationality', languages='$languages', linkedin_profile='$linkedin_profile', twitter_profile='$twitter_profile', hobbies='$hobbies', skills='$skills' WHERE applicant_code = '$user_code'";
 		$db_handle->runQuery($query);
 		return true;
 	}
@@ -231,18 +217,47 @@ class clientOperation
 	{
 		global $db_handle;
 
-		$query = "INSERT INTO applicant_details(applicant_code, edu_institution_1, education_period_month_from_1, education_period_month_to_1, education_period_year_from_1, education_period_year_to_1, education_cert_obtained_1, education_course_studied_1, education_course_description_1, edu_institution_2, education_period_month_from_2, education_period_month_to_2, education_period_year_from_2, education_period_year_to_2, education_cert_obtained_2, education_course_studied_2, education_course_description_2, edu_institution_3, education_period_month_from_3, education_period_month_to_3, education_period_year_from_3, education_period_year_to_3, education_cert_obtained_3, education_course_studied_3, education_course_description_3) VALUES ('$applicant_code', '$edu_institution_1', '$education_period_month_from_1', '$education_period_month_to_1', '$education_period_year_from_1', '$education_period_year_to_1', '$education_cert_obtained_1', '$education_course_studied_1', '$education_course_description_1', '$edu_institution_2', '$education_period_month_from_2', '$education_period_month_to_2', '$education_period_year_from_2', '$education_period_year_to_2', '$education_cert_obtained_2', '$education_course_studied_2', '$education_course_description_2', '$edu_institution_3', '$education_period_month_from_3', '$education_period_month_to_3', '$education_period_year_from_3', '$education_period_year_to_3', '$education_cert_obtained_3', '$education_course_studied_3', '$education_course_description_3')";
+		$query = "UPDATE student_applicant_details SET edu_institution_1='$edu_institution_1', education_period_month_from_1='$education_period_month_from_1', education_period_month_to_1='$education_period_month_to_1', education_period_year_from_1='$education_period_year_from_1', education_period_year_to_1='$education_period_year_to_1', education_cert_obtained_1='$education_cert_obtained_1', education_course_studied_1='$education_course_studied_1', education_course_description_1='$education_course_description_1', edu_institution_2='$edu_institution_2', education_period_month_from_2='$education_period_month_from_2', education_period_month_to_2='$education_period_month_to_2', education_period_year_from_2='$education_period_year_from_2', education_period_year_to_2='$education_period_year_to_2', education_cert_obtained_2='$education_cert_obtained_2', education_course_studied_2='$education_course_studied_2', education_course_description_2='$education_course_description_2', edu_institution_3='$edu_institution_3', education_period_month_from_3='$education_period_month_from_3', education_period_month_to_3='$education_period_month_to_3', education_period_year_from_3='$education_period_year_from_3', education_period_year_to_3='$education_period_year_to_3', education_cert_obtained_3='$education_cert_obtained_3', education_course_studied_3='$education_course_studied_3', education_course_description_3='$education_course_description_3' WHERE applicant_code = '$applicant_code'";
+
+		// $query = "INSERT INTO student_applicant_details(applicant_code, edu_institution_1, education_period_month_from_1, education_period_month_to_1, education_period_year_from_1, education_period_year_to_1, education_cert_obtained_1, education_course_studied_1, education_course_description_1, edu_institution_2, education_period_month_from_2, education_period_month_to_2, education_period_year_from_2, education_period_year_to_2, education_cert_obtained_2, education_course_studied_2, education_course_description_2, edu_institution_3, education_period_month_from_3, education_period_month_to_3, education_period_year_from_3, education_period_year_to_3, education_cert_obtained_3, education_course_studied_3, education_course_description_3) VALUES ('$applicant_code', '$edu_institution_1', '$education_period_month_from_1', '$education_period_month_to_1', '$education_period_year_from_1', '$education_period_year_to_1', '$education_cert_obtained_1', '$education_course_studied_1', '$education_course_description_1', '$edu_institution_2', '$education_period_month_from_2', '$education_period_month_to_2', '$education_period_year_from_2', '$education_period_year_to_2', '$education_cert_obtained_2', '$education_course_studied_2', '$education_course_description_2', '$edu_institution_3', '$education_period_month_from_3', '$education_period_month_to_3', '$education_period_year_from_3', '$education_period_year_to_3', '$education_cert_obtained_3', '$education_course_studied_3', '$education_course_description_3')";
 		$db_handle->runQuery($query);
 		return true;
 	}
 
-	public function add_work_experience($applicant_code, $years_of_experience = NULL, $current_work_experience_company_1 = NULL, $current_work_experience_position_1 = NULL, $current_work_experience_duties_1 = NULL, $current_work_experience_highlights_1 = NULL, $current_work_experience_month_from_1 = NULL, $current_work_experience_month_to_1 = NULL, $current_work_experience_year_from_1 = NULL, $current_work_experience_year_to_1 = NULL, $current_work_experience_level_1 = NULL, $current_work_experience_company_2 = NULL, $current_work_experience_position_2 = NULL, $current_work_experience_duties_2 = NULL, $current_work_experience_highlights_2 = NULL, $current_work_experience_month_from_2 = NULL, $current_work_experience_month_to_2 = NULL, $current_work_experience_year_from_2 = NULL, $current_work_experience_year_to_2 = NULL, $current_work_experience_level_2 = NULL, $current_work_experience_company_3 = NULL, $current_work_experience_position_3 = NULL, $current_work_experience_duties_3 = NULL, $current_work_experience_highlights_3 = NULL, $current_work_experience_month_from_3 = NULL, $current_work_experience_month_to_3 = NULL, $current_work_experience_year_from_3 = NULL, $current_work_experience_year_to_3 = NULL, $current_work_experience_level_3 = NULL)
+	public function add_work_experience(
+		$applicant_code,
+		$years_of_experience,
+		$current_work_experience_company_1,
+		$current_work_experience_position_1,
+		$current_work_experience_duties_1,
+		$current_work_experience_highlights_1,
+		$current_work_experience_month_from_1,
+		$current_work_experience_year_from_1,
+		$previous_work_experience_month_from_1,
+		$previous_work_experience_month_to_1,
+		$previous_work_experience_year_from_1,
+		$previous_work_experience_year_to_1,
+		$previous_work_experience_company_1,
+		$previous_work_experience_position_1,
+		$previous_work_experience_duties_1,
+		$previous_work_experience_highlights_1
+	) {
+		global $db_handle;
+
+		$query = "UPDATE student_applicant_details SET years_of_experience='$years_of_experience', current_work_experience_company_1='$current_work_experience_company_1', current_work_experience_position_1='$current_work_experience_position_1', current_work_experience_duties_1='$current_work_experience_duties_1', current_work_experience_highlights_1='$current_work_experience_highlights_1', current_work_experience_month_from_1='$current_work_experience_month_from_1',  current_work_experience_year_from_1='$current_work_experience_year_from_1', previous_work_experience_company_1='$previous_work_experience_company_1', 
+		previous_work_experience_month_from_1='$previous_work_experience_month_from_1', previous_work_experience_month_to_1='$previous_work_experience_month_to_1', previous_work_experience_year_from_1='$previous_work_experience_year_from_1', previous_work_experience_year_to_1='$previous_work_experience_year_to_1', previous_work_experience_position_1='$previous_work_experience_position_1', previous_work_experience_duties_1='$previous_work_experience_duties_1', previous_work_experience_highlights_1='$previous_work_experience_highlights_1'
+		 WHERE applicant_code = '$applicant_code'";
+		return $db_handle->runQuery($query);
+		// return true;
+	}
+
+
+	public function apply_now($course_id = NULL, $application_title = NULL, $couprov_code = NULL, $applicant_code = NULL, $mode_of_study = NULL, $study_level = NULL, $duration = NULL, $universities = NULL, $courses = NULL, $student = NULL, $student_id = NULL, $start_date = NULL, $dob = NULL)
 	{
 		global $db_handle;
 
-		$query = "INSERT INTO applicant_details(applicant_code, years_of_experience, current_work_experience_company_1, current_work_experience_position_1, current_work_experience_duties_1, current_work_experience_highlights_1, current_work_experience_month_from_1, current_work_experience_month_to_1, current_work_experience_year_from_1, current_work_experience_year_to_1, current_work_experience_level_1, previous_work_experience_company_1, previous_work_experience_position_1, previous_work_experience_duties_1, previous_work_experience_highlights_1, previous_work_experience_month_from_1, previous_work_experience_month_to_1, previous_work_experience_year_from_1, previous_work_experience_year_to_1, previous_work_experience_level_1, previous_work_experience_company_2, previous_work_experience_position_2, previous_work_experience_duties_2, previous_work_experience_highlights_2, previous_work_experience_month_from_2, previous_work_experience_month_to_2, previous_work_experience_year_from_2, previous_work_experience_year_to_2, previous_work_experience_level_2) VALUES ('$applicant_code', '$years_of_experience', '$current_work_experience_company_1', '$current_work_experience_position_1', '$current_work_experience_duties_1', '$current_work_experience_highlights_1', '$current_work_experience_month_from_1', '$current_work_experience_month_to_1', '$current_work_experience_level_1', '$current_work_experience_year_from_2', '$current_work_experience_year_to_2', '$current_work_experience_company_2', '$current_work_experience_position_2', '$current_work_experience_duties_2', '$current_work_experience_highlights_2', '$current_work_experience_month_from_2', '$current_work_experience_month_to_2', '$current_work_experience_year_from_2', '$current_work_experience_year_to_2', '$current_work_experience_level_2', '$current_work_experience_company_3', '$current_work_experience_position_3', '$current_work_experience_duties_3', '$current_work_experience_highlights_3', '$current_work_experience_month_from_3', '$current_work_experience_month_to_3', '$current_work_experience_year_from_3', '$current_work_experience_year_to_3','$current_work_experience_level_3')";
-		$db_handle->runQuery($query);
-		return true;
+		$query = "INSERT INTO course_applications(course_id, application_title, couprov_code, applicant_code, mode_of_study, study_level, duration, universities, courses, student, student_id, start_date, dob) VALUES ('$course_id','$application_title', '$couprov_code', '$applicant_code', '$mode_of_study', '$study_level', '$duration', '$universities', '$courses', '$student', '$student_id', '$start_date', '$dob')";
+		return $db_handle->runQuery($query);
 	}
 
 	public function set_job_prefs($seeker_code, $job_category = NULL, $sub_category_id = NULL)
@@ -427,6 +442,19 @@ class clientOperation
 		if ($_SESSION['payment_category'] == '4') {
 			$query = "UPDATE course_subscription_orders SET uid='$user_code' where session_id='$unique'";
 			$db_handle->runQuery($query);
+		}
+	}
+
+	public function get_user_by_code($user_code)
+	{
+		global $db_handle;
+		$query = "SELECT * FROM users WHERE user_code='$user_code'";
+		$result = $db_handle->runQuery($query);
+		if ($db_handle->numOfRows($result) > 0) {
+			$fetched_data = $db_handle->fetchAssoc($result);
+			return $fetched_data;
+		} else {
+			return false;
 		}
 	}
 }

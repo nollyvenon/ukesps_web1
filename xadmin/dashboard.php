@@ -54,7 +54,7 @@ if (!$session_admin->is_logged_in()) {
 
 
 
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/jquery.mCustomScrollbar.css">
 </head>
 
 <body>
@@ -101,8 +101,6 @@ if (!$session_admin->is_logged_in()) {
         <div class="pcoded-container navbar-wrapper">
 
             <?php include('../bin/header.php'); ?>
-
-            <?php include('../bin/inner_sidebar_chat.php'); ?>
 
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
@@ -207,7 +205,7 @@ if (!$session_admin->is_logged_in()) {
                                                             </div>
                                                         </div>
                                                         <div class="b-t-default p-t-20 m-t-5">
-                                                            <img src="../assets/images/widget/user-.png " alt=" " class="img-rounded top ">
+                                                            <img src="../assets/images/avatar-blank.jpg" alt=" " class="img-rounded top ">
                                                             <div class="d-inline-block m-l-10 ">
                                                                 <p class="text-muted m-b-5">Most assigned by</p>
                                                                 <span class="f-w-400 f-16 text-c-green">James Chukwudi</span>
@@ -221,7 +219,7 @@ if (!$session_admin->is_logged_in()) {
                                                 <div class="card summery-card">
                                                     <div class="card-header">
                                                         <div class="card-header-left ">
-                                                            <h5>Summery</h5>
+                                                            <h5>Summary</h5>
                                                         </div>
                                                         <div class="card-header-right">
                                                             <ul class="list-unstyled card-option">
@@ -913,7 +911,7 @@ if (!$session_admin->is_logged_in()) {
     <!-- Custom js -->
     <script type="text/javascript" src="../assets/pages/dashboard/analytic-dashboard.js"></script>
 
-    <script type="text/javascript" src="../assets/js/SmoothScroll.js"></script>
+    <!-- <script type="text/javascript" src="../assets/js/SmoothScroll.js"></script> -->
     <script src="../assets/js/pcoded.min.js"></script>
     <script src="../assets/js/demo-12.js"></script>
     <script src="../assets/js/jquery.mCustomScrollbar.concat.min.js"></script>

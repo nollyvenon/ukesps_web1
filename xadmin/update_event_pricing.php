@@ -30,7 +30,7 @@ if (isset($_POST['update_event_pricing']) && !empty($_POST['update_event_pricing
     $result = $zenta_operation->update_event_pricing($sidi, $plan_name, $plan_cost, $plan_discount, $course_plan_currency, $gallery, $plan_period, $plan_highlights, $description);
     if ($result) {
       $message_success = "Event Pricing was updated successfully.";
-      header("Location:manage_event_pricings.php");
+      header("Location:manage_event_pricing.php");
     } else {
       $message_error = "Event Pricing was not updated successfully.";
     }

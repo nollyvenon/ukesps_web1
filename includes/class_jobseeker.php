@@ -308,27 +308,6 @@ www.ukesps.com";
 		global $db_handle;
 
 		$con = (!empty($applicant_code) && ($applicant_code != 'NULL')) ? " WHERE us.seeker_code = '$applicant_code' " : " ";
-		// if (!empty($con)) {
-		// 	$con .= !empty($email) ? " AND us.email = '$email' " : "";
-		// } else {
-		// 	$con .= !empty($email) && ($email != 'NULL') ? " WHERE us.email = '$email' " : " ";
-		// }
-		// if (!empty($con)) {
-		// 	$con .= !empty($first_name) ? " AND us.first_name = '$first_name' " : "";
-		// } else {
-		// 	$con .= !empty($first_name) && ($first_name != 'NULL') ? " WHERE us.first_name = '$first_name' " : " ";
-		// }
-		// if (!empty($con)) {
-		// 	$con .= !empty($last_name) ? " AND us.last_name = '$last_name' " : "";
-		// } else {
-		// 	$con .= !empty($last_name) && ($last_name != 'NULL') ? " WHERE us.last_name = '$last_name' " : " ";
-		// }
-
-		// if (!empty($limit)) {
-		// 	$con .= "ORDER BY appl.appl_id DESC LIMIT $limit";
-		// } else {
-		// 	$con .= "ORDER BY appl.appl_id DESC";
-		// }
 		$query = "SELECT us.*, appld.* FROM jobseekers us
 		INNER JOIN applicant_details appld ON appld.applicant_code=us.seeker_code 
 		-- INNER JOIN applications appl ON appl.applicant_code=us.seeker_code 

@@ -23,7 +23,7 @@ if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
     $uploaddir = "../img/events/";
     $gallery = basename($_FILES['gallery']['name']);
     $gallery1 = $uploaddir . basename($gallery);
-
+    var_dump($_POST);
     if (empty($event_title) || empty($location) || empty($content)) {
         $message_error = "Please fill all the fields and try again.";
     } else {
@@ -31,7 +31,7 @@ if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
         if ($_FILES['gallery']['name'] == NULL || empty($_FILES['gallery']['name'])) {
             $gallery = $event_img;
         }
-        $result = $zenta_operation->update_event($sidi, $event_title, $gallery, $event_author, $event_type,  $startDate, $endDate, $location, $summary, $content);
+        $result = $zenta_operation->update_event($event_id, $event_title, $gallery, $event_author, $event_type,  $startDate, $endDate, $location, $summary, $content);
         if ($result) {
             $message_success = "Event was updated successfully.";
         } else {
@@ -130,7 +130,7 @@ if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
             </div>
         </div>
     </div>
-    <!-- Pre-loader end -->
+   Pre-loader end -->
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
@@ -156,6 +156,7 @@ if (isset($_POST['update_event']) && !empty($_POST['update_event'])) {
                                                 <div class="page-header-title">
                                                     <i class="icofont icofont-file-spreadsheet bg-c-green"></i>
                                                     <div class="d-inline">
+
                                                         <h4><?= $page_group; ?></h4>
                                                         <span><?php echo $page_title; ?></span>
                                                     </div>

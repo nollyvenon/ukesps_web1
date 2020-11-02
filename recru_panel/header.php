@@ -64,7 +64,7 @@ if (isset($_POST['course-search'])) {
 							<ul class="dropdown-parent">
 								<li class="mi-news"><a href="<?= SITE_URL ?>/studying_abroad" title="Study Abroad"><span>Study Abroad</span></a></li>
 								<li class="mi-news"><a href="<?= SITE_URL ?>/universities" title="Universities"><span>Universities</span></a></li>
-								<li class="mi-news"><a href="<?= SITE_URL ?>/page_sup?sid=enquiry_now" title="Enquire Now"><span>Enquire Now</span></a></li>
+								<li class="mi-news"><a href="<?= SITE_URL ?>/apply-online/index.php" title="Apply Online"><span>Apply Online</span></a></li>
 							</ul>
 						</li>
 						<li><a href="javascript:void(0)" class="dropdown_item">Users Portal <i class="fa fa-angle-down"></i></a>

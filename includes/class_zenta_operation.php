@@ -2143,6 +2143,27 @@ www.ukesps.com";
         return $course;
     }
 
+
+    public function get_course_category_by_id($category_id)
+    {
+        global $db_handle;
+        $query = "SELECT * FROM course_categories WHERE category_id='$category_id' ";
+        $result = $db_handle->runQuery($query);
+
+        $course = $db_handle->fetchAssoc($result);
+        return $course[0];
+    }
+
+    public function get_course_subcategory_by_id($subcat_id)
+    {
+        global $db_handle;
+        $query = "SELECT * FROM course_sub_categories WHERE subcat_id='$subcat_id' ";
+        $result = $db_handle->runQuery($query);
+
+        $course = $db_handle->fetchAssoc($result);
+        return $course[0];
+    }
+
     public function get_similar_courses($limit = NULL)
     {
         global $db_handle;
@@ -2212,20 +2233,19 @@ www.ukesps.com";
         $cat_count = 1;
 
         $content = $db_handle->fetchAssoc($result);
-        $cat_info = "<div class=\"grid-col grid-col-3\">";
+        $cat_info = "<div class=\"row\">";
         if (isset($content) && !empty($content)) {
             foreach ($content as $row) {
                 $subcat_id = $row['subcat_id'];
                 $category_name = $row['category_name'];
                 $cat_count++;
 
-                $cat_info .= "<div style=\"height:20px;\" class=\"pb-sm-2  course-item\">
+                $cat_info .= "<div class=\"col-md-4\"><div style=\"height:20px;\" class=\"pb-sm-2  course-item\">
 								<div class=\"content-title\"><a href=\"course_sub_category?sid=$subcat_id\">$category_name</a></div> 
-							</div>";
+                            </div></div>";
             }
-            $cat_info .= "</div>";
         }
-
+        $cat_info .= "</div>";
         return $cat_info;
     }
 
@@ -2250,11 +2270,11 @@ www.ukesps.com";
         return $db_handle->insertedId();
     }
 
-    public function edit_course_category($token_id, $course_category = NULL, $course_cat_img = NULL, $admin = NULL)
+    public function edit_course_category($token_id, $category_name = NULL, $course_cat_img = NULL, $admin = NULL)
     {
 
         global $db_handle;
-        $query = "UPDATE course_categories SET course_category = '$course_category', course_cat_img = '$course_cat_img', admin_id = '$admin'  WHERE category_id = '$token_id'";
+        $query = "UPDATE course_categories SET category_name = '$category_name', course_cat_img = '$course_cat_img', admin_id = '$admin'  WHERE category_id = '$token_id'";
         $db_handle->runQuery($query);
 
         return $db_handle->affectedRows() > 0 ? true : false;
@@ -2264,9 +2284,8 @@ www.ukesps.com";
     {
 
         global $db_handle;
-        $query = "UPDATE course_sub_categories SET category_parent = '$course_category', category_name = '$course_subcategory', course_subcategory = '$course_subcategory', course_cat_img = '$course_cat_img', admin_id = '$admin'  WHERE subcat_id = '$token_id'";
+        $query = "UPDATE course_sub_categories SET category_parent = '$course_category', category_name = '$course_subcategory', course_cat_img = '$course_cat_img', admin_id = '$admin' WHERE subcat_id = '$token_id'";
         $db_handle->runQuery($query);
-
         return $db_handle->affectedRows() > 0 ? true : false;
     }
 
@@ -2939,10 +2958,9 @@ www.ukesps.com";
         global $db_handle;
         $query = "UPDATE events SET event_title = '$event_title', event_img = '$event_img', event_author = '$event_author', event_type = '$event_type', startDate = '$startDate', endDate = '$endDate', event_location = '$location', event_summary = '$summary', event_description = '$content'  WHERE event_id = '$event_id'";
         $db_handle->runQuery($query);
-
         return $db_handle->affectedRows() > 0 ? true : false;
     }
-    public function update_event_pricing($plan_id, $plan_name, $plan_cost, $plan_discount_cost, $plan_currency, $plan_image, $plan_period, $highlights, $description)
+    public function update_event_pricing($plan_id, $plan_name = NULL, $plan_cost = NULL, $plan_discount_cost = NULL, $plan_currency = NULL, $plan_image = NULL, $plan_period = NULL, $highlights = NULL, $description = NULL)
     {
 
         global $db_handle;

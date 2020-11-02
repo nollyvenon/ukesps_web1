@@ -66,7 +66,7 @@ if (isset($user_code)) {
 								<div itemprop="description">
 									<p><strong>Fee Duration:</strong><?= $fee_period; ?> Months</p>
 								</div>
-								<?= $course_fee == 0 ? '<div class="count-users"><a href="" class="cws-button small bt-color-3 ">Enroll Now</a></div>' : '<div class="count-users"><a href="add_to_cart?sssid=' . $course_id . '&pptc=courses" class="cws-button small bt-color-3 ">Add To Cart</a> <a href="add_to_cart?sssid=' . $course_id . '&pptc=courses&bn=buynow" class="cws-button small bt-color-2 ">Buy Now</a></div>' ?>
+								<?= $course_fee == 0 ? '<div class="count-users"><a href="' . SITE_URL . '/apply-online/index.php" class="cws-button small bt-color-3 ">Apply Now</a></div>' : '<div class="count-users"><a href="add_to_cart?sssid=' . $course_id . '&pptc=courses" class="cws-button small bt-color-3 ">Add To Cart</a> <a href="add_to_cart?sssid=' . $course_id . '&pptc=courses&bn=buynow" class="cws-button small bt-color-2 ">Buy Now</a></div>' ?>
 							</div>
 						</div>
 						<div class="col-md-12" style="clear: both;">
